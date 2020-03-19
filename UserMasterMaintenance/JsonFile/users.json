@@ -1,0 +1,30 @@
+﻿[
+  {
+    "UserId": "1",
+    "UserName": "幸田",
+    "UserAge": 24,
+    "UserGender": "男性",
+    "UserAffiliation": "開発部"
+  },
+  {
+    "UserId": "2",
+    "UserName": "富樫",
+    "UserAge": 25,
+    "UserGender": "男性",
+    "UserAffiliation": "営業部"
+  },
+  {
+    "UserId": "3",
+    "UserName": "渡辺",
+    "UserAge": 26,
+    "UserGender": "男性",
+    "UserAffiliation": "営業部"
+  },
+  {
+    "UserId": "4",
+    "UserName": "富田",
+    "UserAge": 27,
+    "UserGender": "女性",
+    "UserAffiliation": "事務部"
+  }
+]
