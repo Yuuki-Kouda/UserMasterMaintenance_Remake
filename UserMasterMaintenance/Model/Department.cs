@@ -8,5 +8,9 @@ namespace UserMasterMaintenance.Model
 {
 	class Department
 	{
+		/// <summary>
+		/// 部門名
+		/// </summary>
+		public string Name { get; set; } 
 	}
 }
