@@ -1,30 +1,30 @@
 ﻿[
   {
-    "UserId": "1",
-    "UserName": "幸田",
-    "UserAge": 24,
-    "UserGender": "男性",
-    "UserAffiliation": "開発部"
+    "Id": "1",
+    "Name": "幸田",
+    "Age": 24,
+    "Gender": "男性",
+    "Department": "開発部"
   },
   {
-    "UserId": "2",
-    "UserName": "富樫",
-    "UserAge": 25,
-    "UserGender": "男性",
-    "UserAffiliation": "営業部"
+    "Id": "2",
+    "Name": "富樫",
+    "Age": 25,
+    "Gender": "男性",
+    "Department": "営業部"
   },
   {
-    "UserId": "3",
-    "UserName": "渡辺",
-    "UserAge": 26,
-    "UserGender": "男性",
-    "UserAffiliation": "営業部"
+    "Id": "3",
+    "Name": "渡辺",
+    "Age": 26,
+    "Gender": "男性",
+    "Department": "営業部"
   },
   {
-    "UserId": "4",
-    "UserName": "富田",
-    "UserAge": 27,
-    "UserGender": "女性",
-    "UserAffiliation": "事務部"
+    "Id": "4",
+    "Name": "富田",
+    "Age": 27,
+    "Gender": "女性",
+    "Department": "事務部"
   }
 ]
