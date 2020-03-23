@@ -23,23 +23,33 @@ namespace UserMasterMaintenance.Control
 		/// </summary>
 		public JsonFileControl()
 		{
-			Selialize();
 		}
 
 		/// <summary>
 		/// シリアライズ
 		/// </summary>
-		public void Selialize()
+		private string Selialize(object someting)
 		{
-			
+			try
+			{
+				return JsonConvert.SerializeObject(someting, Formatting.Indented);
+			}
+			catch
+			{
+				throw;
+			}
 		}
 
 		/// <summary>
 		/// デシリアライズ
 		/// </summary>
-		public void Desilialize()
+		private T Deserialize<T>(string jsonText)
 		{
-
+			using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonText)))
+			{
+				var serializer = new DataContractJsonSerializer(typeof(T));
+				return (T)serializer.ReadObject(stream);
+			}
 		}
 	}
 }
