@@ -31,14 +31,14 @@
 			this.RegisterButton = new System.Windows.Forms.Button();
 			this.UpdateButton = new System.Windows.Forms.Button();
 			this.DeleteButton = new System.Windows.Forms.Button();
-			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.UsersDataGridView = new System.Windows.Forms.DataGridView();
 			this.UserCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
 			this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Age = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Department = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.UsersDataGridView)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// RegisterButton
@@ -49,6 +49,7 @@
 			this.RegisterButton.TabIndex = 0;
 			this.RegisterButton.Text = "登録";
 			this.RegisterButton.UseVisualStyleBackColor = true;
+			this.RegisterButton.Click += new System.EventHandler(this.RegisterButton_Click);
 			// 
 			// UpdateButton
 			// 
@@ -58,6 +59,7 @@
 			this.UpdateButton.TabIndex = 1;
 			this.UpdateButton.Text = "更新";
 			this.UpdateButton.UseVisualStyleBackColor = true;
+			this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
 			// 
 			// DeleteButton
 			// 
@@ -67,22 +69,23 @@
 			this.DeleteButton.TabIndex = 2;
 			this.DeleteButton.Text = "削除";
 			this.DeleteButton.UseVisualStyleBackColor = true;
+			this.DeleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
 			// 
-			// dataGridView1
+			// UsersDataGridView
 			// 
-			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+			this.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.UsersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UserCheck,
             this.ID,
             this.Name,
             this.Age,
             this.Gender,
             this.Department});
-			this.dataGridView1.Location = new System.Drawing.Point(12, 66);
-			this.dataGridView1.Name = "dataGridView1";
-			this.dataGridView1.RowTemplate.Height = 21;
-			this.dataGridView1.Size = new System.Drawing.Size(776, 372);
-			this.dataGridView1.TabIndex = 3;
+			this.UsersDataGridView.Location = new System.Drawing.Point(12, 66);
+			this.UsersDataGridView.Name = "UsersDataGridView";
+			this.UsersDataGridView.RowTemplate.Height = 21;
+			this.UsersDataGridView.Size = new System.Drawing.Size(776, 372);
+			this.UsersDataGridView.TabIndex = 3;
 			// 
 			// UserCheck
 			// 
@@ -130,7 +133,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Controls.Add(this.dataGridView1);
+			this.Controls.Add(this.UsersDataGridView);
 			this.Controls.Add(this.DeleteButton);
 			this.Controls.Add(this.UpdateButton);
 			this.Controls.Add(this.RegisterButton);
@@ -141,7 +144,9 @@
 			this.Name = "ListForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "UserMasterMaintenance";
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseButton_Click);
+			this.Load += new System.EventHandler(this.ListForm_Load);
+			((System.ComponentModel.ISupportInitialize)(this.UsersDataGridView)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -151,7 +156,7 @@
 		private System.Windows.Forms.Button RegisterButton;
 		private System.Windows.Forms.Button UpdateButton;
 		private System.Windows.Forms.Button DeleteButton;
-		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.DataGridView UsersDataGridView;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn UserCheck;
 		private System.Windows.Forms.DataGridViewTextBoxColumn ID;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
