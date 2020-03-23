@@ -10,11 +10,55 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.View
 {
+
 	public partial class EditForm : Form
 	{
-		public EditForm()
+		/// <summary>
+		/// 一覧表示フォームプロパティ
+		/// </summary>
+		private ListForm ListForm { get; set; }
+
+		private Control.EditControl EditControl { get; set; }
+
+
+		public EditForm(ListForm listForm)
 		{
 			InitializeComponent();
+
+			ListForm = listForm;
+			EditControl = new Control.EditControl(ListForm.SelectedEditType);
+
+			IdTextBox.Text = ListForm.SelectedUser.ID;
 		}
+
+		/// <summary>
+		/// OKボタンクリック
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void OKButton_Click(object sender, EventArgs e)
+		{
+			EditControl.DoEdit();
+			ListForm.Users = 
+		}
+
+		/// <summary>
+		/// キャンセルボタンクリック
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void CancelButton_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		/// <summary>
+		/// 画面を表示する
+		/// </summary>
+		private void ShowDisplay()
+		{
+
+		}
+
 	}
 }
