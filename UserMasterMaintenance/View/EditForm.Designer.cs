@@ -35,12 +35,12 @@
 			this.DepartmentLabel = new System.Windows.Forms.Label();
 			this.OKButton = new System.Windows.Forms.Button();
 			this.CancelButton = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.IdTextBox = new System.Windows.Forms.TextBox();
+			this.NameTextBox = new System.Windows.Forms.TextBox();
+			this.AgeTextBox = new System.Windows.Forms.TextBox();
 			this.MenRadioButton = new System.Windows.Forms.RadioButton();
 			this.WomenRadioButton = new System.Windows.Forms.RadioButton();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.DepartmentCombBox = new System.Windows.Forms.ComboBox();
 			this.SuspendLayout();
 			// 
 			// IdLabel
@@ -101,6 +101,7 @@
 			this.OKButton.TabIndex = 5;
 			this.OKButton.Text = "OK";
 			this.OKButton.UseVisualStyleBackColor = true;
+			this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
 			// 
 			// CancelButton
 			// 
@@ -110,38 +111,38 @@
 			this.CancelButton.TabIndex = 6;
 			this.CancelButton.Text = "キャンセル";
 			this.CancelButton.UseVisualStyleBackColor = true;
+			this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
-			// textBox1
+			// IdTextBox
 			// 
-			this.textBox1.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.textBox1.Location = new System.Drawing.Point(88, 55);
-			this.textBox1.MaxLength = 4;
-			this.textBox1.Multiline = true;
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(63, 23);
-			this.textBox1.TabIndex = 7;
+			this.IdTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.IdTextBox.Location = new System.Drawing.Point(88, 55);
+			this.IdTextBox.MaxLength = 4;
+			this.IdTextBox.Multiline = true;
+			this.IdTextBox.Name = "IdTextBox";
+			this.IdTextBox.Size = new System.Drawing.Size(63, 23);
+			this.IdTextBox.TabIndex = 7;
 			// 
-			// textBox2
+			// NameTextBox
 			// 
-			this.textBox2.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.textBox2.Location = new System.Drawing.Point(88, 114);
-			this.textBox2.Multiline = true;
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(258, 23);
-			this.textBox2.TabIndex = 8;
+			this.NameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.NameTextBox.Location = new System.Drawing.Point(88, 114);
+			this.NameTextBox.Multiline = true;
+			this.NameTextBox.Name = "NameTextBox";
+			this.NameTextBox.Size = new System.Drawing.Size(258, 23);
+			this.NameTextBox.TabIndex = 8;
 			// 
-			// textBox3
+			// AgeTextBox
 			// 
-			this.textBox3.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.textBox3.Location = new System.Drawing.Point(88, 180);
-			this.textBox3.Multiline = true;
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(63, 23);
-			this.textBox3.TabIndex = 9;
+			this.AgeTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.AgeTextBox.Location = new System.Drawing.Point(88, 180);
+			this.AgeTextBox.Multiline = true;
+			this.AgeTextBox.Name = "AgeTextBox";
+			this.AgeTextBox.Size = new System.Drawing.Size(63, 23);
+			this.AgeTextBox.TabIndex = 9;
 			// 
 			// MenRadioButton
 			// 
-			this.MenRadioButton.AutoEllipsis = true;
 			this.MenRadioButton.AutoSize = true;
 			this.MenRadioButton.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.MenRadioButton.Location = new System.Drawing.Point(112, 251);
@@ -164,26 +165,26 @@
 			this.WomenRadioButton.Text = "女性";
 			this.WomenRadioButton.UseVisualStyleBackColor = true;
 			// 
-			// comboBox1
+			// DepartmentCombBox
 			// 
-			this.comboBox1.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(88, 323);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(258, 28);
-			this.comboBox1.TabIndex = 14;
+			this.DepartmentCombBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.DepartmentCombBox.FormattingEnabled = true;
+			this.DepartmentCombBox.Location = new System.Drawing.Point(88, 323);
+			this.DepartmentCombBox.Name = "DepartmentCombBox";
+			this.DepartmentCombBox.Size = new System.Drawing.Size(258, 28);
+			this.DepartmentCombBox.TabIndex = 14;
 			// 
 			// EditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(358, 450);
-			this.Controls.Add(this.comboBox1);
+			this.Controls.Add(this.DepartmentCombBox);
 			this.Controls.Add(this.WomenRadioButton);
 			this.Controls.Add(this.MenRadioButton);
-			this.Controls.Add(this.textBox3);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.AgeTextBox);
+			this.Controls.Add(this.NameTextBox);
+			this.Controls.Add(this.IdTextBox);
 			this.Controls.Add(this.CancelButton);
 			this.Controls.Add(this.OKButton);
 			this.Controls.Add(this.DepartmentLabel);
@@ -212,11 +213,11 @@
 		private System.Windows.Forms.Label DepartmentLabel;
 		private System.Windows.Forms.Button OKButton;
 		private System.Windows.Forms.Button CancelButton;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.TextBox IdTextBox;
+		private System.Windows.Forms.TextBox NameTextBox;
+		private System.Windows.Forms.TextBox AgeTextBox;
 		private System.Windows.Forms.RadioButton MenRadioButton;
 		private System.Windows.Forms.RadioButton WomenRadioButton;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox DepartmentCombBox;
 	}
 }
