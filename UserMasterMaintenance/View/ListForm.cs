@@ -98,7 +98,7 @@ namespace UserMasterMaintenance.View
 		{
 			if (ConfirmCheckBox())
 			{
-				ShowChecBoxErrorDialog();
+				ShowCheckBoxErrorDialog();
 				return;
 			}
 
@@ -115,7 +115,7 @@ namespace UserMasterMaintenance.View
 		{
 			if (ConfirmCheckBox())
 			{
-				ShowChecBoxErrorDialog();
+				ShowCheckBoxErrorDialog();
 				return;
 			}
 
@@ -168,7 +168,7 @@ namespace UserMasterMaintenance.View
 		/// <summary>
 		/// チェックボックスエラーダイアログを表示する
 		/// </summary>
-		private void ShowChecBoxErrorDialog()
+		private void ShowCheckBoxErrorDialog()
 		{
 			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
