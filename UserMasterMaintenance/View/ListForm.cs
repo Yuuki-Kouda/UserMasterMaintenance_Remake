@@ -30,7 +30,7 @@ namespace UserMasterMaintenance.View
 		/// <summary>
 		/// 選択した編集タイプ
 		/// </summary>
-		Control.EditType SelectedEditType { get; set; }
+		public Control.EditType SelectedEditType { get; set; }
 
 		/// <summary>
 		/// 選択したユーザー
