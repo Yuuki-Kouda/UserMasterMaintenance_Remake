@@ -39,12 +39,12 @@ namespace UserMasterMaintenance.Model
 		/// 性別
 		/// </summary>
 		[DataMember(Name = "Gender")]
-		public GenderType Gender { get; set; }
+		public string Gender { get; set; }
 
 		/// <summary>
 		/// 所属部門
 		/// </summary>
 		[DataMember(Name = "Department")]
-		public Department Department { get; set; }
+		public string Department { get; set; }
 	}
 }
