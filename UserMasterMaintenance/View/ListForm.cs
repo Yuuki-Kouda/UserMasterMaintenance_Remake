@@ -150,17 +150,7 @@ namespace UserMasterMaintenance.View
 				selectedRow = i;
 				isSelected = true;
 			}
-
-			SelectedUser.ID = (int)UsersDataGridView[selectedRow, 1].Value;
-			SelectedUser.Name = (string)UsersDataGridView[selectedRow, 2].Value;
-			SelectedUser.Age = (int)UsersDataGridView[selectedRow, 3].Value;
-
-			if ((string)UsersDataGridView[selectedRow, 4].Value == MenText)
-				SelectedUser.Gender = GenderType.Men;
-			else
-				SelectedUser.Gender = GenderType.Women;
-
-			SelectedUser.Department.Name = (string)UsersDataGridView[selectedRow, 5].Value;
+			SelectedUser = GetSelctedUser(selectedRow);
 
 			return false;
 		}
@@ -171,6 +161,22 @@ namespace UserMasterMaintenance.View
 		private void ShowCheckBoxErrorDialog()
 		{
 			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// 選択されたユーザーを取得する
+		/// </summary>
+		/// <param name="row"></param>
+		/// <returns></returns>
+		private Model.User GetSelctedUser(int row)
+		{
+			var selectedUser = new Model.User();
+			selectedUser.ID = Users[row].ID;
+			selectedUser.Name = Users[row].Name;
+			selectedUser.Age = Users[row].Age;
+			selectedUser.Gender = Users[row].Gender;
+			selectedUser.Department = Users[row].Department;
+			return selectedUser;
 		}
 	}
 }
