@@ -17,6 +17,11 @@ namespace UserMasterMaintenance.Control
 	class EditControl
 	{
 		/// <summary>
+		/// ユーザーリスト
+		/// </summary>
+		private BindingList<Model.User> Users { get; set; }
+
+		/// <summary>
 		/// 編集種類
 		/// </summary>
 		private EditType EditType { get; set; }

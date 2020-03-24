@@ -20,12 +20,12 @@ namespace UserMasterMaintenance.View
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		List<Model.User> Users { get; set; }
+		public BindingList<Model.User> Users { get; set; }
 
 		/// <summary>
 		/// 部門リスト
 		/// </summary>
-		List<Model.Department> Departments { get; set; }
+		BindingList<Model.Department> Departments { get; set; }
 
 		/// <summary>
 		/// 選択した編集タイプ

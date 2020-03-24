@@ -26,29 +26,30 @@ namespace UserMasterMaintenance.Control
 		/// ユーザーリストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<Model.User> GetUsers()
+		public BindingList<Model.User> GetUsers()
 		{
-			return Deserialize<List<Model.User>>(GetUserJsonText());
+			return Deserialize<BindingList<Model.User>>(GetUserJsonText());
 		}
 
 		/// <summary>
 		/// 部門リストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<Model.Department> GetDepartments()
+		public BindingList<Model.Department> GetDepartments()
 		{
-			return Deserialize<List<Model.Department>>(GetDepartmentJsonText());
+			return Deserialize<BindingList<Model.Department>>(GetDepartmentJsonText());
 		}
 
 		/// <summary>
 		/// ユーザー情報を保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public void SaveUsersInFile(List<Model.User> users)
+		public void SaveUsersInFile(BindingList<Model.User> users)
 		{
+			var jsontext = Selialize(users);
 			using (StreamWriter stream = new StreamWriter(UserJsonFilePath))
 			{
-				stream.Write(users);
+				stream.Write(jsontext);
 			}
 		}
 
@@ -56,7 +57,7 @@ namespace UserMasterMaintenance.Control
 		/// 部門情報を保存する
 		/// </summary>
 		/// <param name="departments"></param>
-		public void SaveDepartmentsInFile(List<Model.Department> departments)
+		public void SaveDepartmentsInFile(BindingList<Model.Department> departments)
 		{
 			var jsontext = Selialize(departments);
 			using (StreamWriter stream = new StreamWriter(UserJsonFilePath))
