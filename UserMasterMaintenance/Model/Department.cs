@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace UserMasterMaintenance.Model
 {
 	[DataContract]
-	class Department
+	public class Department
 	{
 		/// <summary>
 		/// 部門名
