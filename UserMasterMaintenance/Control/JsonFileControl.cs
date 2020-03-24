@@ -15,12 +15,12 @@ namespace UserMasterMaintenance.Control
 		/// <summary>
 		/// users.jsonのファイルパス
 		/// </summary>
-		private readonly string UserJsonFilePath = @".\JsonFile\users.json";
+		private readonly string UserJsonFilePath = @"..\..\JsonFile\users.json";
 
 		/// <summary>
 		/// departments.jsonのファイルパス
 		/// </summary>
-		private readonly string DepartmentJsonFilePath = @".\JsonFile\departments.json";
+		private readonly string DepartmentJsonFilePath = @"..\..\JsonFile\departments.json";
 
 		/// <summary>
 		/// ユーザーリストを取得する
