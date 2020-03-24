@@ -20,6 +20,10 @@ namespace UserMasterMaintenance.View
 
 		private Control.EditControl EditControl { get; set; }
 
+		private readonly string MenText = "男性";
+
+		private readonly string WomenText = "女性";
+
 
 		public EditForm(ListForm listForm)
 		{

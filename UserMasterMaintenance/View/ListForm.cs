@@ -37,9 +37,6 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		public Model.User SelectedUser { get; set; }
 
-		private readonly string MenText = "男性";
-
-		private readonly string WomenText = "女性";
 
 		private readonly string ErrorText = "エラー";
 
