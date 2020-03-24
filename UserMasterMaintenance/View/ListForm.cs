@@ -128,6 +128,7 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowDisplay()
 		{
+			UsersDataGridView.DataSource = Users;
 		}
 
 		/// <summary>
