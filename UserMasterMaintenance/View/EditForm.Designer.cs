@@ -116,6 +116,7 @@
 			// IdTextBox
 			// 
 			this.IdTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.IdTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.IdTextBox.Location = new System.Drawing.Point(88, 55);
 			this.IdTextBox.MaxLength = 4;
 			this.IdTextBox.Multiline = true;
@@ -135,6 +136,7 @@
 			// AgeTextBox
 			// 
 			this.AgeTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.AgeTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.AgeTextBox.Location = new System.Drawing.Point(88, 180);
 			this.AgeTextBox.Multiline = true;
 			this.AgeTextBox.Name = "AgeTextBox";

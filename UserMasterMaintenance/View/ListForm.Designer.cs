@@ -141,7 +141,6 @@
 			this.MaximumSize = new System.Drawing.Size(816, 489);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(816, 489);
-			this.Name = "ListForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "UserMasterMaintenance";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseButton_Click);
