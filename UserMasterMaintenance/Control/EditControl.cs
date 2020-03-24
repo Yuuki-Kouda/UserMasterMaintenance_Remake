@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,9 +31,10 @@ namespace UserMasterMaintenance.Control
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="editType"></param>
-		public EditControl(EditType editType)
+		public EditControl(View.ListForm listForm)
 		{
-			EditType = editType;
+			EditType = listForm.SelectedEditType;
+			Users = listForm.Users;
 		}
 
 		/// <summary>
