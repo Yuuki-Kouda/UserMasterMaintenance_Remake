@@ -76,6 +76,7 @@ namespace UserMasterMaintenance.View
 		{
 			JsonFileControl.SaveUsersInFile(Users);
 			JsonFileControl.SaveDepartmentsInFile(Departments);
+			Close();
 		}
 
 		/// <summary>
