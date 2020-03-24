@@ -10,29 +10,65 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.View
 {
+	enum ErrorType
+	{
+		None,
+		CheckBox,
+		NotInput,
+		NotNumber,
+		DataDuplication
+	}
 
 	public partial class EditForm : Form
 	{
 		/// <summary>
-		/// 一覧表示フォームプロパティ
+		/// 編集タイプ
 		/// </summary>
-		private ListForm ListForm { get; set; }
+		private Control.EditType EditType { get; set; }
 
+		/// <summary>
+		/// 選択ユーザー
+		/// </summary>
+		private Model.User SelectedUser { get; set; }
+
+		/// <summary>
+		/// 編集コントローラ
+		/// </summary>
 		private Control.EditControl EditControl { get; set; }
 
 		private readonly string MenText = "男性";
 
 		private readonly string WomenText = "女性";
 
+		private readonly string ConfirmationMessage = "確認";
 
+		private readonly string ErrorMessage = "エラー";
+
+		private readonly string RegisterConfirmationMessage = "登録してよろしいですか？";
+
+		private readonly string UpdateConfirmationMessage = "更新してよろしいですか？";
+
+		private readonly string DeleteConfirmationMessage = "削除してよろしいですか？";
+
+		private readonly string NotInputErrorMessage = "未入力の項目があります";
+
+		private readonly string NotNumberErrorMessage = "半角数字を入力してください";
+
+		private readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
+
+		/// <summary>
+		/// コンストラクタ
+		/// </summary>
+		/// <param name="listForm"></param>
 		public EditForm(ListForm listForm)
 		{
 			InitializeComponent();
 
-			ListForm = listForm;
-			EditControl = new Control.EditControl(ListForm.SelectedEditType);
+			EditType = listForm.SelectedEditType;
+			SelectedUser = listForm.SelectedUser;
+			EditControl = new Control.EditControl(listForm);
 
-			IdTextBox.Text = ListForm.SelectedUser.ID;
+			ShowDisplay();
 		}
 
 		/// <summary>
@@ -42,8 +78,21 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void OKButton_Click(object sender, EventArgs e)
 		{
-			EditControl.DoEdit();
-			ListForm.Users = 
+			if (HasError())
+			{
+				Close();
+				return;
+			}
+
+			if (ConfirmEdit() == DialogResult.Cancel)
+			{
+				Close();
+				return;
+			}
+
+			EditControl.Edit(GetInputUser());
+
+			Close();
 		}
 
 		/// <summary>
@@ -57,12 +106,209 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
+		/// エラーがあるか
+		/// </summary>
+		/// <returns></returns>
+		private bool HasError()
+		{
+			if (EditType == Control.EditType.Delete)
+				return false;
+
+			switch (ValidateInputItems())
+			{
+				case ErrorType.NotInput:
+					ShowNotInputErrorDialog();
+					return true;
+
+				case ErrorType.NotNumber:
+					ShowNotNumberErrorDialog();
+					return true;
+
+				case ErrorType.DataDuplication:
+					ShowDataDupulicationErrorDialog();
+					return true;
+
+				default:
+					break;
+			}
+
+			if (EditType == Control.EditType.Update)
+				return false;
+
+			if (ValidateData() == ErrorType.DataDuplication)
+			{
+				ShowDataDupulicationErrorDialog();
+				return true;
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// 編集するか確認する
+		/// </summary>
+		private DialogResult ConfirmEdit()
+		{
+			var editconfirmationMessage = "";
+			switch (EditType)
+			{
+				case Control.EditType.Register:
+					editconfirmationMessage = RegisterConfirmationMessage;
+					break;
+
+				case Control.EditType.Update:
+					editconfirmationMessage = UpdateConfirmationMessage; ;
+					break;
+
+				case Control.EditType.Delete:
+					editconfirmationMessage = DeleteConfirmationMessage;
+					break;
+
+				default:
+					break;
+			}
+
+			return MessageBox.Show(editconfirmationMessage, ConfirmationMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+		}
+
+		/// <summary>
+		/// 未入力エラーダイアログを表示する
+		/// </summary>
+		private void ShowNotInputErrorDialog()
+		{
+			MessageBox.Show(NotInputErrorMessage, ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// 半角数字でないエラーダイアログを表示する
+		/// </summary>
+		private void ShowNotNumberErrorDialog()
+		{
+			MessageBox.Show(NotInputErrorMessage, ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// 重複エラーダイアログを表示する
+		/// </summary>
+		private void ShowDataDupulicationErrorDialog()
+		{
+			MessageBox.Show(DataDupulicationErrorMessage, ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
 		/// 画面を表示する
 		/// </summary>
 		private void ShowDisplay()
 		{
+			if (EditType == Control.EditType.Register)
+				return;
 
+			SetDisplayItems();
+
+			if (EditType == Control.EditType.Update)
+			{
+				IdTextBox.Enabled = false;
+				return;
+			}
+
+			DisableAllItems();
 		}
 
+		/// <summary>
+		/// 画面項目を設定する
+		/// </summary>
+		private void SetDisplayItems()
+		{
+			IdTextBox.Text = string.Format("{0}", SelectedUser.ID);
+			NameTextBox.Text = SelectedUser.Name;
+			AgeTextBox.Text = string.Format("{0}", SelectedUser.Age);
+
+			if (SelectedUser.Gender == MenText)
+			{
+				MenRadioButton.Checked = true;
+				WomenRadioButton.Checked = false;
+			}
+			else
+			{
+				MenRadioButton.Checked = false;
+				WomenRadioButton.Checked = true;
+			}
+
+			DepartmentCombBox.Text = SelectedUser.Department;
+		}
+
+		/// <summary>
+		/// 入力項目を取得する
+		/// </summary>
+		private Model.User GetInputUser()
+		{
+			var inputUser = new Model.User();
+			inputUser.ID = int.Parse(IdTextBox.Text);
+			inputUser.Name = NameTextBox.Text;
+			inputUser.Age = int.Parse(AgeTextBox.Text);
+
+			if (MenRadioButton.Checked)
+				inputUser.Gender = MenText;
+			else
+				inputUser.Gender = WomenText;
+
+			inputUser.Department = DepartmentCombBox.Text;
+			return inputUser;
+		}
+
+		/// <summary>
+		/// 画面項目の操作を無効にする
+		/// </summary>
+		private void DisableAllItems()
+		{
+			IdTextBox.Enabled = false;
+			NameTextBox.Enabled = false;
+			AgeTextBox.Enabled = false;
+			MenRadioButton.Enabled = false;
+			WomenRadioButton.Enabled = false;
+			DepartmentCombBox.Enabled = false;
+		}
+
+		/// <summary>
+		/// 入力エラーチェック
+		/// </summary>
+		/// <returns></returns>
+		private ErrorType ValidateInputItems()
+		{
+			//未入力チェック
+			if (string.IsNullOrEmpty(IdTextBox.Text))
+				return ErrorType.NotInput;
+
+			if (string.IsNullOrEmpty(NameTextBox.Text))
+				return ErrorType.NotInput;
+
+			if (string.IsNullOrEmpty(AgeTextBox.Text))
+				return ErrorType.NotInput;
+
+			if (string.IsNullOrEmpty(IdTextBox.Text))
+				return ErrorType.NotInput;
+
+			//数値チェック
+			if (int.TryParse(IdTextBox.Text, out var idTextNumber))
+				return ErrorType.NotNumber;
+
+			if (int.TryParse(IdTextBox.Text, out var ageTextNumber))
+				return ErrorType.NotNumber;
+
+			return ErrorType.None;
+		}
+
+		/// <summary>
+		/// 重複エラーチェック
+		/// </summary>
+		/// <returns></returns>
+		private ErrorType ValidateData()
+		{
+			//重複チェック
+			if (EditControl.HasDupulicationData(SelectedUser))
+				return ErrorType.DataDuplication;
+
+			return ErrorType.None;
+		}
 	}
 }
