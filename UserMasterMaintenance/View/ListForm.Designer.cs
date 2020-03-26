@@ -28,17 +28,20 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.RegisterButton = new System.Windows.Forms.Button();
 			this.UpdateButton = new System.Windows.Forms.Button();
 			this.DeleteButton = new System.Windows.Forms.Button();
 			this.UsersDataGridView = new System.Windows.Forms.DataGridView();
 			this.UserCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Age = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Gender = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Department = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.UserID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.UserAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.UserGender = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.UserDepartment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.userBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.UsersDataGridView)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// RegisterButton
@@ -73,14 +76,15 @@
 			// 
 			// UsersDataGridView
 			// 
+			this.UsersDataGridView.AllowUserToAddRows = false;
 			this.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.UsersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UserCheck,
-            this.ID,
-            this.Name,
-            this.Age,
-            this.Gender,
-            this.Department});
+            this.UserID,
+            this.UserName,
+            this.UserAge,
+            this.UserGender,
+            this.UserDepartment});
 			this.UsersDataGridView.Location = new System.Drawing.Point(12, 66);
 			this.UsersDataGridView.Name = "UsersDataGridView";
 			this.UsersDataGridView.RowTemplate.Height = 21;
@@ -89,44 +93,52 @@
 			// 
 			// UserCheck
 			// 
+			this.UserCheck.FalseValue = "0";
 			this.UserCheck.HeaderText = "";
 			this.UserCheck.Name = "UserCheck";
+			this.UserCheck.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+			this.UserCheck.TrueValue = "1";
 			this.UserCheck.Width = 50;
 			// 
-			// ID
+			// UserID
 			// 
-			this.ID.HeaderText = "ID";
-			this.ID.Name = "ID";
-			this.ID.ReadOnly = true;
-			this.ID.Width = 136;
+			this.UserID.DataPropertyName = "ID";
+			this.UserID.HeaderText = "ID";
+			this.UserID.Name = "UserID";
+			this.UserID.ReadOnly = true;
+			this.UserID.Width = 136;
 			// 
-			// Name
+			// UserName
 			// 
-			this.Name.HeaderText = "名前";
-			this.Name.Name = "Name";
-			this.Name.ReadOnly = true;
-			this.Name.Width = 136;
+			this.UserName.DataPropertyName = "Name";
+			this.UserName.HeaderText = "名前";
+			this.UserName.Name = "UserName";
+			this.UserName.ReadOnly = true;
+			this.UserName.Width = 136;
 			// 
-			// Age
+			// UserAge
 			// 
-			this.Age.HeaderText = "年齢";
-			this.Age.Name = "Age";
-			this.Age.ReadOnly = true;
-			this.Age.Width = 136;
+			this.UserAge.DataPropertyName = "Age";
+			this.UserAge.HeaderText = "年齢";
+			this.UserAge.Name = "UserAge";
+			this.UserAge.ReadOnly = true;
+			this.UserAge.Width = 136;
 			// 
-			// Gender
+			// UserGender
 			// 
-			this.Gender.HeaderText = "性別";
-			this.Gender.Name = "Gender";
-			this.Gender.ReadOnly = true;
-			this.Gender.Width = 136;
+			this.UserGender.DataPropertyName = "Gender";
+			this.UserGender.HeaderText = "性別";
+			this.UserGender.Name = "UserGender";
+			this.UserGender.ReadOnly = true;
+			this.UserGender.Width = 136;
 			// 
-			// Department
+			// UserDepartment
 			// 
-			this.Department.HeaderText = "所属";
-			this.Department.Name = "Department";
-			this.Department.ReadOnly = true;
-			this.Department.Width = 136;
+			this.UserDepartment.DataPropertyName = "Department";
+			this.UserDepartment.HeaderText = "所属";
+			this.UserDepartment.Name = "UserDepartment";
+			this.UserDepartment.ReadOnly = true;
+			this.UserDepartment.Width = 136;
 			// 
 			// ListForm
 			// 
@@ -141,11 +153,13 @@
 			this.MaximumSize = new System.Drawing.Size(816, 489);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(816, 489);
+			this.Name = "ListForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "UserMasterMaintenance";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseButton_Click);
 			this.Load += new System.EventHandler(this.ListForm_Load);
 			((System.ComponentModel.ISupportInitialize)(this.UsersDataGridView)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.userBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -156,12 +170,13 @@
 		private System.Windows.Forms.Button UpdateButton;
 		private System.Windows.Forms.Button DeleteButton;
 		private System.Windows.Forms.DataGridView UsersDataGridView;
+		private System.Windows.Forms.BindingSource userBindingSource;
 		private System.Windows.Forms.DataGridViewCheckBoxColumn UserCheck;
-		private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Age;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Gender;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Department;
+		private System.Windows.Forms.DataGridViewTextBoxColumn UserID;
+		private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
+		private System.Windows.Forms.DataGridViewTextBoxColumn UserAge;
+		private System.Windows.Forms.DataGridViewTextBoxColumn UserGender;
+		private System.Windows.Forms.DataGridViewTextBoxColumn UserDepartment;
 	}
 }
 

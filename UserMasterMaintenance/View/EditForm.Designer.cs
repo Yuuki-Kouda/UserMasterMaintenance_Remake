@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.IdLabel = new System.Windows.Forms.Label();
 			this.NameLabel = new System.Windows.Forms.Label();
 			this.AgeLabel = new System.Windows.Forms.Label();
@@ -41,6 +42,8 @@
 			this.MenRadioButton = new System.Windows.Forms.RadioButton();
 			this.WomenRadioButton = new System.Windows.Forms.RadioButton();
 			this.DepartmentCombBox = new System.Windows.Forms.ComboBox();
+			this.departmentBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// IdLabel
@@ -115,7 +118,7 @@
 			// 
 			// IdTextBox
 			// 
-			this.IdTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.IdTextBox.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.IdTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.IdTextBox.Location = new System.Drawing.Point(88, 55);
 			this.IdTextBox.MaxLength = 4;
@@ -126,7 +129,7 @@
 			// 
 			// NameTextBox
 			// 
-			this.NameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.NameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.NameTextBox.Location = new System.Drawing.Point(88, 114);
 			this.NameTextBox.Multiline = true;
 			this.NameTextBox.Name = "NameTextBox";
@@ -135,9 +138,10 @@
 			// 
 			// AgeTextBox
 			// 
-			this.AgeTextBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.AgeTextBox.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.AgeTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.AgeTextBox.Location = new System.Drawing.Point(88, 180);
+			this.AgeTextBox.MaxLength = 3;
 			this.AgeTextBox.Multiline = true;
 			this.AgeTextBox.Name = "AgeTextBox";
 			this.AgeTextBox.Size = new System.Drawing.Size(63, 23);
@@ -146,10 +150,11 @@
 			// MenRadioButton
 			// 
 			this.MenRadioButton.AutoSize = true;
-			this.MenRadioButton.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.MenRadioButton.Checked = true;
+			this.MenRadioButton.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.MenRadioButton.Location = new System.Drawing.Point(112, 251);
 			this.MenRadioButton.Name = "MenRadioButton";
-			this.MenRadioButton.Size = new System.Drawing.Size(69, 24);
+			this.MenRadioButton.Size = new System.Drawing.Size(55, 18);
 			this.MenRadioButton.TabIndex = 12;
 			this.MenRadioButton.TabStop = true;
 			this.MenRadioButton.Text = "男性";
@@ -158,23 +163,26 @@
 			// WomenRadioButton
 			// 
 			this.WomenRadioButton.AutoSize = true;
-			this.WomenRadioButton.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.WomenRadioButton.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.WomenRadioButton.Location = new System.Drawing.Point(201, 251);
 			this.WomenRadioButton.Name = "WomenRadioButton";
-			this.WomenRadioButton.Size = new System.Drawing.Size(69, 24);
+			this.WomenRadioButton.Size = new System.Drawing.Size(55, 18);
 			this.WomenRadioButton.TabIndex = 13;
-			this.WomenRadioButton.TabStop = true;
 			this.WomenRadioButton.Text = "女性";
 			this.WomenRadioButton.UseVisualStyleBackColor = true;
 			// 
 			// DepartmentCombBox
 			// 
-			this.DepartmentCombBox.Font = new System.Drawing.Font("MS UI Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.DepartmentCombBox.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.DepartmentCombBox.FormattingEnabled = true;
 			this.DepartmentCombBox.Location = new System.Drawing.Point(88, 323);
 			this.DepartmentCombBox.Name = "DepartmentCombBox";
-			this.DepartmentCombBox.Size = new System.Drawing.Size(258, 28);
+			this.DepartmentCombBox.Size = new System.Drawing.Size(258, 21);
 			this.DepartmentCombBox.TabIndex = 14;
+			// 
+			// departmentBindingSource
+			// 
+			this.departmentBindingSource.DataSource = typeof(UserMasterMaintenance.Model.Department);
 			// 
 			// EditForm
 			// 
@@ -201,6 +209,7 @@
 			this.Name = "EditForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "UserMasterMaintenance";
+			((System.ComponentModel.ISupportInitialize)(this.departmentBindingSource)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -221,5 +230,6 @@
 		private System.Windows.Forms.RadioButton MenRadioButton;
 		private System.Windows.Forms.RadioButton WomenRadioButton;
 		private System.Windows.Forms.ComboBox DepartmentCombBox;
+		private System.Windows.Forms.BindingSource departmentBindingSource;
 	}
 }
