@@ -90,12 +90,8 @@ namespace UserMasterMaintenance.Control
 		/// <param name="selectedUser"></param>
 		private void Delete(Model.User selectedUser)
 		{
-			foreach(var user in Users)
-			{
-				if(user.ID == selectedUser.ID)
-					Users[]
-			}
-			Users.re(x => x.ID == selectedUser.ID);
+			var user = Users.First(x => x.ID == selectedUser.ID);
+			Users.Remove(user);
 		}
 
 		/// <summary>
