@@ -109,16 +109,9 @@ namespace UserMasterMaintenance.Control
 		/// <summary>
 		/// シリアライズ
 		/// </summary>
-		private string Selialize(object someting)
+		private string Selialize(object list)
 		{
-			try
-			{
-				return JsonConvert.SerializeObject(someting, Formatting.Indented);
-			}
-			catch
-			{
-				throw;
-			}
+			return JsonConvert.SerializeObject(list, Formatting.Indented);
 		}
 
 		/// <summary>
