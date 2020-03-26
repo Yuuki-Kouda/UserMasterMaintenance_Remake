@@ -21,6 +21,12 @@ namespace UserMasterMaintenance.View
 
 	public partial class ListForm : Form
 	{
+		private readonly string ErrorText = "エラー";
+
+		private readonly string CheckBoxErrorMessageText = "1行だけチェックしてからボタンを押してください";
+
+		private readonly string CheckBoxTrueValue = "1";
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -45,11 +51,6 @@ namespace UserMasterMaintenance.View
 		/// 選択したユーザー
 		/// </summary>
 		public Model.User SelectedUser { get; set; }
-
-
-		private readonly string ErrorText = "エラー";
-
-		private readonly string CheckBoxErrorMessageText = "1行だけチェックしてからボタンを押してください";
 
 		/// <summary>
 		/// コンストラクタ

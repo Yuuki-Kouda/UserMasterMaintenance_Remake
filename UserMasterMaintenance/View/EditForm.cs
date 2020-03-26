@@ -13,6 +13,26 @@ namespace UserMasterMaintenance.View
 
 	public partial class EditForm : Form
 	{
+		private readonly string MenText = "男性";
+
+		private readonly string WomenText = "女性";
+
+		private readonly string ConfirmationText = "確認";
+
+		private readonly string ErrorText = "エラー";
+
+		private readonly string RegisterConfirmationMessage = "登録してよろしいですか？";
+
+		private readonly string UpdateConfirmationMessage = "更新してよろしいですか？";
+
+		private readonly string DeleteConfirmationMessage = "削除してよろしいですか？";
+
+		private readonly string NotInputErrorMessage = "未入力の項目があります";
+
+		private readonly string NotNumberErrorMessage = "半角数字(符号や小数点を除く)を入力してください";
+
+		private readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
+
 		/// <summary>
 		/// 編集タイプ
 		/// </summary>
@@ -24,29 +44,14 @@ namespace UserMasterMaintenance.View
 		private Model.User SelectedUser { get; set; }
 
 		/// <summary>
+		/// 部門リスト
+		/// </summary>
+		private List<Model.Department> Departments { get; set; }
+
+		/// <summary>
 		/// 編集コントローラ
 		/// </summary>
 		private Control.EditControl EditControl { get; set; }
-
-		private readonly string MenText = "男性";
-
-		private readonly string WomenText = "女性";
-
-		private readonly string ConfirmationMessage = "確認";
-
-		private readonly string ErrorMessage = "エラー";
-
-		private readonly string RegisterConfirmationMessage = "登録してよろしいですか？";
-
-		private readonly string UpdateConfirmationMessage = "更新してよろしいですか？";
-
-		private readonly string DeleteConfirmationMessage = "削除してよろしいですか？";
-
-		private readonly string NotInputErrorMessage = "未入力の項目があります";
-
-		private readonly string NotNumberErrorMessage = "半角数字を入力してください";
-
-		private readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
 
 		/// <summary>
 		/// コンストラクタ
