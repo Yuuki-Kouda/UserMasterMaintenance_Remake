@@ -192,10 +192,10 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowDisplay()
 		{
+			SetDisplayItems();
+
 			if (EditType == Control.EditType.Register)
 				return;
-
-			SetDisplayItems();
 
 			if (EditType == Control.EditType.Update)
 			{
@@ -212,6 +212,9 @@ namespace UserMasterMaintenance.View
 		private void SetDisplayItems()
 		{
 			DepartmentCombBox.DataSource = Departments.Select(x => x.Name).ToList();
+
+			if (EditType == Control.EditType.Register)
+				return;
 
 			IdTextBox.Text = string.Format("{0}", SelectedUser.ID);
 			NameTextBox.Text = SelectedUser.Name;
