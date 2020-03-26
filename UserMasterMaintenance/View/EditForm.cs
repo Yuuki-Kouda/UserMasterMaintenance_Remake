@@ -75,17 +75,11 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void OKButton_Click(object sender, EventArgs e)
 		{
-			if (HasError())
-			{
-				Close();
+			if (HasInputError())
 				return;
-			}
 
 			if (ConfirmEdit() == DialogResult.Cancel)
-			{
-				Close();
 				return;
-			}
 
 			EditControl.Edit(GetInputUser());
 
