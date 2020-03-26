@@ -40,7 +40,7 @@ namespace UserMasterMaintenance.View
 		/// <summary>
 		/// 部門リスト
 		/// </summary>
-		BindingList<Model.Department> Departments { get; set; }
+		public List<Model.Department> Departments { get; set; }
 
 		/// <summary>
 		/// 選択した編集タイプ
