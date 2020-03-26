@@ -130,7 +130,7 @@ namespace UserMasterMaintenance.View
 				return true;
 			}
 
-			return true;
+			return false;
 		}
 
 		/// <summary>
