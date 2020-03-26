@@ -96,6 +96,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void RegisterButton_Click(object sender, EventArgs e)
 		{
+			SelectedEditType = Control.EditType.Register;
 			EditForm editForm = new EditForm(this);
 			editForm.ShowDialog();
 		}
@@ -113,6 +114,7 @@ namespace UserMasterMaintenance.View
 				return;
 			}
 
+			SelectedEditType = Control.EditType.Update;
 			EditForm editForm = new EditForm(this);
 			editForm.ShowDialog();
 		}
@@ -130,6 +132,7 @@ namespace UserMasterMaintenance.View
 				return;
 			}
 
+			SelectedEditType = Control.EditType.Delete;
 			EditForm editForm = new EditForm(this);
 			editForm.ShowDialog();
 		}
