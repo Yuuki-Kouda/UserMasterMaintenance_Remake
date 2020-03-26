@@ -76,7 +76,12 @@ namespace UserMasterMaintenance.Control
 		/// <param name="selectedUser"></param>
 		private void Update(Model.User selectedUser)
 		{
-			Users.Where(x => x.ID == selectedUser.ID).Select(x => x = selectedUser).ToList();
+			var user = Users.First(x => x.ID == selectedUser.ID);
+
+			user.Name = selectedUser.Name;
+			user.Age = selectedUser.Age;
+			user.Gender = selectedUser.Gender;
+			user.Department = selectedUser.Department;
 		}
 
 		/// <summary>
