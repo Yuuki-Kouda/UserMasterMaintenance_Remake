@@ -296,7 +296,7 @@ namespace UserMasterMaintenance.View
 		private ErrorType ValidateData()
 		{
 			//重複チェック
-			if (EditControl.HasDupulicationData(SelectedUser))
+			if (EditControl.HasDupulicationData(GetInputUser()))
 				return ErrorType.DataDuplication;
 
 			return ErrorType.None;
