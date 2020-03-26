@@ -138,7 +138,7 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private DialogResult ConfirmEdit()
 		{
-			var editconfirmationMessage = "";
+			var editconfirmationMessage = string.Empty;
 			switch (EditType)
 			{
 				case Control.EditType.Register:
