@@ -81,9 +81,8 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void CloseButton_Click(object sender, FormClosedEventArgs e)
 		{
-			JsonFileControl.SaveUsersInFile(Users);
-			JsonFileControl.SaveDepartmentsInFile(Departments);
-			Close();
+			JsonFileControl.SaveUsersInJsonFile(Users);
+			JsonFileControl.SaveDepartmentsInJsonFile(Departments);
 		}
 
 		/// <summary>
