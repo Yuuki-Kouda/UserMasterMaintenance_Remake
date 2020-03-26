@@ -10,6 +10,15 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.View
 {
+	enum ErrorType
+	{
+		None,
+		CheckBox,
+		NotInput,
+		NotNumber,
+		DataDuplication
+	}
+
 	public partial class ListForm : Form
 	{
 		/// <summary>
