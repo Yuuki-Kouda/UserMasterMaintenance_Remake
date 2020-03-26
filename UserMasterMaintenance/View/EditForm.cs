@@ -116,10 +116,6 @@ namespace UserMasterMaintenance.View
 					ShowNotNumberErrorDialog();
 					return true;
 
-				case ErrorType.DataDuplication:
-					ShowDataDupulicationErrorDialog();
-					return true;
-
 				default:
 					break;
 			}
