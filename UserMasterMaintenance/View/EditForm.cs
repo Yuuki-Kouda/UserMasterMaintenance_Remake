@@ -159,7 +159,7 @@ namespace UserMasterMaintenance.View
 					break;
 			}
 
-			return MessageBox.Show(editconfirmationMessage, ConfirmationMessage, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+			return MessageBox.Show(editconfirmationMessage, ConfirmationText, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 		}
 
 		/// <summary>
@@ -167,7 +167,7 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowNotInputErrorDialog()
 		{
-			MessageBox.Show(NotInputErrorMessage, ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show(NotInputErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -175,7 +175,7 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowNotNumberErrorDialog()
 		{
-			MessageBox.Show(NotInputErrorMessage, ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show(NotNumberErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		/// <summary>
@@ -183,7 +183,7 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowDataDupulicationErrorDialog()
 		{
-			MessageBox.Show(DataDupulicationErrorMessage, ErrorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error);
+			MessageBox.Show(DataDupulicationErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
 
 		/// <summary>
