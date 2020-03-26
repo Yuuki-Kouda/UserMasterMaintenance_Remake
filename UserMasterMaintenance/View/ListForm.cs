@@ -107,7 +107,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void UpdateButton_Click(object sender, EventArgs e)
 		{
-			if (ConfirmCheckBox())
+			if (ValidateCheckBox() == ErrorType.CheckBox)
 			{
 				ShowCheckBoxErrorDialog();
 				return;
@@ -124,7 +124,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void DeleteButton_Click(object sender, EventArgs e)
 		{
-			if (ConfirmCheckBox())
+			if (ValidateCheckBox() == ErrorType.CheckBox)
 			{
 				ShowCheckBoxErrorDialog();
 				return;
