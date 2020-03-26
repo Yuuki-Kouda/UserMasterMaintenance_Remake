@@ -99,10 +99,10 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
-		/// エラーがあるか
+		/// 入力にエラーがあるか
 		/// </summary>
 		/// <returns></returns>
-		private bool HasError()
+		private bool HasInputError()
 		{
 			if (EditType == Control.EditType.Delete)
 				return false;

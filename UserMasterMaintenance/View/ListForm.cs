@@ -32,7 +32,7 @@ namespace UserMasterMaintenance.View
 		private readonly int IDCellNumber = 1;
 
 		/// <summary>
-		/// 
+		/// jsonファイルコントローラ
 		/// </summary>
 		private Control.JsonFileControl JsonFileControl { get; set; }
 
