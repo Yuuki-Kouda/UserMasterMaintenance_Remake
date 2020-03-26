@@ -63,6 +63,7 @@ namespace UserMasterMaintenance.View
 
 			EditType = listForm.SelectedEditType;
 			SelectedUser = listForm.SelectedUser;
+			Departments = listForm.Departments;
 			EditControl = new Control.EditControl(listForm);
 
 			ShowDisplay();
@@ -210,6 +211,8 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void SetDisplayItems()
 		{
+			DepartmentCombBox.DataSource = Departments.Select(x => x.Name).ToList();
+
 			IdTextBox.Text = string.Format("{0}", SelectedUser.ID);
 			NameTextBox.Text = SelectedUser.Name;
 			AgeTextBox.Text = string.Format("{0}", SelectedUser.Age);
