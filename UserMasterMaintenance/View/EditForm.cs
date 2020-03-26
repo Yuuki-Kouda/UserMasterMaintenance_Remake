@@ -280,10 +280,10 @@ namespace UserMasterMaintenance.View
 				return ErrorType.NotInput;
 
 			//数値チェック
-			if (int.TryParse(IdTextBox.Text, out var idTextNumber))
+			if(!(new Regex("^[0-9]+$").IsMatch(IdTextBox.Text)))
 				return ErrorType.NotNumber;
 
-			if (int.TryParse(IdTextBox.Text, out var ageTextNumber))
+			if (!(new Regex("^[0-9]+$").IsMatch(AgeTextBox.Text)))
 				return ErrorType.NotNumber;
 
 			return ErrorType.None;
