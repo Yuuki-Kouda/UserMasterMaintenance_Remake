@@ -27,6 +27,10 @@ namespace UserMasterMaintenance.View
 
 		private readonly string CheckBoxTrueValue = "1";
 
+		private readonly int CheckBoxCellNumber = 0;
+
+		private readonly int IDCellNumber = 1;
+
 		/// <summary>
 		/// 
 		/// </summary>
@@ -139,28 +143,18 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
-		/// チェックボックスを確認する
+		/// チェックボックスエラーがあるか
 		/// </summary>
 		/// <returns></returns>
-		private bool ConfirmCheckBox()
+		private ErrorType ValidateCheckBox()
 		{
-			var selectedRow = 0;
-			var isSelected = false;
-			for (int i = 1; i >= UsersDataGridView.RowCount; i++)
-			{
+			var users = UsersDataGridView.Rows.Cast<DataGridViewRow>().Where(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue).ToList();
+			//1件以外はエラー
+			if (users.Count != 1)
+				return ErrorType.CheckBox;
 
-				if (!(bool)UsersDataGridView[i, 0].Value)
-					continue;
-
-				if (isSelected)
-					return true;
-
-				selectedRow = i;
-				isSelected = true;
-			}
-			SelectedUser = GetSelctedUser(selectedRow);
-
-			return false;
+			SelectedUser = GetSelctedUser((int)users.First().Cells[IDCellNumber].Value);
+			return ErrorType.None;
 		}
 
 		/// <summary>
@@ -176,14 +170,9 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		/// <param name="row"></param>
 		/// <returns></returns>
-		private Model.User GetSelctedUser(int row)
+		private Model.User GetSelctedUser(int iD)
 		{
-			var selectedUser = new Model.User();
-			selectedUser.ID = Users[row].ID;
-			selectedUser.Name = Users[row].Name;
-			selectedUser.Age = Users[row].Age;
-			selectedUser.Gender = Users[row].Gender;
-			selectedUser.Department = Users[row].Department;
+			var selectedUser = Users.First(x => x.ID == iD);
 			return selectedUser;
 		}
 	}
