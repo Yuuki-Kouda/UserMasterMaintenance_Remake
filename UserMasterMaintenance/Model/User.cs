@@ -4,13 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
-
-public enum GenderType
-{
-	Nonn,
-	Men,
-	Women
-}
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
