@@ -10,51 +10,17 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.View
 {
-	enum ErrorType
-	{
-		None,
-		CheckBox,
-		NotInput,
-		NotNumber,
-		DataDuplication
-	}
 
 	public partial class ListForm : Form
 	{
-		private readonly string ErrorText = "エラー";
-
-		private readonly string CheckBoxErrorMessageText = "1行だけチェックしてからボタンを押してください";
-
 		private readonly string CheckBoxTrueValue = "1";
 
 		private readonly int CheckBoxCellNumber = 0;
 
-		private readonly int IDCellNumber = 1;
-
 		/// <summary>
-		/// jsonファイルコントローラ
+		/// ListFormPresenter
 		/// </summary>
-		private Control.JsonFileControl JsonFileControl { get; set; }
-
-		/// <summary>
-		/// ユーザーリスト
-		/// </summary>
-		public BindingList<Model.User> Users { get; set; }
-
-		/// <summary>
-		/// 部門リスト
-		/// </summary>
-		public List<Model.Department> Departments { get; set; }
-
-		/// <summary>
-		/// 選択した編集タイプ
-		/// </summary>
-		public Control.EditType SelectedEditType { get; set; }
-
-		/// <summary>
-		/// 選択したユーザー
-		/// </summary>
-		public Model.User SelectedUser { get; set; }
+		private Presenter.ListFormPresenter ListFormPresenter { get; set; }
 
 		/// <summary>
 		/// コンストラクタ
@@ -63,9 +29,7 @@ namespace UserMasterMaintenance.View
 		{
 			InitializeComponent();
 
-			JsonFileControl = new Control.JsonFileControl();
-			Users = JsonFileControl.GetUsers();
-			Departments = JsonFileControl.GetDepartments();
+			ListFormPresenter = new Presenter.ListFormPresenter(this);
 		}
 
 		/// <summary>
@@ -85,8 +49,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void CloseButton_Click(object sender, FormClosedEventArgs e)
 		{
-			JsonFileControl.SaveUsersInJsonFile(Users);
-			JsonFileControl.SaveDepartmentsInJsonFile(Departments);
+			ListFormPresenter.BiginSaveData();
 		}
 
 		/// <summary>
@@ -96,9 +59,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void RegisterButton_Click(object sender, EventArgs e)
 		{
-			SelectedEditType = Control.EditType.Register;
-			EditForm editForm = new EditForm(this);
-			editForm.ShowDialog();
+			ListFormPresenter.ShowRegisterDialog();
 		}
 
 		/// <summary>
@@ -108,15 +69,10 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void UpdateButton_Click(object sender, EventArgs e)
 		{
-			if (ValidateCheckBox() == ErrorType.CheckBox)
-			{
-				ShowCheckBoxErrorDialog();
+			if (ListFormPresenter.ConfirmCheckBoxError())
 				return;
-			}
 
-			SelectedEditType = Control.EditType.Update;
-			EditForm editForm = new EditForm(this);
-			editForm.ShowDialog();
+			ListFormPresenter.ShowUpdateDialog();
 		}
 
 		/// <summary>
@@ -126,15 +82,10 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void DeleteButton_Click(object sender, EventArgs e)
 		{
-			if (ValidateCheckBox() == ErrorType.CheckBox)
-			{
-				ShowCheckBoxErrorDialog();
+			if (ListFormPresenter.ConfirmCheckBoxError())
 				return;
-			}
 
-			SelectedEditType = Control.EditType.Delete;
-			EditForm editForm = new EditForm(this);
-			editForm.ShowDialog();
+			ListFormPresenter.ShowDeleteDialog();
 		}
 
 		/// <summary>
@@ -142,26 +93,16 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowDisplay()
 		{
-			UsersDataGridView.DataSource = Users;
+			UsersDataGridView.DataSource = ListFormPresenter.Users;
 		}
 
 		/// <summary>
-		/// チェックボックスエラーダイアログを表示する
+		/// 選択した行を取得する
 		/// </summary>
-		private void ShowCheckBoxErrorDialog()
-		{
-			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
-
-		/// <summary>
-		/// 選択されたユーザーを取得する
-		/// </summary>
-		/// <param name="row"></param>
 		/// <returns></returns>
-		private Model.User GetSelctedUser(int iD)
+		public List<DataGridViewRow> GetSelectedRows()
 		{
-			var selectedUser = Users.First(x => x.ID == iD);
-			return selectedUser;
+			return UsersDataGridView.Rows.Cast<DataGridViewRow>().Where(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue).ToList();
 		}
 	}
 }

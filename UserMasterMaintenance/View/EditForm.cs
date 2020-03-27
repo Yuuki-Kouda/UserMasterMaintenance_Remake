@@ -11,61 +11,26 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.View
 {
-
 	public partial class EditForm : Form
 	{
-		private readonly string MenText = "男性";
+		public readonly string MenText = "男性";
 
-		private readonly string WomenText = "女性";
-
-		private readonly string ConfirmationText = "確認";
-
-		private readonly string ErrorText = "エラー";
-
-		private readonly string RegisterConfirmationMessage = "登録してよろしいですか？";
-
-		private readonly string UpdateConfirmationMessage = "更新してよろしいですか？";
-
-		private readonly string DeleteConfirmationMessage = "削除してよろしいですか？";
-
-		private readonly string NotInputErrorMessage = "未入力の項目があります";
-
-		private readonly string NotNumberErrorMessage = "半角数字(符号や小数点を除く)を入力してください";
-
-		private readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
+		public readonly string WomenText = "女性";
 
 		/// <summary>
-		/// 編集タイプ
+		/// EditFormPresenter
 		/// </summary>
-		private Control.EditType EditType { get; set; }
-
-		/// <summary>
-		/// 選択ユーザー
-		/// </summary>
-		private Model.User SelectedUser { get; set; }
-
-		/// <summary>
-		/// 部門リスト
-		/// </summary>
-		private List<Model.Department> Departments { get; set; }
-
-		/// <summary>
-		/// 編集コントローラ
-		/// </summary>
-		private Control.EditControl EditControl { get; set; }
+		private Presenter.EditFormPresenter EditFormPresenter { get; set; }
 
 		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="listForm"></param>
-		public EditForm(ListForm listForm)
+		public EditForm(Presenter.ListFormPresenter listFormPresenter)
 		{
 			InitializeComponent();
 
-			EditType = listForm.SelectedEditType;
-			SelectedUser = listForm.SelectedUser;
-			Departments = listForm.Departments;
-			EditControl = new Control.EditControl(listForm);
+			EditFormPresenter = new Presenter.EditFormPresenter(listFormPresenter); 
 
 			ShowDisplay();
 		}
@@ -77,13 +42,13 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void OKButton_Click(object sender, EventArgs e)
 		{
-			if (HasInputError())
+			if (EditFormPresenter.ConfirmInputError(GetInputItems()))
+				return;
+			
+			if (EditFormPresenter.ConfirmEdit() == DialogResult.Cancel)
 				return;
 
-			if (ConfirmEdit() == DialogResult.Cancel)
-				return;
-
-			EditControl.Edit(GetInputUser());
+			EditFormPresenter.BeginEdit(GetInputItems());
 
 			Close();
 		}
@@ -99,102 +64,16 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
-		/// 入力にエラーがあるか
-		/// </summary>
-		/// <returns></returns>
-		private bool HasInputError()
-		{
-			if (EditType == Control.EditType.Delete)
-				return false;
-
-			switch (ValidateInputItems())
-			{
-				case ErrorType.NotInput:
-					ShowNotInputErrorDialog();
-					return true;
-
-				case ErrorType.NotNumber:
-					ShowNotNumberErrorDialog();
-					return true;
-
-				default:
-					break;
-			}
-
-			if (EditType == Control.EditType.Update)
-				return false;
-
-			if (ValidateData() == ErrorType.DataDuplication)
-			{
-				ShowDataDupulicationErrorDialog();
-				return true;
-			}
-
-			return false;
-		}
-
-		/// <summary>
-		/// 編集するか確認する
-		/// </summary>
-		private DialogResult ConfirmEdit()
-		{
-			var editconfirmationMessage = string.Empty;
-			switch (EditType)
-			{
-				case Control.EditType.Register:
-					editconfirmationMessage = RegisterConfirmationMessage;
-					break;
-
-				case Control.EditType.Update:
-					editconfirmationMessage = UpdateConfirmationMessage; ;
-					break;
-
-				case Control.EditType.Delete:
-					editconfirmationMessage = DeleteConfirmationMessage;
-					break;
-
-				default:
-					break;
-			}
-
-			return MessageBox.Show(editconfirmationMessage, ConfirmationText, MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-		}
-
-		/// <summary>
-		/// 未入力エラーダイアログを表示する
-		/// </summary>
-		private void ShowNotInputErrorDialog()
-		{
-			MessageBox.Show(NotInputErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
-
-		/// <summary>
-		/// 半角数字でないエラーダイアログを表示する
-		/// </summary>
-		private void ShowNotNumberErrorDialog()
-		{
-			MessageBox.Show(NotNumberErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
-
-		/// <summary>
-		/// 重複エラーダイアログを表示する
-		/// </summary>
-		private void ShowDataDupulicationErrorDialog()
-		{
-			MessageBox.Show(DataDupulicationErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
-
-		/// <summary>
 		/// 画面を表示する
 		/// </summary>
 		private void ShowDisplay()
 		{
 			SetDisplayItems();
 
-			if (EditType == Control.EditType.Register)
+			if (EditFormPresenter.EditType == Presenter.EditType.Register)
 				return;
 
-			if (EditType == Control.EditType.Update)
+			if (EditFormPresenter.EditType == Presenter.EditType.Update)
 			{
 				IdTextBox.Enabled = false;
 				return;
@@ -208,16 +87,16 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void SetDisplayItems()
 		{
-			DepartmentCombBox.DataSource = Departments.Select(x => x.Name).ToList();
+			DepartmentCombBox.DataSource = EditFormPresenter.GetDepartmentNames();
 
-			if (EditType == Control.EditType.Register)
+			if (EditFormPresenter.EditType == Presenter.EditType.Register)
 				return;
 
-			IdTextBox.Text = string.Format("{0}", SelectedUser.ID);
-			NameTextBox.Text = SelectedUser.Name;
-			AgeTextBox.Text = string.Format("{0}", SelectedUser.Age);
+			IdTextBox.Text = string.Format("{0}", EditFormPresenter.SelectedUser.ID);
+			NameTextBox.Text = EditFormPresenter.SelectedUser.Name;
+			AgeTextBox.Text = string.Format("{0}", EditFormPresenter.SelectedUser.Age);
 
-			if (SelectedUser.Gender == MenText)
+			if (EditFormPresenter.SelectedUser.Gender == MenText)
 			{
 				MenRadioButton.Checked = true;
 				WomenRadioButton.Checked = false;
@@ -228,26 +107,29 @@ namespace UserMasterMaintenance.View
 				WomenRadioButton.Checked = true;
 			}
 
-			DepartmentCombBox.Text = SelectedUser.Department;
+			DepartmentCombBox.Text = EditFormPresenter.SelectedUser.Department;
 		}
 
 		/// <summary>
 		/// 入力項目を取得する
 		/// </summary>
-		private Model.User GetInputUser()
+		private Dictionary<Presenter.EditItems, string> GetInputItems()
 		{
-			var inputUser = new Model.User();
-			inputUser.ID = int.Parse(IdTextBox.Text);
-			inputUser.Name = NameTextBox.Text;
-			inputUser.Age = int.Parse(AgeTextBox.Text);
-
+			var inputGender = string.Empty;
 			if (MenRadioButton.Checked)
-				inputUser.Gender = MenText;
+				inputGender = MenText;
 			else
-				inputUser.Gender = WomenText;
+				inputGender = WomenText;
 
-			inputUser.Department = DepartmentCombBox.Text;
-			return inputUser;
+			var inputItems = new Dictionary<Presenter.EditItems, string>()
+			{
+				{Presenter.EditItems.ID, IdTextBox.Text},
+				{Presenter.EditItems.Name ,NameTextBox.Text},
+				{Presenter.EditItems.Age, AgeTextBox.Text},
+				{Presenter.EditItems.Gender, inputGender},
+				{Presenter.EditItems.Department, DepartmentCombBox.Text}
+			};
+			return inputItems;
 		}
 
 		/// <summary>
