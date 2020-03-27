@@ -8,9 +8,9 @@ using System.IO;
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace UserMasterMaintenance.Control
+namespace UserMasterMaintenance.Model
 {
-	class JsonFileControl
+	class JsonFileEditModel
 	{
 		/// <summary>
 		/// users.jsonのファイルパス
