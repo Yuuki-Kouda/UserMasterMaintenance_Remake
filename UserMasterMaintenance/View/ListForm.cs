@@ -146,21 +146,6 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
-		/// チェックボックスエラーがあるか
-		/// </summary>
-		/// <returns></returns>
-		private ErrorType ValidateCheckBox()
-		{
-			var users = UsersDataGridView.Rows.Cast<DataGridViewRow>().Where(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue).ToList();
-			//1件以外はエラー
-			if (users.Count != 1)
-				return ErrorType.CheckBox;
-
-			SelectedUser = GetSelctedUser((int)users.First().Cells[IDCellNumber].Value);
-			return ErrorType.None;
-		}
-
-		/// <summary>
 		/// チェックボックスエラーダイアログを表示する
 		/// </summary>
 		private void ShowCheckBoxErrorDialog()

@@ -262,47 +262,5 @@ namespace UserMasterMaintenance.View
 			WomenRadioButton.Enabled = false;
 			DepartmentCombBox.Enabled = false;
 		}
-
-		/// <summary>
-		/// 入力エラーチェック
-		/// </summary>
-		/// <returns></returns>
-		private ErrorType ValidateInputItems()
-		{
-			//未入力チェック
-			if (string.IsNullOrEmpty(IdTextBox.Text))
-				return ErrorType.NotInput;
-
-			if (string.IsNullOrEmpty(NameTextBox.Text))
-				return ErrorType.NotInput;
-
-			if (string.IsNullOrEmpty(AgeTextBox.Text))
-				return ErrorType.NotInput;
-
-			if (string.IsNullOrEmpty(IdTextBox.Text))
-				return ErrorType.NotInput;
-
-			//数値チェック
-			if(!(new Regex("^[0-9]+$").IsMatch(IdTextBox.Text)))
-				return ErrorType.NotNumber;
-
-			if (!(new Regex("^[0-9]+$").IsMatch(AgeTextBox.Text)))
-				return ErrorType.NotNumber;
-
-			return ErrorType.None;
-		}
-
-		/// <summary>
-		/// 重複エラーチェック
-		/// </summary>
-		/// <returns></returns>
-		private ErrorType ValidateData()
-		{
-			//重複チェック
-			if (EditControl.HasDupulicationData(GetInputUser()))
-				return ErrorType.DataDuplication;
-
-			return ErrorType.None;
-		}
 	}
 }
