@@ -50,10 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control\EditControl.cs" />
-    <Compile Include="Control\JsonFileControl.cs" />
+    <Compile Include="Model\EditFormModel.cs" />
+    <Compile Include="Model\JsonFileEditModel.cs" />
     <Compile Include="Model\Department.cs" />
+    <Compile Include="Model\ListFormModel.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="Presenter\EditFormPresenter.cs" />
+    <Compile Include="Presenter\ListFormPresenter.cs" />
     <Compile Include="View\EditForm.cs">
       <SubType>Form</SubType>
     </Compile>
