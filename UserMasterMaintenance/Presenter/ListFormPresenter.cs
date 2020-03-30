@@ -124,6 +124,17 @@ namespace UserMasterMaintenance.Presenter
 			return false;
 		}
 
+		/// <summary>
+		/// セーブできたか確認する
+		/// </summary>
+		public void ConfirmSaved()
+		{
+			if (JsonFileModel.TrySaveUsers(Users) == ErrorType.SaveFailure)
+				ShowCanNotSaveUsersData();
+
+			if (JsonFileModel.TrySaveDepartments(Departments) == ErrorType.SaveFailure)
+				ShowCanNotSaveDepartmentsData();
+		}
 
 		/// <summary>
 		/// チェックボックスエラーを確認する
