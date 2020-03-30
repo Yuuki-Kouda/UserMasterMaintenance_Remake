@@ -63,12 +63,10 @@ namespace UserMasterMaintenance.Presenter
 			JsonFileModel = new Model.JsonFileEditModel();
 		}
 
-        // todo  誤 Bigin  正 Begin
-
 		/// <summary>
 		/// データの保存を始める
 		/// </summary>
-		public void BiginSaveData()
+		public void BeginSaveData()
 		{
 			JsonFileModel.SaveUsersInJsonFile(Users);
 			JsonFileModel.SaveDepartmentsInJsonFile(Departments);
