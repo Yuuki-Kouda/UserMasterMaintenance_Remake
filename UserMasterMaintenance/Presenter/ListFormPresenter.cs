@@ -169,5 +169,37 @@ namespace UserMasterMaintenance.Presenter
 		{
 			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 		}
+
+		/// <summary>
+		/// ユーザー情報が存在しないエラーダイアログを表示する
+		/// </summary>
+		private void ShowNotExistUsersDataErrorDialog()
+		{
+			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// 部門情報が存在しないエラーダイアログを表示する
+		/// </summary>
+		private void ShowNotExistDepartmentsDataErrorDialog()
+		{
+			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// ユーザー情報が保存できないエラーダイアログを表示する
+		/// </summary>
+		private void ShowCanNotSaveUsersData()
+		{
+			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
+
+		/// <summary>
+		/// 部門情報が保存できないエラーダイアログを表示する
+		/// </summary>
+		private void ShowCanNotSaveDepartmentsData()
+		{
+			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+		}
 	}
 }
