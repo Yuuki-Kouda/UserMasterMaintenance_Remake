@@ -153,15 +153,15 @@ namespace UserMasterMaintenance.Presenter
 			var editconfirmationMessage = string.Empty;
 			switch (EditType)
 			{
-				case Presenter.EditType.Register:
+				case EditType.Register:
 					editconfirmationMessage = RegisterConfirmationMessage;
 					break;
 
-				case Presenter.EditType.Update:
+				case EditType.Update:
 					editconfirmationMessage = UpdateConfirmationMessage; ;
 					break;
 
-				case Presenter.EditType.Delete:
+				case EditType.Delete:
 					editconfirmationMessage = DeleteConfirmationMessage;
 					break;
 
@@ -211,11 +211,11 @@ namespace UserMasterMaintenance.Presenter
 		public Model.User GetConvertedInputUser(Dictionary<EditItems, string> inputItems)
 		{
 			var inputUser = new Model.User();
-			inputUser.ID = int.Parse(inputItems[Presenter.EditItems.ID]);
-			inputUser.Name = inputItems[Presenter.EditItems.Name];
-			inputUser.Age = int.Parse(inputItems[Presenter.EditItems.Age]);
-			inputUser.Gender = inputItems[Presenter.EditItems.Gender];
-			inputUser.Department = inputItems[Presenter.EditItems.Department];
+			inputUser.ID = int.Parse(inputItems[EditItems.ID]);
+			inputUser.Name = inputItems[EditItems.Name];
+			inputUser.Age = int.Parse(inputItems[EditItems.Age]);
+			inputUser.Gender = inputItems[EditItems.Gender];
+			inputUser.Department = inputItems[EditItems.Department];
 			return inputUser;
 		}
 	}

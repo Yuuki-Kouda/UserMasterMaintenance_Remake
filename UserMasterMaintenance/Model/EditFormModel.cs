@@ -18,7 +18,7 @@ namespace UserMasterMaintenance.Model
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		private BindingList<Model.User> Users { get; set; }
+		private BindingList<User> Users { get; set; }
 
 		/// <summary>
 		/// 編集種類
@@ -39,7 +39,7 @@ namespace UserMasterMaintenance.Model
 		/// <summary>
 		/// 編集する
 		/// </summary>
-		public void EditUsers(Model.User user)
+		public void EditUsers(User user)
 		{
 			switch (EditType)
 			{
