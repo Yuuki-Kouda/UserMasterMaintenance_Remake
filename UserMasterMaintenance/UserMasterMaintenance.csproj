@@ -53,7 +53,6 @@
     <Compile Include="Model\EditFormModel.cs" />
     <Compile Include="Model\JsonFileEditModel.cs" />
     <Compile Include="Model\Department.cs" />
-    <Compile Include="Model\ListFormModel.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Presenter\EditFormPresenter.cs" />
     <Compile Include="Presenter\ListFormPresenter.cs" />

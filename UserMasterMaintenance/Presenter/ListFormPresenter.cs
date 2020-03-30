@@ -34,11 +34,6 @@ namespace UserMasterMaintenance.Presenter
 		private Model.JsonFileEditModel JsonFileModel { get; set; }
 
 		/// <summary>
-		/// ListFormModel
-		/// </summary>
-		private Model.ListFormModel ListFormModel { get; set; }
-
-		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
 		public BindingList<Model.User> Users { get; set; }
@@ -66,12 +61,6 @@ namespace UserMasterMaintenance.Presenter
 		{
 			ListForm = listForm;
 			JsonFileModel = new Model.JsonFileEditModel();
-			Users = JsonFileModel.GetUsers();
-			Departments = JsonFileModel.GetDepartments();
-
-            // todo ModelがPresenterを知っているのはNGだと思う
-
-			ListFormModel = new Model.ListFormModel(this);
 		}
 
         // todo  誤 Bigin  正 Begin
@@ -133,6 +122,44 @@ namespace UserMasterMaintenance.Presenter
 				return true;
 			}
 			return false;
+		}
+
+
+		/// <summary>
+		/// チェックボックスエラーを確認する
+		/// </summary>
+		/// <returns></returns>
+		public bool ConfirmCheckBoxError()
+		{
+			if (ValidateCheckBox(ListForm.GetSelectedRows()) == ErrorType.None)
+				return false;
+
+			ShowCheckBoxErrorDialog();
+			return true;
+		}
+
+		/// <summary>
+		/// チェックボックスエラーがあるか
+		/// </summary>
+		/// <returns></returns>
+		private ErrorType ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
+		{
+			//1件以外はエラー
+			if (dataGridViewRows.Count != 1)
+				return ErrorType.CheckBox;
+
+			return ErrorType.None;
+		}
+
+		/// <summary>
+		/// 選択されたユーザーを取得する
+		/// </summary>
+		/// <param name="row"></param>
+		/// <returns></returns>
+		private Model.User GetSelctedUser(List<DataGridViewRow> dataGridViewRows)
+		{
+			var selectedUser = Users.First(x => x.ID == (int)dataGridViewRows.First().Cells[IDCellNumber].Value);
+			return selectedUser;
 		}
 
 		/// <summary>
