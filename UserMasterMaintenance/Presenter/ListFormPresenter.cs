@@ -91,10 +91,7 @@ namespace UserMasterMaintenance.Presenter
 		{
 			SelectedEditType = EditType.Register;
 
-            // todo View が 他のPresenter を知っているのはNG
-            // 伝達するならModelをやりとりすべき。
-
-			View.EditForm editForm = new View.EditForm(this);
+			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
 		}
 
