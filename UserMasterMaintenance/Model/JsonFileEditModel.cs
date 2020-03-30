@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace UserMasterMaintenance.Model
 {
@@ -26,53 +27,79 @@ namespace UserMasterMaintenance.Model
 		/// ユーザーリストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public BindingList<Model.User> GetUsers()
+		public BindingList<User> TryGetUsers()
 		{
-			return Deserialize<BindingList<Model.User>>(GetUsersJsonTextFromJsonFile());
+			try
+			{
+				return Deserialize<BindingList<User>>(GetUsersJsonText());
+			}
+			catch (FileNotFoundException)
+			{
+				return null;
+			}
 		}
 
 		/// <summary>
 		/// 部門リストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<Model.Department> GetDepartments()
+		public List<Department> TryGetDepartments()
 		{
-			return Deserialize<List<Model.Department>>(GetDepartmentsJsonTextFromJsonFile());
+			try
+			{
+				return Deserialize<List<Department>>(GetDepartmentsJsonText());
+			}
+			catch (FileNotFoundException)
+			{
+				return null;
+			}
 		}
 
-        // todo Json形式のファイルを扱うクラスなのに InJsonFile は冗長じゃない？
-
         // todo 書き込めなかったら死なない？
-
-        // todo BindingListを引数に取るのは汎用性が低いからやめたほうがよい。Collection<T>でいいんじゃない？
 
 		/// <summary>
 		/// ユーザー情報を保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public void SaveUsersInJsonFile(BindingList<Model.User> users)
+		public Presenter.ErrorType TrySaveUsers(Collection<User> users)
 		{
 			var jsontext = Selialize(users);
-			using (StreamWriter stream = new StreamWriter(UsersJsonFilePath, false, Encoding.UTF8))
+			try
 			{
-				stream.Write(jsontext);
+				using (StreamWriter stream = new StreamWriter(UsersJsonFilePath, false, Encoding.UTF8))
+				{
+					stream.Write(jsontext);
+				}
 			}
+			catch
+			{
+				return Presenter.ErrorType.SaveFailure;
+			}
+
+			return Presenter.ErrorType.None;
 		}
 
 		/// <summary>
 		/// 部門情報を保存する
 		/// </summary>
 		/// <param name="departments"></param>
-		public void SaveDepartmentsInJsonFile(List<Model.Department> departments)
+		public Presenter.ErrorType TrySaveDepartments(List<Department> departments)
 		{
 			var jsontext = Selialize(departments);
-			using (StreamWriter stream = new StreamWriter(DepartmentsJsonFilePath, false, Encoding.UTF8))
+			try
 			{
-				stream.Write(jsontext);
+				using (StreamWriter stream = new StreamWriter(DepartmentsJsonFilePath, false, Encoding.UTF8))
+				{
+					stream.Write(jsontext);
+				}
 			}
-		}
+			catch
+			{
+				return Presenter.ErrorType.SaveFailure;
+			}
 
-        // todo ファイルが見つからなかったら結局死ぬんじゃない？
+			return Presenter.ErrorType.None;
+		}
 
 		/// <summary>
 		/// ユーザーのjsonテキストを取得する
