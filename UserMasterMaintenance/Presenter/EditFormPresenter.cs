@@ -88,6 +88,7 @@ namespace UserMasterMaintenance.Presenter
 			if (EditType == EditType.Register)
 				return;
 
+			//更新・削除の場合は選択したユーザーを設定する
 			SelectedUser = listFormPresenter.SelectedUser;
 		}
 
@@ -189,6 +190,5 @@ namespace UserMasterMaintenance.Presenter
 			inputUser.Department = inputItems[Presenter.EditItems.Department];
 			return inputUser;
 		}
-
 	}
 }

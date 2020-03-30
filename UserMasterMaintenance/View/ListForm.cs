@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.View
 {
-
 	public partial class ListForm : Form
 	{
 		private readonly string CheckBoxTrueValue = "1";
