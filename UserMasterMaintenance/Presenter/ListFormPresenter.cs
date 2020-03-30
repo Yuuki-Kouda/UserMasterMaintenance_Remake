@@ -25,6 +25,16 @@ namespace UserMasterMaintenance.Presenter
 
 		private readonly string CheckBoxErrorMessageText = "1行だけチェックしてからボタンを押してください";
 
+		private readonly string NotExistUsersDataFileErrorMessageText = "ユーザー情報を記録したファイルが存在しません";
+
+		private readonly string NotExistDepartmentsDataFileErrorMessageText = "部門情報を記録したファイルが存在しません";
+
+		private readonly string CantSaveUsersDataErrorMessageText = "ユーザー情報が保存できませんでした";
+
+		private readonly string CantSaveDepartmentsDataErrorMessageText = "ユーザー情報が保存できませんでした";
+
+		private readonly int IDCellNumber = 1;
+
 		/// <summary>
 		/// ListForm
 		/// </summary>
