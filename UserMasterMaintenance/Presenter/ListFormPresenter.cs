@@ -111,16 +111,23 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// チェックボックスエラーを確認する
+		/// データが存在するか確認する
 		/// </summary>
 		/// <returns></returns>
-		public bool ConfirmCheckBoxError()
+		public bool ConfirmExistData()
 		{
-			if (ListFormModel.ValidateCheckBox(ListForm.GetSelectedRows()) == ErrorType.CheckBox)
+			if (Users == null)
 			{
-				ShowCheckBoxErrorDialog();
+				ShowNotExistUsersDataErrorDialog();
 				return true;
 			}
+
+			if (Departments == null)
+			{
+				ShowNotExistDepartmentsDataErrorDialog();
+				return true;
+			}
+
 			return false;
 		}
 
