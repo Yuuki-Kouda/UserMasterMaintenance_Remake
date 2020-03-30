@@ -78,18 +78,18 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="editForm"></param>
 		/// <param name="listFormPresenter"></param>
-		public EditFormPresenter(ListFormPresenter listFormPresenter)
+		public EditFormPresenter(BindingList<Model.User> users, List<Model.Department> departments, EditType editType, Model.User selectedUser)
 		{
-			Users = listFormPresenter.Users ;
-			Departments = listFormPresenter.Departments;
-			EditType = listFormPresenter.SelectedEditType;
+			Users = users ;
+			Departments = departments;
+			EditType = editType;
 			EditFormModel = new Model.EditFormModel(this);
 
 			if (EditType == EditType.Register)
 				return;
 
 			//更新・削除の場合は選択したユーザーを設定する
-			SelectedUser = listFormPresenter.SelectedUser;
+			SelectedUser = selectedUser;
 		}
 
 		/// <summary>
