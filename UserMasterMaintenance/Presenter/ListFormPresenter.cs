@@ -91,9 +91,9 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		public void ShowUpdateDialog()
 		{
-			SelectedUser = ListFormModel.GetSelctedUser(ListForm.GetSelectedRows());
+			SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
 			SelectedEditType = EditType.Update;
-			View.EditForm editForm = new View.EditForm(this);
+			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
 		}
 
@@ -102,9 +102,9 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		public void ShowDeleteDialog()
 		{
-			SelectedUser = ListFormModel.GetSelctedUser(ListForm.GetSelectedRows());
+			SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
 			SelectedEditType = EditType.Delete;
-			View.EditForm editForm = new View.EditForm(this);
+			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
 		}
 
