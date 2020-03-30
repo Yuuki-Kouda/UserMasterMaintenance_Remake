@@ -78,7 +78,7 @@ namespace UserMasterMaintenance.Model
 		/// ユーザーのjsonテキストを取得する
 		/// </summary>
 		/// <returns></returns>
-		private string GetUsersJsonTextFromJsonFile()
+		private string GetUsersJsonText()
 		{
 			try
 			{
@@ -98,7 +98,7 @@ namespace UserMasterMaintenance.Model
 		/// 部門のjsonテキストを取得する
 		/// </summary>
 		/// <returns></returns>
-		private string GetDepartmentsJsonTextFromJsonFile()
+		private string GetDepartmentsJsonText()
 		{
 			try
 			{
