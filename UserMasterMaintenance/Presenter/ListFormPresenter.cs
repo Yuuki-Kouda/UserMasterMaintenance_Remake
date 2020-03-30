@@ -82,8 +82,7 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		public void BeginSaveData()
 		{
-			JsonFileModel.SaveUsersInJsonFile(Users);
-			JsonFileModel.SaveDepartmentsInJsonFile(Departments);
+			ConfirmSaved();
 		}
 
 		/// <summary>
