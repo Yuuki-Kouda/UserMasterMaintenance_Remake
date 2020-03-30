@@ -133,6 +133,31 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
+		/// 入力エラーを確認する
+		/// </summary>
+		/// <returns></returns>
+		private bool ConfirmInputError()
+		{
+			if (EditFormPresenter.ValidateNotInput(IdTextBox.Text))
+				return true;
+			if (EditFormPresenter.ValidateNotNumber(IdTextBox.Text))
+				return true;
+
+			if (EditFormPresenter.ValidateNotInput(NameTextBox.Text))
+				return true;
+
+			if (EditFormPresenter.ValidateNotInput(AgeTextBox.Text))
+				return true;
+			if (EditFormPresenter.ValidateNotNumber(AgeTextBox.Text))
+				return true;
+
+			if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
+				return true;
+
+			return false;
+		}
+
+		/// <summary>
 		/// 画面項目の操作を無効にする
 		/// </summary>
 		private void DisableAllItems()

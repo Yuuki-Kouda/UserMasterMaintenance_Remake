@@ -103,17 +103,45 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// 入力エラーを確認する
+		/// 未入力エラーチェック
 		/// </summary>
-		/// <param name="inputItems"></param>
+		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ConfirmInputError(Dictionary<EditItems, string> inputItems)
+		public bool ValidateNotInput(string text)
 		{
-			var errorType = EditFormModel.HasInputError(inputItems);
-			if (errorType == ErrorType.None)
+			if (!string.IsNullOrEmpty(text))
 				return false;
 
-			ShowErrorDialog(errorType);
+			ShowErrorDialog(ErrorType.NotInput);
+			return true;
+		}
+
+		/// <summary>
+		/// 数値エラーチェック
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		public bool ValidateNotNumber(string text)
+		{
+			if (new Regex("^[0-9]+$").IsMatch(text))
+				return false;
+
+			ShowErrorDialog(ErrorType.NotNumber);
+			return true;
+		}
+
+		/// <summary>
+		/// 重複エラーチェック
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		public bool ValidateDupulicationData(string text)
+		{
+			var iD = int.Parse(text);
+			if (!EditFormModel.HasDupulicationData(iD))
+				return false;
+
+			ShowErrorDialog(ErrorType.DataDuplication);
 			return true;
 		}
 
