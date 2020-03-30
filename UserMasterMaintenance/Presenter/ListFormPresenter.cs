@@ -14,7 +14,9 @@ namespace UserMasterMaintenance.Presenter
 		CheckBox,
 		NotInput,
 		NotNumber,
-		DataDuplication
+		DataDuplication,
+		AcquisitionFailure,
+		SaveFailure
 	}
 
 	public class ListFormPresenter
