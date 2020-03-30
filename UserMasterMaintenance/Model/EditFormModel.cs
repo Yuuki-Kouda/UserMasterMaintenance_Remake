@@ -123,6 +123,11 @@ namespace UserMasterMaintenance.Model
 		/// <returns></returns>
 		public Presenter.ErrorType ValidateInputItems(Dictionary<Presenter.EditItems, string> inputUser)
 		{
+            // todo Dictionaryのインデックス番号でチェックするの気持ち悪い。インスタンス渡してチェックすべき。
+            // 数値の入力チェックをビジネスロジックと捉えずに、UIのチェックと捉えればできると思う。
+            // 例えば、未入力チェック、数字として妥当性のある文字のチェック　→　これはUIのチェックと考える
+            // 数値の範囲チェック、禁則文字のチェック、重複チェック　→　これはビジネスロジックと考える
+
 			//未入力チェック
 			if (string.IsNullOrEmpty(inputUser[Presenter.EditItems.ID]))
 				return Presenter.ErrorType.NotInput;

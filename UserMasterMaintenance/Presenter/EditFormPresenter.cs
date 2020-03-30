@@ -168,6 +168,8 @@ namespace UserMasterMaintenance.Presenter
 			}
 		}
 
+        // todo 提供する側としては、List<T>ではなくIEnumerable<T>のほうが汎用性が高い。評価するかどうかは呼出元が決めるほうが良い。
+
 		/// <summary>
 		/// 部門リストの部門名をリストにして取得する
 		/// </summary>

@@ -40,6 +40,12 @@ namespace UserMasterMaintenance.Model
 			return Deserialize<List<Model.Department>>(GetDepartmentsJsonTextFromJsonFile());
 		}
 
+        // todo Json形式のファイルを扱うクラスなのに InJsonFile は冗長じゃない？
+
+        // todo 書き込めなかったら死なない？
+
+        // todo BindingListを引数に取るのは汎用性が低いからやめたほうがよい。Collection<T>でいいんじゃない？
+
 		/// <summary>
 		/// ユーザー情報を保存する
 		/// </summary>
@@ -65,6 +71,8 @@ namespace UserMasterMaintenance.Model
 				stream.Write(jsontext);
 			}
 		}
+
+        // todo ファイルが見つからなかったら結局死ぬんじゃない？
 
 		/// <summary>
 		/// ユーザーのjsonテキストを取得する

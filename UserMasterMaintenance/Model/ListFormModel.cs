@@ -8,6 +8,9 @@ using System.Windows.Forms;
 
 namespace UserMasterMaintenance.Model
 {
+    // todo : ModelがViewを知るのはNG
+    // UIに関することは基本的にはViewで行うべき。せめてPresenter。だって業務ロジックではないでしょ。
+
 	class ListFormModel
 	{
 		private readonly int IDCellNumber = 1;

@@ -68,8 +68,13 @@ namespace UserMasterMaintenance.Presenter
 			JsonFileModel = new Model.JsonFileEditModel();
 			Users = JsonFileModel.GetUsers();
 			Departments = JsonFileModel.GetDepartments();
+
+            // todo ModelがPresenterを知っているのはNGだと思う
+
 			ListFormModel = new Model.ListFormModel(this);
 		}
+
+        // todo  誤 Bigin  正 Begin
 
 		/// <summary>
 		/// データの保存を始める
@@ -86,6 +91,10 @@ namespace UserMasterMaintenance.Presenter
 		public void ShowRegisterDialog()
 		{
 			SelectedEditType = EditType.Register;
+
+            // todo View が 他のPresenter を知っているのはNG
+            // 伝達するならModelをやりとりすべき。
+
 			View.EditForm editForm = new View.EditForm(this);
 			editForm.ShowDialog();
 		}
