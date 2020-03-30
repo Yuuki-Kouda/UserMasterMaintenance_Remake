@@ -67,6 +67,7 @@ namespace UserMasterMaintenance.Model
 		private void Register(User inputUser)
 		{
 			Users.Add(inputUser);
+			Users = new BindingList<User>(Users.OrderBy(x => x.ID).ToList());
 		}
 
 		/// <summary>
