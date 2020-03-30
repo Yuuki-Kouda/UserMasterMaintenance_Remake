@@ -196,15 +196,13 @@ namespace UserMasterMaintenance.Presenter
 			}
 		}
 
-        // todo 提供する側としては、List<T>ではなくIEnumerable<T>のほうが汎用性が高い。評価するかどうかは呼出元が決めるほうが良い。
-
 		/// <summary>
 		/// 部門リストの部門名をリストにして取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<string> GetDepartmentNames()
+		public IEnumerable<string> GetDepartmentNames()
 		{
-			return Departments.Select(x => x.Name).ToList();
+			return Departments.Select(x => x.Name);
 		}
 
 		/// <summary>
