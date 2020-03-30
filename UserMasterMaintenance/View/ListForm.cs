@@ -29,6 +29,8 @@ namespace UserMasterMaintenance.View
 			InitializeComponent();
 
 			ListFormPresenter = new Presenter.ListFormPresenter(this);
+			if (ListFormPresenter.ConfirmExistData())
+				Close();
 		}
 
 		/// <summary>
