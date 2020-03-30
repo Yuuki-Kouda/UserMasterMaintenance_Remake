@@ -26,11 +26,11 @@ namespace UserMasterMaintenance.View
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="listForm"></param>
-		public EditForm(Presenter.ListFormPresenter listFormPresenter)
+		public EditForm(BindingList<Model.User> users, List<Model.Department> departments, Presenter.EditType editType, Model.User selectedUser)
 		{
 			InitializeComponent();
 
-			EditFormPresenter = new Presenter.EditFormPresenter(listFormPresenter); 
+			EditFormPresenter = new Presenter.EditFormPresenter(users, departments, editType, selectedUser); 
 
 			ShowDisplay();
 		}
