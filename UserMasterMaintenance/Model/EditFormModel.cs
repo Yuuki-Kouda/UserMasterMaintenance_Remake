@@ -97,10 +97,10 @@ namespace UserMasterMaintenance.Model
 		/// 重複データがあるかどうか
 		/// </summary>
 		/// <returns></returns>
-		private bool HasDupulicationData(Model.User selectedUser)
+		public bool HasDupulicationData(int iD)
 		{
 			//重複すればtrue
-			return Users.Any(x => x.ID == selectedUser.ID);
+			return Users.Any(x => x.ID == iD);
 		}
 	}
 }
