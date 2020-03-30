@@ -73,6 +73,8 @@ namespace UserMasterMaintenance.Presenter
 		{
 			ListForm = listForm;
 			JsonFileModel = new Model.JsonFileEditModel();
+			Users = JsonFileModel.TryGetUsers();
+			Departments = JsonFileModel.TryGetDepartments();
 		}
 
 		/// <summary>
