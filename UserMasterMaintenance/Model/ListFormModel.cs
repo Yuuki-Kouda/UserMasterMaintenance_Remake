@@ -23,11 +23,6 @@ namespace UserMasterMaintenance.Model
 		private BindingList<User> Users { get; set; }
 
 		/// <summary>
-		/// 部門リスト
-		/// </summary>
-		private List<Department> Departments { get; set; }
-
-		/// <summary>
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="listFormPresenter"></param>
@@ -35,7 +30,6 @@ namespace UserMasterMaintenance.Model
 		{
 			ListFormPresenter = listFormPresenter;
 			Users = ListFormPresenter.Users;
-			Departments = ListFormPresenter.Departments;
 		}
 
 		/// <summary>
