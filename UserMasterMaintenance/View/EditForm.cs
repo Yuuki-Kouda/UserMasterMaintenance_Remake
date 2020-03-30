@@ -42,7 +42,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void OKButton_Click(object sender, EventArgs e)
 		{
-			if (EditFormPresenter.ConfirmInputError(GetInputItems()))
+			if (ConfirmInputError())
 				return;
 			
 			if (EditFormPresenter.ConfirmEdit() == DialogResult.Cancel)
