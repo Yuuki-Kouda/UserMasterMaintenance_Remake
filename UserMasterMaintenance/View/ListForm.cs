@@ -50,7 +50,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void CloseButton_Click(object sender, FormClosedEventArgs e)
 		{
-			ListFormPresenter.BiginSaveData();
+			ListFormPresenter.BeginSaveData();
 		}
 
 		/// <summary>
