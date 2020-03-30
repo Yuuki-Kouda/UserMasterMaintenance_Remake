@@ -64,7 +64,7 @@ namespace UserMasterMaintenance.Model
 		/// 登録する
 		/// </summary>
 		/// <param name="inputUser"></param>
-		private void Register(Model.User inputUser)
+		private void Register(User inputUser)
 		{
 			Users.Add(inputUser);
 		}
@@ -73,10 +73,9 @@ namespace UserMasterMaintenance.Model
 		/// 更新する
 		/// </summary>
 		/// <param name="inputUser"></param>
-		private void Update(Model.User inputUser)
+		private void Update(User inputUser)
 		{
 			var user = Users.First(x => x.ID == inputUser.ID);
-
 			user.Name = inputUser.Name;
 			user.Age = inputUser.Age;
 			user.Gender = inputUser.Gender;
@@ -87,7 +86,7 @@ namespace UserMasterMaintenance.Model
 		/// 削除する
 		/// </summary>
 		/// <param name="inputUser"></param>
-		private void Delete(Model.User inputUser)
+		private void Delete(User inputUser)
 		{
 			var user = Users.First(x => x.ID == inputUser.ID);
 			Users.Remove(user);
