@@ -87,6 +87,8 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void SetDisplayItems()
 		{
+			this.Text = EditFormPresenter.GetEditName();
+
 			DepartmentCombBox.DataSource = EditFormPresenter.GetDepartmentNames().ToList();
 
 			if (EditFormPresenter.EditType == Presenter.EditType.Register)

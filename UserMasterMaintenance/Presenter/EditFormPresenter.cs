@@ -198,6 +198,28 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
+		/// 編集名を取得する
+		/// </summary>
+		/// <returns></returns>
+		public string GetEditName()
+		{
+			switch (EditType)
+			{
+				case EditType.Register:
+					return RegiterText;
+
+				case EditType.Update:
+					return UpdateText;
+
+				case EditType.Delete:
+					return DeleteText;
+
+				default:
+					return null;
+			}
+		}
+
+		/// <summary>
 		/// 部門リストの部門名をリストにして取得する
 		/// </summary>
 		/// <returns></returns>
