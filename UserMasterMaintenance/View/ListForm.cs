@@ -29,8 +29,11 @@ namespace UserMasterMaintenance.View
 			InitializeComponent();
 
 			ListFormPresenter = new Presenter.ListFormPresenter(this);
-			if (ListFormPresenter.ConfirmExistData())
-				Close();
+			if (ListFormPresenter.ConfirmGetData())
+			{
+				DisableEditButton();
+				ShowDisplay();
+			}
 		}
 
 		/// <summary>
