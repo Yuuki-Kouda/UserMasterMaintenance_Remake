@@ -98,6 +98,16 @@ namespace UserMasterMaintenance.View
 		}
 
 		/// <summary>
+		/// 各編集ボタンを無効にする
+		/// </summary>
+		private void DisableEditButton()
+		{
+			RegisterButton.Enabled = false;
+			UpdateButton.Enabled = false;
+			DeleteButton.Enabled = false;
+		}
+
+		/// <summary>
 		/// 選択した行を取得する
 		/// </summary>
 		/// <returns></returns>
