@@ -108,7 +108,7 @@ namespace UserMasterMaintenance.Presenter
 			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
 
-			//編集したユーザー情報をIDの昇順にに並べバインドリストに
+			//編集したユーザー情報をIDの昇順に並べバインドリストに
 			UsersForBind = new BindingList<Model.User>(Users.OrderBy(x => x.ID).ToList());
 		}
 
