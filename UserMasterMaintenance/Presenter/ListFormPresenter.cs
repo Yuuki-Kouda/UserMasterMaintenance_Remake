@@ -120,13 +120,8 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		public void BeginSaveData()
 		{
-			if (!JsonFileModel.TrySaveUsers(Users))
-				ShowErrorDialog(ErrorType.UsersCanNotSaveToFile);
-
-            // todo : 所属のほうでエラーが起きたら、中途半端なデータが登録される
-
-			if (!JsonFileModel.TrySaveDepartments(Departments))
-				ShowErrorDialog(ErrorType.DepartmentsCanNotSaveToFile);
+			if (!JsonFileModel.TrySaveData(Users, Departments))
+				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
 		}
 
 		/// <summary>
