@@ -77,37 +77,32 @@ namespace UserMasterMaintenance.Presenter
 			JsonFileModel = new Model.JsonFileEditModel();
 		}
 
-        // todo : 下記３つはまとめられる
-
 		/// <summary>
-		/// 登録ダイアログを表示する
+		/// 編集ダイアログを表示する
 		/// </summary>
-		public void ShowRegisterDialog()
+		/// <param name="editType"></param>
+		public void ShowEditDialog(EditType editType)
 		{
-			SelectedEditType = EditType.Register;
+			switch (editType)
+			{
+				case EditType.Register:
+					SelectedEditType = EditType.Register;
 
-			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
-			editForm.ShowDialog();
-		}
+					break;
 
-		/// <summary>
-		/// 更新ダイアログを表示する
-		/// </summary>
-		public void ShowUpdateDialog()
-		{
-			SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
-			SelectedEditType = EditType.Update;
-			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
-			editForm.ShowDialog();
-		}
+				case EditType.Update:
+					SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
+					SelectedEditType = EditType.Update;
 
-		/// <summary>
-		/// 削除ダイアログを表示する
-		/// </summary>
-		public void ShowDeleteDialog()
-		{
-			SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
-			SelectedEditType = EditType.Delete;
+					break;
+
+				case EditType.Delete:
+					SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
+					SelectedEditType = EditType.Delete;
+
+					break;
+			}
+
 			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
 		}

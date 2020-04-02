@@ -63,7 +63,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void RegisterButton_Click(object sender, EventArgs e)
 		{
-			ListFormPresenter.ShowRegisterDialog();
+			ListFormPresenter.ShowEditDialog(Presenter.EditType.Register);
 		}
 
 		/// <summary>
@@ -76,7 +76,7 @@ namespace UserMasterMaintenance.View
 			if (ListFormPresenter.ConfirmCheckBoxError())
 				return;
 
-			ListFormPresenter.ShowUpdateDialog();
+			ListFormPresenter.ShowEditDialog(Presenter.EditType.Update);
 		}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace UserMasterMaintenance.View
 			if (ListFormPresenter.ConfirmCheckBoxError())
 				return;
 
-			ListFormPresenter.ShowDeleteDialog();
+			ListFormPresenter.ShowEditDialog(Presenter.EditType.Delete);
 		}
 
 		/// <summary>
