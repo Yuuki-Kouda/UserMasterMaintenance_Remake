@@ -94,7 +94,6 @@ namespace UserMasterMaintenance.Model
 			return true;
 		}
 
-		// todo : パス渡せばTryGetUsersJsonTextと一緒
 		/// <summary>
 		/// jsonテキストを取得する
 		/// </summary>
