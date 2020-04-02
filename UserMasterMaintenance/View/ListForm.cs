@@ -118,5 +118,14 @@ namespace UserMasterMaintenance.View
 		{
 			return UsersDataGridView.Rows.Cast<DataGridViewRow>().Where(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue).ToList();
 		}
+
+		/// <summary>
+		/// 1つだけ選択した行を取得する
+		/// </summary>
+		/// <returns></returns>
+		public DataGridViewRow GetSelectedRow()
+		{
+			return UsersDataGridView.Rows.Cast<DataGridViewRow>().First(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue);
+		}
 	}
 }

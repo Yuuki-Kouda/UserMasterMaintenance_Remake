@@ -91,13 +91,13 @@ namespace UserMasterMaintenance.Presenter
 					break;
 
 				case EditType.Update:
-					SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
+					SelectedUser = GetSelctedUser(ListForm.GetSelectedRow());
 					SelectedEditType = EditType.Update;
 
 					break;
 
 				case EditType.Delete:
-					SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
+					SelectedUser = GetSelctedUser(ListForm.GetSelectedRow());
 					SelectedEditType = EditType.Delete;
 
 					break;
@@ -172,16 +172,14 @@ namespace UserMasterMaintenance.Presenter
 			return ErrorType.None;
 		}
 
-        // todo : 引数の名前が悪い。選択行ならそれを示すべき
-
 		/// <summary>
 		/// 選択されたユーザーを取得する
 		/// </summary>
 		/// <param name="row"></param>
 		/// <returns></returns>
-		private Model.User GetSelctedUser(List<DataGridViewRow> dataGridViewRows)
+		private Model.User GetSelctedUser(DataGridViewRow selectedRow)
 		{
-			var selectedUser = Users.First(x => x.ID == (int)dataGridViewRows.First().Cells[IDCellNumber].Value);
+			var selectedUser = Users.First(x => x.ID == (int)selectedRow.Cells[IDCellNumber].Value);
 			return selectedUser;
 		}
 
