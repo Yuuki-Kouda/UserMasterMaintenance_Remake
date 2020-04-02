@@ -3,21 +3,42 @@
     "Id": 1,
     "Name": "幸田",
     "Age": 24,
-    "Gender": "男性",
+    "Gender": "男",
     "Department": "開発部"
   },
   {
     "Id": 2,
     "Name": "富樫",
     "Age": 25,
-    "Gender": "男性",
+    "Gender": "男",
     "Department": "営業部"
   },
   {
     "Id": 3,
     "Name": "渡辺",
     "Age": 26,
-    "Gender": "男性",
+    "Gender": "男",
+    "Department": "営業部"
+  },
+  {
+    "Id": 4,
+    "Name": "hf",
+    "Age": 85,
+    "Gender": "男",
+    "Department": "開発部"
+  },
+  {
+    "Id": 8,
+    "Name": "sfhdfh",
+    "Age": 554,
+    "Gender": "男",
+    "Department": "開発部"
+  },
+  {
+    "Id": 9,
+    "Name": "簗田",
+    "Age": 28,
+    "Gender": "女",
     "Department": "営業部"
   }
 ]
