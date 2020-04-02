@@ -30,7 +30,7 @@ namespace UserMasterMaintenance.Model
 		/// <returns></returns>
 		public BindingList<User> GetUsers()
 		{
-			var usersJsonText = TryGetUsersJsonText();
+			var usersJsonText = TryGetJsonText(UsersJsonFilePath);
 			if (usersJsonText == null)
 				return null;
 
@@ -43,7 +43,7 @@ namespace UserMasterMaintenance.Model
 		/// <returns></returns>
 		public List<Department> GetDepartments()
 		{
-			var departmentsJsonText = TryGetDepartmentsJsonText();
+			var departmentsJsonText = TryGetJsonText(DepartmentsJsonFilePath);
 			if (departmentsJsonText == null)
 				return null;
 
@@ -94,15 +94,17 @@ namespace UserMasterMaintenance.Model
 			return true;
 		}
 
+		// todo : パス渡せばTryGetUsersJsonTextと一緒
 		/// <summary>
-		/// ユーザーのjsonテキストを取得する
+		/// jsonテキストを取得する
 		/// </summary>
+		/// <param name="filePath"></param>
 		/// <returns></returns>
-		private string TryGetUsersJsonText()
+		private string TryGetJsonText(string filePath)
 		{
 			try
 			{
-				using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
+				using (StreamReader stream = new StreamReader(filePath, Encoding.GetEncoding("shift_jis")))
 				{
 					var jsonFileText = stream.ReadToEnd();
 					return jsonFileText;
@@ -111,24 +113,6 @@ namespace UserMasterMaintenance.Model
 			catch
 			{
 				return null;
-			}
-		}
-
-        // todo : パス渡せばTryGetUsersJsonTextと一緒
-
-        /// <summary>
-        /// 部門のjsonテキストを取得する
-        /// </summary>
-        /// <returns></returns>
-        private string TryGetDepartmentsJsonText()
-		{
-			if (!File.Exists(DepartmentsJsonFilePath))
-				return null;
-
-			using (StreamReader stream = new StreamReader(DepartmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
-			{
-				var jsonFileText = stream.ReadToEnd();
-				return jsonFileText;
 			}
 		}
 
