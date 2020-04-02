@@ -90,7 +90,7 @@ namespace UserMasterMaintenance.Presenter
 			Users = users ;
 			Departments = departments;
 			EditType = editType;
-			EditFormModel = new Model.EditFormModel(this);
+			EditFormModel = new Model.EditFormModel(EditType, Users);
 
 			if (EditType == EditType.Register)
 				return;
