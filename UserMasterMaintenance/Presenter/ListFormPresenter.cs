@@ -189,43 +189,36 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// チェックボックスエラーダイアログを表示する
+		/// エラーダイアログを表示する
 		/// </summary>
-		private void ShowCheckBoxErrorDialog()
+		/// <param name="errorType"></param>
+		public void ShowErrorDialog(ErrorType errorType)
 		{
-			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
+			switch (errorType)
+			{
+				case ErrorType.CheckBox:
+					MessageBox.Show(CheckBoxErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					break;
 
-		/// <summary>
-		/// ユーザー情報が存在しないエラーダイアログを表示する
-		/// </summary>
-		private void ShowNotExistUsersDataErrorDialog()
-		{
-			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
+				case ErrorType.UsersFileNotFound:
+					MessageBox.Show(UsersFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					break;
 
-		/// <summary>
-		/// 部門情報が存在しないエラーダイアログを表示する
-		/// </summary>
-		private void ShowNotExistDepartmentsDataErrorDialog()
-		{
-			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
+				case ErrorType.DepartmentsFileNotFound:
+					MessageBox.Show(DepartmentsFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					break;
 
-		/// <summary>
-		/// ユーザー情報が保存できないエラーダイアログを表示する
-		/// </summary>
-		private void ShowCanNotSaveUsersData()
-		{
-			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-		}
+				case ErrorType.UsersCanNotSaveToFile:
+					MessageBox.Show(UsersCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					break;
 
-		/// <summary>
-		/// 部門情報が保存できないエラーダイアログを表示する
-		/// </summary>
-		private void ShowCanNotSaveDepartmentsData()
-		{
-			MessageBox.Show(CheckBoxErrorMessageText, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				case ErrorType.DepartmentsCanNotSaveToFile:
+					MessageBox.Show(DepartmentsCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+					break;
+
+				default:
+					break;
+			}
 		}
 	}
 }
