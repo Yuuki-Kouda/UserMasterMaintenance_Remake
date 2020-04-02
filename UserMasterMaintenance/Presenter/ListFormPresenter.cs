@@ -73,16 +73,6 @@ namespace UserMasterMaintenance.Presenter
 		{
 			ListForm = listForm;
 			JsonFileModel = new Model.JsonFileEditModel();
-			Users = JsonFileModel.TryGetUsers();
-			Departments = JsonFileModel.TryGetDepartments();
-		}
-
-		/// <summary>
-		/// データの保存を始める
-		/// </summary>
-		public void BeginSaveData()
-		{
-			ConfirmSaved();
 		}
 
 		/// <summary>
@@ -119,6 +109,18 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
+		/// データの保存を始める
+		/// </summary>
+		public void BeginSaveData()
+		{
+			if (!JsonFileModel.TrySaveUsers(Users))
+				ShowErrorDialog(ErrorType.UsersCanNotSaveToFile);
+
+			if (!JsonFileModel.TrySaveDepartments(Departments))
+				ShowErrorDialog(ErrorType.DepartmentsCanNotSaveToFile);
+		}
+
+		/// <summary>
 		/// データが存在するか確認する
 		/// </summary>
 		/// <returns></returns>
@@ -138,17 +140,6 @@ namespace UserMasterMaintenance.Presenter
 
 			return false;
 		}
-
-		/// <summary>
-		/// セーブできたか確認する
-		/// </summary>
-		public void ConfirmSaved()
-		{
-			if (JsonFileModel.TrySaveUsers(Users) == ErrorType.SaveFailure)
-				ShowCanNotSaveUsersData();
-
-			if (JsonFileModel.TrySaveDepartments(Departments) == ErrorType.SaveFailure)
-				ShowCanNotSaveDepartmentsData();
 		}
 
 		/// <summary>
