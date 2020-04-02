@@ -14,8 +14,7 @@ namespace UserMasterMaintenance.Presenter
 		CheckBox,
 		UsersFileNotFound,
 		DepartmentsFileNotFound,
-		UsersCanNotSaveToFile,
-		DepartmentsCanNotSaveToFile,
+		DataCanNotSaveToFile,
 		NotInput,
 		NotNumber,
 		DataDuplication,
@@ -31,9 +30,7 @@ namespace UserMasterMaintenance.Presenter
 
 		private readonly string DepartmentsFileNotFoundErrorMessage = "部門情報を記録したファイルが存在しません";
 
-		private readonly string UsersCanNotSaveToFileErrorMessage = "ユーザー情報が保存できませんでした";
-
-		private readonly string DepartmentsCanNotSaveToFileErrorMessage = "部門情報が保存できませんでした";
+		private readonly string DataCanNotSaveToFileErrorMessage = "保存できませんでした";
 
 		private readonly int IDCellNumber = 1;
 
@@ -207,12 +204,8 @@ namespace UserMasterMaintenance.Presenter
 					MessageBox.Show(DepartmentsFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
-				case ErrorType.UsersCanNotSaveToFile:
-					MessageBox.Show(UsersCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					break;
-
-				case ErrorType.DepartmentsCanNotSaveToFile:
-					MessageBox.Show(DepartmentsCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				case ErrorType.DataCanNotSaveToFile:
+					MessageBox.Show(DataCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
 				default:
