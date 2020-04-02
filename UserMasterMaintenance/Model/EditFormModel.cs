@@ -10,13 +10,7 @@ namespace UserMasterMaintenance.Model
 {
 	class EditFormModel
 	{
-        // todo : ModelがPresenterを知るのはおかしい
         // todo : Edit Form の Model？それはモデルじゃない。
-
-		/// <summary>
-		/// EditFormPresenter
-		/// </summary>
-		private Presenter.EditFormPresenter EditFormPresenter { get; set; }
 
         // todo : モデルがBindingListを提供するのは違和感がある。Viewを意識しちゃってる。
 
@@ -34,11 +28,10 @@ namespace UserMasterMaintenance.Model
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="editType"></param>
-		public EditFormModel(Presenter.EditFormPresenter editFormPresenter)
+		public EditFormModel(Presenter.EditType editType, List<User> users)
 		{
-			EditFormPresenter = editFormPresenter;
-			EditType = editFormPresenter.EditType;
-			Users = EditFormPresenter.Users;
+			EditType = editType;
+			Users = users;
 		}
 
 		/// <summary>
