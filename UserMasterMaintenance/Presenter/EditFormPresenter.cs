@@ -28,6 +28,12 @@ namespace UserMasterMaintenance.Presenter
 
 	class EditFormPresenter
 	{
+		public readonly string RegiterText = "登録";
+
+		public readonly string UpdateText = "更新";
+
+		public readonly string DeleteText = "削除";
+
 		public readonly string ConfirmationText = "確認";
 
 		public readonly string ErrorText = "エラー";
