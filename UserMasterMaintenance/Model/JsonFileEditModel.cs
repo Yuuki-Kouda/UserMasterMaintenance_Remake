@@ -7,6 +7,7 @@ using System.Runtime.Serialization.Json;
 using System.IO;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace UserMasterMaintenance.Model
 {
@@ -22,75 +23,90 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
+
 		/// <summary>
 		/// ユーザーリストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public BindingList<Model.User> GetUsers()
+		public BindingList<User> GetUsers()
 		{
-			return Deserialize<BindingList<Model.User>>(GetUsersJsonTextFromJsonFile());
+			var usersJsonText = TryGetUsersJsonText();
+			if (usersJsonText == null)
+				return null;
+
+			return Deserialize<BindingList<User>>(usersJsonText);
 		}
 
 		/// <summary>
 		/// 部門リストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<Model.Department> GetDepartments()
+		public List<Department> GetDepartments()
 		{
-			return Deserialize<List<Model.Department>>(GetDepartmentsJsonTextFromJsonFile());
+			var departmentsJsonText = TryGetDepartmentsJsonText();
+			if (departmentsJsonText == null)
+				return null;
+
+			return Deserialize<List<Department>>(departmentsJsonText);
 		}
-
-        // todo Json形式のファイルを扱うクラスなのに InJsonFile は冗長じゃない？
-
-        // todo 書き込めなかったら死なない？
-
-        // todo BindingListを引数に取るのは汎用性が低いからやめたほうがよい。Collection<T>でいいんじゃない？
 
 		/// <summary>
 		/// ユーザー情報を保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public void SaveUsersInJsonFile(BindingList<Model.User> users)
+		public bool TrySaveUsers(Collection<User> users)
 		{
 			var jsontext = Selialize(users);
-			using (StreamWriter stream = new StreamWriter(UsersJsonFilePath, false, Encoding.UTF8))
+			try
 			{
-				stream.Write(jsontext);
+				using (StreamWriter stream = new StreamWriter(UsersJsonFilePath, false, Encoding.UTF8))
+				{
+					stream.Write(jsontext);
+				}
 			}
+			catch
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		/// <summary>
 		/// 部門情報を保存する
 		/// </summary>
 		/// <param name="departments"></param>
-		public void SaveDepartmentsInJsonFile(List<Model.Department> departments)
+		public bool TrySaveDepartments(List<Department> departments)
 		{
 			var jsontext = Selialize(departments);
-			using (StreamWriter stream = new StreamWriter(DepartmentsJsonFilePath, false, Encoding.UTF8))
+			try
 			{
-				stream.Write(jsontext);
+				using (StreamWriter stream = new StreamWriter(DepartmentsJsonFilePath, false, Encoding.UTF8))
+				{
+					stream.Write(jsontext);
+				}
 			}
-		}
+			catch
+			{
+				return false;
+			}
 
-        // todo ファイルが見つからなかったら結局死ぬんじゃない？
+			return true;
+		}
 
 		/// <summary>
 		/// ユーザーのjsonテキストを取得する
 		/// </summary>
 		/// <returns></returns>
-		private string GetUsersJsonTextFromJsonFile()
+		private string TryGetUsersJsonText()
 		{
-			try
+			if (!File.Exists(UsersJsonFilePath))
+				return null;
+
+			using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
 			{
-				using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
-				{
-					var jsonFileText = stream.ReadToEnd();
-					return jsonFileText;
-				}
-			}
-			catch (FileNotFoundException)
-			{
-				throw;
+				var jsonFileText = stream.ReadToEnd();
+				return jsonFileText;
 			}
 		}
 
@@ -98,19 +114,15 @@ namespace UserMasterMaintenance.Model
 		/// 部門のjsonテキストを取得する
 		/// </summary>
 		/// <returns></returns>
-		private string GetDepartmentsJsonTextFromJsonFile()
+		private string TryGetDepartmentsJsonText()
 		{
-			try
+			if (!File.Exists(DepartmentsJsonFilePath))
+				return null;
+
+			using (StreamReader stream = new StreamReader(DepartmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
 			{
-				using (StreamReader stream = new StreamReader(DepartmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
-				{
-					var jsonFileText = stream.ReadToEnd();
-					return jsonFileText;
-				}
-			}
-			catch (FileNotFoundException)
-			{
-				throw;
+				var jsonFileText = stream.ReadToEnd();
+				return jsonFileText;
 			}
 		}
 

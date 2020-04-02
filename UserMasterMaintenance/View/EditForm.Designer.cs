@@ -122,18 +122,16 @@
 			this.IdTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.IdTextBox.Location = new System.Drawing.Point(88, 55);
 			this.IdTextBox.MaxLength = 4;
-			this.IdTextBox.Multiline = true;
 			this.IdTextBox.Name = "IdTextBox";
-			this.IdTextBox.Size = new System.Drawing.Size(63, 23);
+			this.IdTextBox.Size = new System.Drawing.Size(63, 21);
 			this.IdTextBox.TabIndex = 7;
 			// 
 			// NameTextBox
 			// 
 			this.NameTextBox.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.NameTextBox.Location = new System.Drawing.Point(88, 114);
-			this.NameTextBox.Multiline = true;
 			this.NameTextBox.Name = "NameTextBox";
-			this.NameTextBox.Size = new System.Drawing.Size(258, 23);
+			this.NameTextBox.Size = new System.Drawing.Size(258, 21);
 			this.NameTextBox.TabIndex = 8;
 			// 
 			// AgeTextBox
@@ -142,9 +140,8 @@
 			this.AgeTextBox.ImeMode = System.Windows.Forms.ImeMode.Disable;
 			this.AgeTextBox.Location = new System.Drawing.Point(88, 180);
 			this.AgeTextBox.MaxLength = 3;
-			this.AgeTextBox.Multiline = true;
 			this.AgeTextBox.Name = "AgeTextBox";
-			this.AgeTextBox.Size = new System.Drawing.Size(63, 23);
+			this.AgeTextBox.Size = new System.Drawing.Size(63, 21);
 			this.AgeTextBox.TabIndex = 9;
 			// 
 			// MenRadioButton
@@ -173,6 +170,7 @@
 			// 
 			// DepartmentCombBox
 			// 
+			this.DepartmentCombBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.DepartmentCombBox.Font = new System.Drawing.Font("MS UI Gothic", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
 			this.DepartmentCombBox.FormattingEnabled = true;
 			this.DepartmentCombBox.Location = new System.Drawing.Point(88, 323);

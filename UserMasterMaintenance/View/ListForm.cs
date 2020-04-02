@@ -29,6 +29,11 @@ namespace UserMasterMaintenance.View
 			InitializeComponent();
 
 			ListFormPresenter = new Presenter.ListFormPresenter(this);
+			if (ListFormPresenter.ConfirmGetData())
+			{
+				DisableEditButton();
+				ShowDisplay();
+			}
 		}
 
 		/// <summary>
@@ -48,7 +53,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void CloseButton_Click(object sender, FormClosedEventArgs e)
 		{
-			ListFormPresenter.BiginSaveData();
+			ListFormPresenter.BeginSaveData();
 		}
 
 		/// <summary>
@@ -93,6 +98,16 @@ namespace UserMasterMaintenance.View
 		private void ShowDisplay()
 		{
 			UsersDataGridView.DataSource = ListFormPresenter.Users;
+		}
+
+		/// <summary>
+		/// 各編集ボタンを無効にする
+		/// </summary>
+		private void DisableEditButton()
+		{
+			RegisterButton.Enabled = false;
+			UpdateButton.Enabled = false;
+			DeleteButton.Enabled = false;
 		}
 
 		/// <summary>

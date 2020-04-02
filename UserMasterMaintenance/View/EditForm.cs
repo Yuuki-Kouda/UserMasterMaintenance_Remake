@@ -13,9 +13,9 @@ namespace UserMasterMaintenance.View
 {
 	public partial class EditForm : Form
 	{
-		public readonly string MenText = "男性";
+		public readonly string MenText = "男";
 
-		public readonly string WomenText = "女性";
+		public readonly string WomenText = "女";
 
 		/// <summary>
 		/// EditFormPresenter
@@ -26,11 +26,11 @@ namespace UserMasterMaintenance.View
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="listForm"></param>
-		public EditForm(Presenter.ListFormPresenter listFormPresenter)
+		public EditForm(BindingList<Model.User> users, List<Model.Department> departments, Presenter.EditType editType, Model.User selectedUser)
 		{
 			InitializeComponent();
 
-			EditFormPresenter = new Presenter.EditFormPresenter(listFormPresenter); 
+			EditFormPresenter = new Presenter.EditFormPresenter(users, departments, editType, selectedUser); 
 
 			ShowDisplay();
 		}
@@ -42,7 +42,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void OKButton_Click(object sender, EventArgs e)
 		{
-			if (EditFormPresenter.ConfirmInputError(GetInputItems()))
+			if (ConfirmInputError())
 				return;
 			
 			if (EditFormPresenter.ConfirmEdit() == DialogResult.Cancel)
@@ -87,7 +87,9 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void SetDisplayItems()
 		{
-			DepartmentCombBox.DataSource = EditFormPresenter.GetDepartmentNames();
+			this.Text = EditFormPresenter.GetEditName();
+
+			DepartmentCombBox.DataSource = EditFormPresenter.GetDepartmentNames().ToList();
 
 			if (EditFormPresenter.EditType == Presenter.EditType.Register)
 				return;
@@ -130,6 +132,34 @@ namespace UserMasterMaintenance.View
 				{Presenter.EditItems.Department, DepartmentCombBox.Text}
 			};
 			return inputItems;
+		}
+
+		/// <summary>
+		/// 入力エラーを確認する
+		/// </summary>
+		/// <returns></returns>
+		private bool ConfirmInputError()
+		{
+			if (EditFormPresenter.ValidateNotInput(IdTextBox.Text))
+				return true;
+			if (EditFormPresenter.ValidateNotNumber(IdTextBox.Text))
+				return true;
+
+			if (EditFormPresenter.ValidateNotInput(NameTextBox.Text))
+				return true;
+
+			if (EditFormPresenter.ValidateNotInput(AgeTextBox.Text))
+				return true;
+			if (EditFormPresenter.ValidateNotNumber(AgeTextBox.Text))
+				return true;
+
+			if(EditFormPresenter.EditType == Presenter.EditType.Register)
+			{
+				if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
+					return true;
+			}
+
+			return false;
 		}
 
 		/// <summary>

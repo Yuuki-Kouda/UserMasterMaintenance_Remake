@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,6 +28,12 @@ namespace UserMasterMaintenance.Presenter
 
 	class EditFormPresenter
 	{
+		public readonly string RegiterText = "登録";
+
+		public readonly string UpdateText = "更新";
+
+		public readonly string DeleteText = "削除";
+
 		public readonly string ConfirmationText = "確認";
 
 		public readonly string ErrorText = "エラー";
@@ -78,18 +85,18 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="editForm"></param>
 		/// <param name="listFormPresenter"></param>
-		public EditFormPresenter(ListFormPresenter listFormPresenter)
+		public EditFormPresenter(BindingList<Model.User> users, List<Model.Department> departments, EditType editType, Model.User selectedUser)
 		{
-			Users = listFormPresenter.Users ;
-			Departments = listFormPresenter.Departments;
-			EditType = listFormPresenter.SelectedEditType;
+			Users = users ;
+			Departments = departments;
+			EditType = editType;
 			EditFormModel = new Model.EditFormModel(this);
 
 			if (EditType == EditType.Register)
 				return;
 
 			//更新・削除の場合は選択したユーザーを設定する
-			SelectedUser = listFormPresenter.SelectedUser;
+			SelectedUser = selectedUser;
 		}
 
 		/// <summary>
@@ -103,17 +110,45 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// 入力エラーを確認する
+		/// 未入力エラーチェック
 		/// </summary>
-		/// <param name="inputItems"></param>
+		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ConfirmInputError(Dictionary<EditItems, string> inputItems)
+		public bool ValidateNotInput(string text)
 		{
-			var errorType = EditFormModel.HasInputError(inputItems);
-			if (errorType == ErrorType.None)
+			if (!string.IsNullOrWhiteSpace(text))
 				return false;
 
-			ShowErrorDialog(errorType);
+			ShowErrorDialog(ErrorType.NotInput);
+			return true;
+		}
+
+		/// <summary>
+		/// 数値エラーチェック
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		public bool ValidateNotNumber(string text)
+		{
+			if (new Regex("^[0-9]+$").IsMatch(text))
+				return false;
+
+			ShowErrorDialog(ErrorType.NotNumber);
+			return true;
+		}
+
+		/// <summary>
+		/// 重複エラーチェック
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		public bool ValidateDupulicationData(string text)
+		{
+			var iD = int.Parse(text);
+			if (!EditFormModel.HasDupulicationData(iD))
+				return false;
+
+			ShowErrorDialog(ErrorType.DataDuplication);
 			return true;
 		}
 
@@ -125,15 +160,15 @@ namespace UserMasterMaintenance.Presenter
 			var editconfirmationMessage = string.Empty;
 			switch (EditType)
 			{
-				case Presenter.EditType.Register:
+				case EditType.Register:
 					editconfirmationMessage = RegisterConfirmationMessage;
 					break;
 
-				case Presenter.EditType.Update:
+				case EditType.Update:
 					editconfirmationMessage = UpdateConfirmationMessage; ;
 					break;
 
-				case Presenter.EditType.Delete:
+				case EditType.Delete:
 					editconfirmationMessage = DeleteConfirmationMessage;
 					break;
 
@@ -168,15 +203,35 @@ namespace UserMasterMaintenance.Presenter
 			}
 		}
 
-        // todo 提供する側としては、List<T>ではなくIEnumerable<T>のほうが汎用性が高い。評価するかどうかは呼出元が決めるほうが良い。
+		/// <summary>
+		/// 編集名を取得する
+		/// </summary>
+		/// <returns></returns>
+		public string GetEditName()
+		{
+			switch (EditType)
+			{
+				case EditType.Register:
+					return RegiterText;
+
+				case EditType.Update:
+					return UpdateText;
+
+				case EditType.Delete:
+					return DeleteText;
+
+				default:
+					return null;
+			}
+		}
 
 		/// <summary>
 		/// 部門リストの部門名をリストにして取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<string> GetDepartmentNames()
+		public IEnumerable<string> GetDepartmentNames()
 		{
-			return Departments.Select(x => x.Name).ToList();
+			return Departments.Select(x => x.Name);
 		}
 
 		/// <summary>
@@ -185,11 +240,11 @@ namespace UserMasterMaintenance.Presenter
 		public Model.User GetConvertedInputUser(Dictionary<EditItems, string> inputItems)
 		{
 			var inputUser = new Model.User();
-			inputUser.ID = int.Parse(inputItems[Presenter.EditItems.ID]);
-			inputUser.Name = inputItems[Presenter.EditItems.Name];
-			inputUser.Age = int.Parse(inputItems[Presenter.EditItems.Age]);
-			inputUser.Gender = inputItems[Presenter.EditItems.Gender];
-			inputUser.Department = inputItems[Presenter.EditItems.Department];
+			inputUser.ID = int.Parse(inputItems[EditItems.ID]);
+			inputUser.Name = inputItems[EditItems.Name];
+			inputUser.Age = int.Parse(inputItems[EditItems.Age]);
+			inputUser.Gender = inputItems[EditItems.Gender];
+			inputUser.Department = inputItems[EditItems.Department];
 			return inputUser;
 		}
 	}
