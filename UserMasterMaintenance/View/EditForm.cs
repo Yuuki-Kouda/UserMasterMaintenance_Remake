@@ -13,9 +13,9 @@ namespace UserMasterMaintenance.View
 {
 	public partial class EditForm : Form
 	{
-		public readonly string MenText = "男性";
+		public readonly string MenText = "男";
 
-		public readonly string WomenText = "女性";
+		public readonly string WomenText = "女";
 
 		/// <summary>
 		/// EditFormPresenter
