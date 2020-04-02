@@ -47,13 +47,14 @@ namespace UserMasterMaintenance.Model
 			if (departmentsJsonText == null)
 				return null;
 
-        // todo 書き込めなかったら死なない？
+			return Deserialize<List<Department>>(departmentsJsonText);
+		}
 
 		/// <summary>
 		/// ユーザー情報を保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public Presenter.ErrorType TrySaveUsers(Collection<User> users)
+		public bool TrySaveUsers(Collection<User> users)
 		{
 			var jsontext = Selialize(users);
 			try
@@ -65,17 +66,17 @@ namespace UserMasterMaintenance.Model
 			}
 			catch
 			{
-				return Presenter.ErrorType.SaveFailure;
+				return false;
 			}
 
-			return Presenter.ErrorType.None;
+			return true;
 		}
 
 		/// <summary>
 		/// 部門情報を保存する
 		/// </summary>
 		/// <param name="departments"></param>
-		public Presenter.ErrorType TrySaveDepartments(List<Department> departments)
+		public bool TrySaveDepartments(List<Department> departments)
 		{
 			var jsontext = Selialize(departments);
 			try
@@ -87,10 +88,10 @@ namespace UserMasterMaintenance.Model
 			}
 			catch
 			{
-				return Presenter.ErrorType.SaveFailure;
+				return false;
 			}
 
-			return Presenter.ErrorType.None;
+			return true;
 		}
 
 		/// <summary>
