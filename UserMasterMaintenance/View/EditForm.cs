@@ -153,8 +153,11 @@ namespace UserMasterMaintenance.View
 			if (EditFormPresenter.ValidateNotNumber(AgeTextBox.Text))
 				return true;
 
-			if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
-				return true;
+			if(EditFormPresenter.EditType == Presenter.EditType.Register)
+			{
+				if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
+					return true;
+			}
 
 			return false;
 		}
