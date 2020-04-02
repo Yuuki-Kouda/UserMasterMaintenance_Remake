@@ -116,7 +116,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <returns></returns>
 		public bool ValidateNotInput(string text)
 		{
-			if (!string.IsNullOrEmpty(text))
+			if (!string.IsNullOrWhiteSpace(text))
 				return false;
 
 			ShowErrorDialog(ErrorType.NotInput);
