@@ -28,13 +28,13 @@ namespace UserMasterMaintenance.Model
 		/// ユーザーリストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public BindingList<User> GetUsers()
+		public List<User> GetUsers()
 		{
 			var usersJsonText = TryGetJsonText(UsersJsonFilePath);
 			if (usersJsonText == null)
 				return null;
 
-			return Deserialize<BindingList<User>>(usersJsonText);
+			return Deserialize<List<User>>(usersJsonText);
 		}
 
 		/// <summary>
@@ -54,7 +54,7 @@ namespace UserMasterMaintenance.Model
 		/// ユーザー情報を保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public bool TrySaveUsers(Collection<User> users)
+		public bool TrySaveUsers(List<User> users)
 		{
 			var jsontext = Selialize(users);
 			try

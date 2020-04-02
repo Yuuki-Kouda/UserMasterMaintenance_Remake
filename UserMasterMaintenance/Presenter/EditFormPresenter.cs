@@ -58,7 +58,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		public BindingList<Model.User> Users { get; set; }
+		public List<Model.User> Users { get; set; }
 
 		/// <summary>
 		/// 部門リスト
@@ -85,7 +85,7 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="editForm"></param>
 		/// <param name="listFormPresenter"></param>
-		public EditFormPresenter(BindingList<Model.User> users, List<Model.Department> departments, EditType editType, Model.User selectedUser)
+		public EditFormPresenter(List<Model.User> users, List<Model.Department> departments, EditType editType, Model.User selectedUser)
 		{
 			Users = users ;
 			Departments = departments;

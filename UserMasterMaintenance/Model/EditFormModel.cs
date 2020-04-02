@@ -12,12 +12,10 @@ namespace UserMasterMaintenance.Model
 	{
         // todo : Edit Form の Model？それはモデルじゃない。
 
-        // todo : モデルがBindingListを提供するのは違和感がある。Viewを意識しちゃってる。
-
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		private BindingList<User> Users { get; set; }
+		private List<User> Users { get; set; }
 
 		/// <summary>
 		/// 編集種類
@@ -65,7 +63,6 @@ namespace UserMasterMaintenance.Model
 		private void Register(User inputUser)
 		{
 			Users.Add(inputUser);
-			Users = new BindingList<User>(Users.OrderBy(x => x.ID).ToList());
 		}
 
 		/// <summary>

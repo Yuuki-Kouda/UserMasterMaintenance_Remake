@@ -26,7 +26,7 @@ namespace UserMasterMaintenance.View
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="listForm"></param>
-		public EditForm(BindingList<Model.User> users, List<Model.Department> departments, Presenter.EditType editType, Model.User selectedUser)
+		public EditForm(List<Model.User> users, List<Model.Department> departments, Presenter.EditType editType, Model.User selectedUser)
 		{
 			InitializeComponent();
 

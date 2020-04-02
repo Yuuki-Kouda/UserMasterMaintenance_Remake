@@ -97,7 +97,7 @@ namespace UserMasterMaintenance.View
 		/// </summary>
 		private void ShowDisplay()
 		{
-			UsersDataGridView.DataSource = ListFormPresenter.Users;
+			UsersDataGridView.DataSource = ListFormPresenter.UsersForBind;
 		}
 
 		/// <summary>

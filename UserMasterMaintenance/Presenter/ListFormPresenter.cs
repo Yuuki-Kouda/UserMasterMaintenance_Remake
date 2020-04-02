@@ -48,9 +48,14 @@ namespace UserMasterMaintenance.Presenter
 		private Model.JsonFileEditModel JsonFileModel { get; set; }
 
 		/// <summary>
+		/// バインド用ユーザーリスト
+		/// </summary>
+		public BindingList<Model.User> UsersForBind { get; set; }
+
+		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		public BindingList<Model.User> Users { get; set; }
+		public List<Model.User> Users { get; set; }
 
 		/// <summary>
 		/// 部門リスト
@@ -105,6 +110,9 @@ namespace UserMasterMaintenance.Presenter
 
 			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
+
+			//編集したユーザー情報をIDの昇順にに並べバインドリストに
+			UsersForBind = new BindingList<Model.User>(Users.OrderBy(x => x.ID).ToList());
 		}
 
 		/// <summary>
@@ -135,6 +143,7 @@ namespace UserMasterMaintenance.Presenter
 				ShowErrorDialog(ErrorType.UsersFileNotFound);
 				hasError = true;
 			}
+			UsersForBind = new BindingList<Model.User>(Users);
 
 			Departments = JsonFileModel.GetDepartments();
 			if(Departments == null)
