@@ -23,37 +23,29 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
+
 		/// <summary>
 		/// ユーザーリストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public BindingList<User> TryGetUsers()
+		public BindingList<User> GetUsers()
 		{
-			try
-			{
-				return Deserialize<BindingList<User>>(GetUsersJsonText());
-			}
-			catch (FileNotFoundException)
-			{
+			var usersJsonText = TryGetUsersJsonText();
+			if (usersJsonText == null)
 				return null;
-			}
+
+			return Deserialize<BindingList<User>>(usersJsonText);
 		}
 
 		/// <summary>
 		/// 部門リストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public List<Department> TryGetDepartments()
+		public List<Department> GetDepartments()
 		{
-			try
-			{
-				return Deserialize<List<Department>>(GetDepartmentsJsonText());
-			}
-			catch (FileNotFoundException)
-			{
+			var departmentsJsonText = TryGetDepartmentsJsonText();
+			if (departmentsJsonText == null)
 				return null;
-			}
-		}
 
         // todo 書き込めなかったら死なない？
 
