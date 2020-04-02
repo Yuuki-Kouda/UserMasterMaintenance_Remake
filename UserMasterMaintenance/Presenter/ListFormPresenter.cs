@@ -121,25 +121,28 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// データが存在するか確認する
+		/// データを取得できるか確認する
 		/// </summary>
 		/// <returns></returns>
-		public bool ConfirmExistData()
+		public bool ConfirmGetData()
 		{
-			if (Users == null)
+			var hasError = false;
+
+			Users = JsonFileModel.GetUsers();
+			if(Users == null)
 			{
-				ShowNotExistUsersDataErrorDialog();
-				return true;
+				ShowErrorDialog(ErrorType.UsersFileNotFound);
+				hasError = true;
 			}
 
-			if (Departments == null)
+			Departments = JsonFileModel.GetDepartments();
+			if(Departments == null)
 			{
-				ShowNotExistDepartmentsDataErrorDialog();
-				return true;
+				ShowErrorDialog(ErrorType.DepartmentsFileNotFound);
+				hasError = true;
 			}
 
-			return false;
-		}
+			return hasError;
 		}
 
 		/// <summary>
@@ -151,7 +154,7 @@ namespace UserMasterMaintenance.Presenter
 			if (ValidateCheckBox(ListForm.GetSelectedRows()) == ErrorType.None)
 				return false;
 
-			ShowCheckBoxErrorDialog();
+			ShowErrorDialog(ErrorType.CheckBox);
 			return true;
 		}
 
