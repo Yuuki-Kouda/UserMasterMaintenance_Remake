@@ -105,19 +105,15 @@ namespace UserMasterMaintenance.Model
 		/// ユーザーのjsonテキストを取得する
 		/// </summary>
 		/// <returns></returns>
-		private string GetUsersJsonText()
+		private string TryGetUsersJsonText()
 		{
-			try
+			if (!File.Exists(UsersJsonFilePath))
+				return null;
+
+			using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
 			{
-				using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
-				{
-					var jsonFileText = stream.ReadToEnd();
-					return jsonFileText;
-				}
-			}
-			catch (FileNotFoundException)
-			{
-				throw;
+				var jsonFileText = stream.ReadToEnd();
+				return jsonFileText;
 			}
 		}
 
@@ -125,19 +121,15 @@ namespace UserMasterMaintenance.Model
 		/// 部門のjsonテキストを取得する
 		/// </summary>
 		/// <returns></returns>
-		private string GetDepartmentsJsonText()
+		private string TryGetDepartmentsJsonText()
 		{
-			try
+			if (!File.Exists(DepartmentsJsonFilePath))
+				return null;
+
+			using (StreamReader stream = new StreamReader(DepartmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
 			{
-				using (StreamReader stream = new StreamReader(DepartmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
-				{
-					var jsonFileText = stream.ReadToEnd();
-					return jsonFileText;
-				}
-			}
-			catch (FileNotFoundException)
-			{
-				throw;
+				var jsonFileText = stream.ReadToEnd();
+				return jsonFileText;
 			}
 		}
 
