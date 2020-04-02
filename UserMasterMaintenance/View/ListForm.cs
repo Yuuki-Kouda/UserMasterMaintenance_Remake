@@ -32,7 +32,7 @@ namespace UserMasterMaintenance.View
 			if (ListFormPresenter.ConfirmGetData())
 			{
 				DisableEditButton();
-				ShowDisplay();
+				ShowList();
 			}
 		}
 
@@ -43,7 +43,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void ListForm_Load(object sender, EventArgs e)
 		{
-			ShowDisplay();
+			ShowList();
 		}
 
 		/// <summary>
@@ -64,6 +64,7 @@ namespace UserMasterMaintenance.View
 		private void RegisterButton_Click(object sender, EventArgs e)
 		{
 			ListFormPresenter.ShowEditDialog(Presenter.EditType.Register);
+			ShowList();
 		}
 
 		/// <summary>
@@ -77,6 +78,7 @@ namespace UserMasterMaintenance.View
 				return;
 
 			ListFormPresenter.ShowEditDialog(Presenter.EditType.Update);
+			ShowList();
 		}
 
 		/// <summary>
@@ -90,12 +92,13 @@ namespace UserMasterMaintenance.View
 				return;
 
 			ListFormPresenter.ShowEditDialog(Presenter.EditType.Delete);
+			ShowList();
 		}
 
 		/// <summary>
 		/// 画面を表示する
 		/// </summary>
-		private void ShowDisplay()
+		private void ShowList()
 		{
 			UsersDataGridView.DataSource = ListFormPresenter.UsersForBind;
 		}
