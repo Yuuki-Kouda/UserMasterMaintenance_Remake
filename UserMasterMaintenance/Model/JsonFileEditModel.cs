@@ -100,15 +100,17 @@ namespace UserMasterMaintenance.Model
 		/// <returns></returns>
 		private string TryGetUsersJsonText()
 		{
-            // todo : ファイルの存在チェックから、読込の間にファイルがなくなったら？外部アクセスの場合はチェック＋TryCatchで処置するのが定石。
-
-			if (!File.Exists(UsersJsonFilePath))
-				return null;
-
-			using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
+			try
 			{
-				var jsonFileText = stream.ReadToEnd();
-				return jsonFileText;
+				using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
+				{
+					var jsonFileText = stream.ReadToEnd();
+					return jsonFileText;
+				}
+			}
+			catch
+			{
+				return null;
 			}
 		}
 
