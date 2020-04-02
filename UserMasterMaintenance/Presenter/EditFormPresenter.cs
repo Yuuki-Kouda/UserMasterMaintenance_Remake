@@ -53,7 +53,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <summary>
 		/// EditFormModel
 		/// </summary>
-		private Model.EditFormModel EditFormModel { get; set; }
+		private Model.UsersEditModel EditFormModel { get; set; }
 
 		/// <summary>
 		/// ユーザーリスト
@@ -90,7 +90,7 @@ namespace UserMasterMaintenance.Presenter
 			Users = users ;
 			Departments = departments;
 			EditType = editType;
-			EditFormModel = new Model.EditFormModel(EditType, Users);
+			EditFormModel = new Model.UsersEditModel(EditType, Users);
 
 			if (EditType == EditType.Register)
 				return;

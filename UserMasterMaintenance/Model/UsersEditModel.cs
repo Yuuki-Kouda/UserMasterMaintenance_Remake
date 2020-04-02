@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace UserMasterMaintenance.Model
 {
-	class EditFormModel
+	class UsersEditModel
 	{
-        // todo : Edit Form の Model？それはモデルじゃない。
-
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
@@ -26,7 +24,7 @@ namespace UserMasterMaintenance.Model
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="editType"></param>
-		public EditFormModel(Presenter.EditType editType, List<User> users)
+		public UsersEditModel(Presenter.EditType editType, List<User> users)
 		{
 			EditType = editType;
 			Users = users;
