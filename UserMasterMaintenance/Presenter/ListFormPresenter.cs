@@ -77,6 +77,8 @@ namespace UserMasterMaintenance.Presenter
 			JsonFileModel = new Model.JsonFileEditModel();
 		}
 
+        // todo : 下記３つはまとめられる
+
 		/// <summary>
 		/// 登録ダイアログを表示する
 		/// </summary>
@@ -117,6 +119,8 @@ namespace UserMasterMaintenance.Presenter
 		{
 			if (!JsonFileModel.TrySaveUsers(Users))
 				ShowErrorDialog(ErrorType.UsersCanNotSaveToFile);
+
+            // todo : 所属のほうでエラーが起きたら、中途半端なデータが登録される
 
 			if (!JsonFileModel.TrySaveDepartments(Departments))
 				ShowErrorDialog(ErrorType.DepartmentsCanNotSaveToFile);
@@ -172,6 +176,8 @@ namespace UserMasterMaintenance.Presenter
 
 			return ErrorType.None;
 		}
+
+        // todo : 引数の名前が悪い。選択行ならそれを示すべき
 
 		/// <summary>
 		/// 選択されたユーザーを取得する

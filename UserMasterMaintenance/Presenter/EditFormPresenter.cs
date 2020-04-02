@@ -123,12 +123,14 @@ namespace UserMasterMaintenance.Presenter
 			return true;
 		}
 
-		/// <summary>
-		/// 数値エラーチェック
-		/// </summary>
-		/// <param name="text"></param>
-		/// <returns></returns>
-		public bool ValidateNotNumber(string text)
+        // todo : ValidateNotNumberじゃ「数値でないことを検証する」に見える trueが返却された時は「数値でない」時のように思える
+
+        /// <summary>
+        /// 数値エラーチェック
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public bool ValidateNotNumber(string text)
 		{
 			if (new Regex("^[0-9]+$").IsMatch(text))
 				return false;
@@ -233,6 +235,8 @@ namespace UserMasterMaintenance.Presenter
 		{
 			return Departments.Select(x => x.Name);
 		}
+
+        // todo : Dictionryのインデックスで処置しない
 
 		/// <summary>
 		/// 入力項目を変換して取得する

@@ -10,10 +10,15 @@ namespace UserMasterMaintenance.Model
 {
 	class EditFormModel
 	{
+        // todo : ModelがPresenterを知るのはおかしい
+        // todo : Edit Form の Model？それはモデルじゃない。
+
 		/// <summary>
 		/// EditFormPresenter
 		/// </summary>
 		private Presenter.EditFormPresenter EditFormPresenter { get; set; }
+
+        // todo : モデルがBindingListを提供するのは違和感がある。Viewを意識しちゃってる。
 
 		/// <summary>
 		/// ユーザーリスト

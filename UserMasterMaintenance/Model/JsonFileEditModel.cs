@@ -100,6 +100,8 @@ namespace UserMasterMaintenance.Model
 		/// <returns></returns>
 		private string TryGetUsersJsonText()
 		{
+            // todo : ファイルの存在チェックから、読込の間にファイルがなくなったら？外部アクセスの場合はチェック＋TryCatchで処置するのが定石。
+
 			if (!File.Exists(UsersJsonFilePath))
 				return null;
 
@@ -110,11 +112,13 @@ namespace UserMasterMaintenance.Model
 			}
 		}
 
-		/// <summary>
-		/// 部門のjsonテキストを取得する
-		/// </summary>
-		/// <returns></returns>
-		private string TryGetDepartmentsJsonText()
+        // todo : パス渡せばTryGetUsersJsonTextと一緒
+
+        /// <summary>
+        /// 部門のjsonテキストを取得する
+        /// </summary>
+        /// <returns></returns>
+        private string TryGetDepartmentsJsonText()
 		{
 			if (!File.Exists(DepartmentsJsonFilePath))
 				return null;
