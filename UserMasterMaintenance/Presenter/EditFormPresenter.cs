@@ -236,8 +236,6 @@ namespace UserMasterMaintenance.Presenter
 			return Departments.Select(x => x.Name);
 		}
 
-        // todo : Dictionryのインデックスで処置しない
-
 		/// <summary>
 		/// 入力項目を変換して取得する
 		/// </summary>
