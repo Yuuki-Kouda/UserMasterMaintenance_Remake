@@ -48,7 +48,7 @@ namespace UserMasterMaintenance.View
 			if (EditFormPresenter.ConfirmEdit() == DialogResult.Cancel)
 				return;
 
-			EditFormPresenter.BeginEdit(GetInputItems());
+			EditFormPresenter.EditUser(GetInputItems());
 
 			Close();
 		}
@@ -157,7 +157,7 @@ namespace UserMasterMaintenance.View
 			if(EditFormPresenter.EditType == Presenter.EditType.Register)
 			{
 				//重複データ存在チェック
-				if (!EditFormPresenter.ValidateNotDupulicationDataExists(IdTextBox.Text))
+				if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
 					return true;
 			}
 

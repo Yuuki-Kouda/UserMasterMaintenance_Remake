@@ -51,11 +51,6 @@ namespace UserMasterMaintenance.Presenter
 		public readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
 
 		/// <summary>
-		/// EditFormModel
-		/// </summary>
-		private Model.UsersEditModel EditFormModel { get; set; }
-
-		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
 		public List<Model.User> Users { get; set; }
@@ -69,11 +64,6 @@ namespace UserMasterMaintenance.Presenter
 		/// 選択されたユーザー
 		/// </summary>
 		public Model.User SelectedUser { get; set; }
-
-		/// <summary>
-		/// 入力されたユーザー
-		/// </summary>
-		public Model.User InputUser { get; set; }
 
 		/// <summary>
 		/// 編集タイプ
@@ -90,7 +80,6 @@ namespace UserMasterMaintenance.Presenter
 			Users = users ;
 			Departments = departments;
 			EditType = editType;
-			EditFormModel = new Model.UsersEditModel(EditType, Users);
 
 			if (EditType == EditType.Register)
 				return;
@@ -100,13 +89,58 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// 編集を始める
+		/// ユーザーを編集する
 		/// </summary>
 		/// <param name="inputItems"></param>
-		public void BeginEdit(Dictionary<EditItems, string> inputItems)
+		public void EditUser(Dictionary<EditItems, string> inputItems)
 		{
-			InputUser = GetConvertedInputUser(inputItems);
-			EditFormModel.EditUsers(InputUser);
+			var inputUser = GetConvertedInputUser(inputItems);
+			switch (EditType)
+			{
+				case EditType.Register:
+					Register(inputUser);
+					break;
+
+				case EditType.Update:
+					Update(inputUser);
+					break;
+
+				case EditType.Delete:
+					Delete(inputUser);
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// 登録する
+		/// </summary>
+		/// <param name="inputUser"></param>
+		private void Register(Model.User inputUser)
+		{
+			Users.Add(inputUser);
+		}
+
+		/// <summary>
+		/// 更新する
+		/// </summary>
+		/// <param name="inputUser"></param>
+		private void Update(Model.User inputUser)
+		{
+			var user = Users.First(x => x.ID == inputUser.ID);
+			user.OverrideUser(inputUser);
+		}
+
+		/// <summary>
+		/// 削除する
+		/// </summary>
+		/// <param name="inputUser"></param>
+		private void Delete(Model.User inputUser)
+		{
+			var user = Users.First(x => x.ID == inputUser.ID);
+			Users.Remove(user);
 		}
 
 		/// <summary>
@@ -137,19 +171,19 @@ namespace UserMasterMaintenance.Presenter
 			return false;
 		}
 
-		/// <summary>
-		/// 重複エラーチェック
-		/// </summary>
-		/// <param name="text"></param>
-		/// <returns></returns>
-		public bool ValidateNotDupulicationDataExists(string text)
+        /// <summary>
+        /// 重複エラーチェック
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public bool ValidateDupulicationData(string text)
 		{
 			var iD = int.Parse(text);
-			if (!EditFormModel.HasDupulicationData(iD))
-				return true;
+			if (!Users.Any(x => x.ID == iD))
+				return false;
 
 			ShowErrorDialog(ErrorType.DataDuplication);
-			return false;
+			return true;
 		}
 
 		/// <summary>

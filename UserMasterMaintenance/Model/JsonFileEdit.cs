@@ -18,7 +18,7 @@ namespace UserMasterMaintenance.Model
 		Department
 	}
 
-	class JsonFileEditModel
+	class JsonFileEdit
 	{
 		/// <summary>
 		/// users.jsonのファイルパス
@@ -30,15 +30,15 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
-		/// <summary>
-		/// ユーザーリストを取得する
-		/// </summary>
-		/// <returns></returns>
-		public List<User> GetUsers()
+        /// <summary>
+        /// ユーザーリストを取得する
+        /// </summary>
+        /// <returns></returns>
+        public List<User> GetUsers()
 		{
 			var usersJsonText = TryGetJsonText(UsersJsonFilePath);
 			if (usersJsonText == null)
-				return null;
+				return new List<User>();
 
 			return Deserialize<List<User>>(usersJsonText);
 		}
@@ -51,7 +51,7 @@ namespace UserMasterMaintenance.Model
 		{
 			var departmentsJsonText = TryGetJsonText(DepartmentsJsonFilePath);
 			if (departmentsJsonText == null)
-				return null;
+				return new List<Department>();
 
 			return Deserialize<List<Department>>(departmentsJsonText);
 		}

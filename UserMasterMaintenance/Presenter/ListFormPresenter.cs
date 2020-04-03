@@ -31,6 +31,8 @@ namespace UserMasterMaintenance.Presenter
 
 		private readonly int IDCellNumber = 1;
 
+		private readonly int EmptyListCount = 0;
+
 		/// <summary>
 		/// ListForm
 		/// </summary>
@@ -39,7 +41,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <summary>
 		/// JsonFileModel
 		/// </summary>
-		private Model.JsonFileEditModel JsonFileModel { get; set; }
+		private Model.JsonFileEdit JsonFileModel { get; set; }
 
 		/// <summary>
 		/// バインド用ユーザーリスト
@@ -73,7 +75,7 @@ namespace UserMasterMaintenance.Presenter
 		public ListFormPresenter(View.ListForm listForm)
 		{
 			ListForm = listForm;
-			JsonFileModel = new Model.JsonFileEditModel();
+			JsonFileModel = new Model.JsonFileEdit();
 		}
 
 		/// <summary>
@@ -117,7 +119,7 @@ namespace UserMasterMaintenance.Presenter
 		{
 			//バックアップ
 			var usersForBackup = JsonFileModel.GetUsers();
-			if(usersForBackup == null)
+			if(usersForBackup.Count == EmptyListCount)
 				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
 
 			//ユーザー情報の保存
@@ -141,7 +143,7 @@ namespace UserMasterMaintenance.Presenter
 		{
 			Users = JsonFileModel.GetUsers();
 			Departments = JsonFileModel.GetDepartments();
-			if (Users == null || Departments == null)
+			if (Users.Count == EmptyListCount || Departments.Count == EmptyListCount)
 			{
 				ShowErrorDialog(ErrorType.FileNotFound);
 				return true;
@@ -153,29 +155,17 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
-		/// チェックボックスエラーを確認する
-		/// </summary>
-		/// <returns></returns>
-		public bool ConfirmCheckBoxError()
-		{
-			if (ValidateCheckBox(ListForm.GetSelectedRows()))
-				return false;
-
-			ShowErrorDialog(ErrorType.CheckBox);
-			return true;
-		}
-
-		/// <summary>
 		/// チェックボックスエラーがあるか
 		/// </summary>
 		/// <returns></returns>
-		private bool ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
+		public bool ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
 		{
 			//1件以外はエラー
-			if (dataGridViewRows.Count != 1)
-				return false;
+			if (dataGridViewRows.Count == 1)
+				return true;
 
-			return true;
+			ShowErrorDialog(ErrorType.CheckBox);
+			return false;
 		}
 
 		/// <summary>

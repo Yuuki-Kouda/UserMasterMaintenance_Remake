@@ -123,5 +123,18 @@ namespace UserMasterMaintenance.Model
 				NotifyPropertyChanged();
 			}
 		}
+
+		/// <summary>
+		/// ユーザーを上書きする	
+		/// </summary>
+		/// <param name="user"></param>
+		public void OverrideUser(User user)
+		{
+			this.ID = user.ID;
+			this.Name = user.Name;
+			this.Age = user.Age;
+			this.Gender = user.Gender;
+			this.Department = user.Department;
+		}
 	}
 }
