@@ -125,7 +125,7 @@ namespace UserMasterMaintenance.Model
 		}
 
 		/// <summary>
-		/// ユーザーを変換する	
+		/// ユーザーを上書きする	
 		/// </summary>
 		/// <param name="user"></param>
 		public void OverrideUser(User user)
