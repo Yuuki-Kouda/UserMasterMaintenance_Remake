@@ -61,17 +61,29 @@ namespace UserMasterMaintenance.Model
 		/// データを保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public bool TrySaveData(List<User> users, List<Department> departments)
+		public bool TrySaveData(object list, FileType fileType)
 		{
-			var usersJsontext = Selialize(users);
-			var departmentsJsonText = Selialize(departments);
+			var filePath = string.Empty;
+			switch (fileType)
+			{
+				case FileType.User:
+					filePath = UsersJsonFilePath;
+					break;
+
+				case FileType.Department:
+					filePath = DepartmentsJsonFilePath;
+					break;
+
+				default:
+					return false;
+			}
+
+			var jsonText = Selialize(list);
 			try
 			{
-				using (StreamWriter usersStream = new StreamWriter(UsersJsonFilePath, false, Encoding.UTF8))
-				using (StreamWriter departmentsStream = new StreamWriter(DepartmentsJsonFilePath, false, Encoding.UTF8))
+				using (StreamWriter Stream = new StreamWriter(filePath, false, Encoding.UTF8))
 				{
-					usersStream.Write(usersJsontext);
-					departmentsStream.Write(departmentsJsonText);
+					Stream.Write(jsonText);
 				}
 			}
 			catch
