@@ -18,6 +18,8 @@ namespace UserMasterMaintenance.Model
 		Department
 	}
 
+    // todo : Modelがサフィックスについてたり、ついてなかったりして一貫性が無い
+    
 	class JsonFileEditModel
 	{
 		/// <summary>
@@ -30,11 +32,14 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
-		/// <summary>
-		/// ユーザーリストを取得する
-		/// </summary>
-		/// <returns></returns>
-		public List<User> GetUsers()
+        // todo : コレクションを戻り値にするメソッドからnullを返却するのはアンチパターン。空のコレクションを返却すべき。
+        // http://mikan-daisuki.hatenablog.com/entry/2015/10/28/070516
+
+        /// <summary>
+        /// ユーザーリストを取得する
+        /// </summary>
+        /// <returns></returns>
+        public List<User> GetUsers()
 		{
 			var usersJsonText = TryGetJsonText(UsersJsonFilePath);
 			if (usersJsonText == null)

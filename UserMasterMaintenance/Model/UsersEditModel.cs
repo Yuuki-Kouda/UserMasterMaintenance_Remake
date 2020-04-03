@@ -8,12 +8,19 @@ using System.Threading.Tasks;
 
 namespace UserMasterMaintenance.Model
 {
+    // todo : ユーザーの一覧は、ListFormPresenterが持つべきと思う。ユーザー情報の操作用のクラスは必要？
+    // UserクラスにStaticメソッドで実装すれば良いと思うけれど。
+
 	class UsersEditModel
 	{
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
 		private List<User> Users { get; set; }
+
+        // todo : これを保持しておく必要性を感じない。
+        // 登録するか、上書きするか、削除するかを分岐するのはPresenterの役目だと思う。
+        // presenterの状態をmodelが意識し続ける設計は、疎結合になっていないのでNG
 
 		/// <summary>
 		/// 編集種類
@@ -69,6 +76,8 @@ namespace UserMasterMaintenance.Model
 		/// <param name="inputUser"></param>
 		private void Update(User inputUser)
 		{
+            // todo : これはuserクラスにメソッド作って、各プロパティを上書きすべき。プロパティ追加時に絶対漏れる。
+
 			var user = Users.First(x => x.ID == inputUser.ID);
 			user.Name = inputUser.Name;
 			user.Age = inputUser.Age;

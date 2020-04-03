@@ -137,12 +137,14 @@ namespace UserMasterMaintenance.Presenter
 			return false;
 		}
 
-		/// <summary>
-		/// 重複エラーチェック
-		/// </summary>
-		/// <param name="text"></param>
-		/// <returns></returns>
-		public bool ValidateNotDupulicationDataExists(string text)
+        // todo : 英語がおかしい ValidateNotDupulicationDataExists
+
+        /// <summary>
+        /// 重複エラーチェック
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public bool ValidateNotDupulicationDataExists(string text)
 		{
 			var iD = int.Parse(text);
 			if (!EditFormModel.HasDupulicationData(iD))

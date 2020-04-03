@@ -152,6 +152,8 @@ namespace UserMasterMaintenance.Presenter
 			return false;
 		}
 
+        // todo : Confitm なの？
+
 		/// <summary>
 		/// チェックボックスエラーを確認する
 		/// </summary>
