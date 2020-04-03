@@ -48,9 +48,7 @@ namespace UserMasterMaintenance.View
 			if (EditFormPresenter.ConfirmEdit() == DialogResult.Cancel)
 				return;
 
-            // todo : BeginEdti?編集開始？違くない？
-
-			EditFormPresenter.BeginEdit(GetInputItems());
+			EditFormPresenter.EditUser(GetInputItems());
 
 			Close();
 		}
