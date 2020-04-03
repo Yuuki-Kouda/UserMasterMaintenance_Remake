@@ -18,9 +18,7 @@ namespace UserMasterMaintenance.Model
 		Department
 	}
 
-    // todo : Modelがサフィックスについてたり、ついてなかったりして一貫性が無い
-    
-	class JsonFileEditModel
+	class JsonFileEdit
 	{
 		/// <summary>
 		/// users.jsonのファイルパス

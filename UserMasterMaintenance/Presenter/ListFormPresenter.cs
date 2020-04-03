@@ -41,7 +41,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <summary>
 		/// JsonFileModel
 		/// </summary>
-		private Model.JsonFileEditModel JsonFileModel { get; set; }
+		private Model.JsonFileEdit JsonFileModel { get; set; }
 
 		/// <summary>
 		/// バインド用ユーザーリスト
@@ -75,7 +75,7 @@ namespace UserMasterMaintenance.Presenter
 		public ListFormPresenter(View.ListForm listForm)
 		{
 			ListForm = listForm;
-			JsonFileModel = new Model.JsonFileEditModel();
+			JsonFileModel = new Model.JsonFileEdit();
 		}
 
 		/// <summary>

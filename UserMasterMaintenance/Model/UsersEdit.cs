@@ -11,7 +11,7 @@ namespace UserMasterMaintenance.Model
     // todo : ユーザーの一覧は、ListFormPresenterが持つべきと思う。ユーザー情報の操作用のクラスは必要？
     // UserクラスにStaticメソッドで実装すれば良いと思うけれど。
 
-	class UsersEditModel
+	class UsersEdit
 	{
 		/// <summary>
 		/// ユーザーリスト
@@ -31,7 +31,7 @@ namespace UserMasterMaintenance.Model
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="editType"></param>
-		public UsersEditModel(Presenter.EditType editType, List<User> users)
+		public UsersEdit(Presenter.EditType editType, List<User> users)
 		{
 			EditType = editType;
 			Users = users;

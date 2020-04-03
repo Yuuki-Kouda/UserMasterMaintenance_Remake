@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\UsersEditModel.cs" />
-    <Compile Include="Model\JsonFileEditModel.cs" />
+    <Compile Include="Model\UsersEdit.cs" />
+    <Compile Include="Model\JsonFileEdit.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Presenter\EditFormPresenter.cs" />
