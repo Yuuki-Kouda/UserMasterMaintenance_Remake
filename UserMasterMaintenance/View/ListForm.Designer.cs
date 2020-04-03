@@ -77,6 +77,9 @@
 			// UsersDataGridView
 			// 
 			this.UsersDataGridView.AllowUserToAddRows = false;
+			this.UsersDataGridView.AllowUserToDeleteRows = false;
+			this.UsersDataGridView.AllowUserToResizeColumns = false;
+			this.UsersDataGridView.AllowUserToResizeRows = false;
 			this.UsersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.UsersDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UserCheck,
