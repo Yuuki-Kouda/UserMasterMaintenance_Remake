@@ -76,13 +76,8 @@ namespace UserMasterMaintenance.Model
 		/// <param name="inputUser"></param>
 		private void Update(User inputUser)
 		{
-            // todo : これはuserクラスにメソッド作って、各プロパティを上書きすべき。プロパティ追加時に絶対漏れる。
-
 			var user = Users.First(x => x.ID == inputUser.ID);
-			user.Name = inputUser.Name;
-			user.Age = inputUser.Age;
-			user.Gender = inputUser.Gender;
-			user.Department = inputUser.Department;
+			user.OverrideUser(inputUser);
 		}
 
 		/// <summary>
