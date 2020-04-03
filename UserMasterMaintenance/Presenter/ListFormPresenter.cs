@@ -114,8 +114,22 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		public void BeginSaveData()
 		{
-			if (!JsonFileModel.TrySaveData(Users, Departments))
+			//バックアップ
+			var usersForBackup = JsonFileModel.GetUsers();
+			if(usersForBackup == null)
 				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
+
+			//ユーザー情報の保存
+			if (!JsonFileModel.TrySaveData(Users, Model.FileType.User))
+				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
+
+			//部門情報の保存
+			if (!JsonFileModel.TrySaveData(Departments, Model.FileType.Department))
+			{
+				//ユーザー情報を戻す
+				JsonFileModel.TrySaveData(usersForBackup, Model.FileType.User);
+				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
+			}
 		}
 
 		/// <summary>
