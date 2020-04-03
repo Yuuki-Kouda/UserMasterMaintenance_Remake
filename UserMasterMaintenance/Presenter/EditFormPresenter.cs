@@ -46,7 +46,7 @@ namespace UserMasterMaintenance.Presenter
 
 		public readonly string NotInputErrorMessage = "未入力の項目があります";
 
-		public readonly string NotNumberErrorMessage = "半角数字(符号や小数点を除く)を入力してください";
+		public readonly string NotNumberErrorMessage = "IDと年齢は半角数字(符号や小数点を除く)で入力してください";
 
 		public readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
 

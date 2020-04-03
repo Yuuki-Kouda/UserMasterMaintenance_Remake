@@ -30,7 +30,6 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
-
 		/// <summary>
 		/// ユーザーリストを取得する
 		/// </summary>
