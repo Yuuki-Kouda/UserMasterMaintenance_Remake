@@ -176,21 +176,19 @@ namespace UserMasterMaintenance.Presenter
 			return false;
 		}
 
-        // todo : 英語がおかしい ValidateNotDupulicationDataExists
-
         /// <summary>
         /// 重複エラーチェック
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public bool ValidateNotDupulicationDataExists(string text)
+        public bool ValidateDupulicationData(string text)
 		{
 			var iD = int.Parse(text);
-				return true;
 			if (!Users.Any(x => x.ID == iD))
+				return false;
 
 			ShowErrorDialog(ErrorType.DataDuplication);
-			return false;
+			return true;
 		}
 
 		/// <summary>
