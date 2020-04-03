@@ -153,7 +153,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <returns></returns>
 		public bool ConfirmCheckBoxError()
 		{
-			if (ValidateCheckBox(ListForm.GetSelectedRows()) == ErrorType.None)
+			if (ValidateCheckBox(ListForm.GetSelectedRows()))
 				return false;
 
 			ShowErrorDialog(ErrorType.CheckBox);
@@ -164,13 +164,13 @@ namespace UserMasterMaintenance.Presenter
 		/// チェックボックスエラーがあるか
 		/// </summary>
 		/// <returns></returns>
-		private ErrorType ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
+		private bool ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
 		{
 			//1件以外はエラー
 			if (dataGridViewRows.Count != 1)
-				return ErrorType.CheckBox;
+				return false;
 
-			return ErrorType.None;
+			return true;
 		}
 
 		/// <summary>

@@ -114,29 +114,27 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ValidateNotInput(string text)
+		public bool ValidateInputed(string text)
 		{
 			if (!string.IsNullOrWhiteSpace(text))
-				return false;
+				return true;
 
 			ShowErrorDialog(ErrorType.NotInput);
-			return true;
+			return false;
 		}
-
-        // todo : ValidateNotNumberじゃ「数値でないことを検証する」に見える trueが返却された時は「数値でない」時のように思える
 
         /// <summary>
         /// 数値エラーチェック
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public bool ValidateNotNumber(string text)
+        public bool ValidateNumbers(string text)
 		{
 			if (new Regex("^[0-9]+$").IsMatch(text))
-				return false;
+				return true;
 
 			ShowErrorDialog(ErrorType.NotNumber);
-			return true;
+			return false;
 		}
 
 		/// <summary>
@@ -144,14 +142,14 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ValidateDupulicationData(string text)
+		public bool ValidateNotDupulicationDataExists(string text)
 		{
 			var iD = int.Parse(text);
 			if (!EditFormModel.HasDupulicationData(iD))
-				return false;
+				return true;
 
 			ShowErrorDialog(ErrorType.DataDuplication);
-			return true;
+			return false;
 		}
 
 		/// <summary>
