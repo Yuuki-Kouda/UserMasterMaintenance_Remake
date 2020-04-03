@@ -66,11 +66,6 @@ namespace UserMasterMaintenance.Presenter
 		public Model.User SelectedUser { get; set; }
 
 		/// <summary>
-		/// 入力されたユーザー
-		/// </summary>
-		public Model.User InputUser { get; set; }
-
-		/// <summary>
 		/// 編集タイプ
 		/// </summary>
 		public EditType EditType { get; set; }
