@@ -71,7 +71,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void UpdateButton_Click(object sender, EventArgs e)
 		{
-			if (ListFormPresenter.ConfirmCheckBoxError())
+			if (!ListFormPresenter.ValidateCheckBox(GetSelectedRows()))
 				return;
 
 			ListFormPresenter.ShowEditDialog(Presenter.EditType.Update);
@@ -85,7 +85,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void DeleteButton_Click(object sender, EventArgs e)
 		{
-			if (ListFormPresenter.ConfirmCheckBoxError())
+			if (!ListFormPresenter.ValidateCheckBox(GetSelectedRows()))
 				return;
 
 			ListFormPresenter.ShowEditDialog(Presenter.EditType.Delete);

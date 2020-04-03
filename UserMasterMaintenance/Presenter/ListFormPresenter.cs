@@ -154,32 +154,18 @@ namespace UserMasterMaintenance.Presenter
 			return false;
 		}
 
-        // todo : Confitm なの？
-
-		/// <summary>
-		/// チェックボックスエラーを確認する
-		/// </summary>
-		/// <returns></returns>
-		public bool ConfirmCheckBoxError()
-		{
-			if (ValidateCheckBox(ListForm.GetSelectedRows()))
-				return false;
-
-			ShowErrorDialog(ErrorType.CheckBox);
-			return true;
-		}
-
 		/// <summary>
 		/// チェックボックスエラーがあるか
 		/// </summary>
 		/// <returns></returns>
-		private bool ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
+		public bool ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
 		{
 			//1件以外はエラー
-			if (dataGridViewRows.Count != 1)
-				return false;
+			if (dataGridViewRows.Count == 1)
+				return true;
 
-			return true;
+			ShowErrorDialog(ErrorType.CheckBox);
+			return false;
 		}
 
 		/// <summary>
