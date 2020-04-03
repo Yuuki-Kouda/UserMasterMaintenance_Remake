@@ -11,6 +11,13 @@ using System.Collections.ObjectModel;
 
 namespace UserMasterMaintenance.Model
 {
+	public enum FileType
+	{
+		None,
+		User,
+		Department
+	}
+
 	class JsonFileEditModel
 	{
 		/// <summary>
