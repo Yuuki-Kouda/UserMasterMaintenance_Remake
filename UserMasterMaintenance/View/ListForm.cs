@@ -30,10 +30,7 @@ namespace UserMasterMaintenance.View
 
 			ListFormPresenter = new Presenter.ListFormPresenter(this);
 			if (ListFormPresenter.ConfirmGetData())
-			{
 				DisableEditButton();
-				ShowList();
-			}
 		}
 
 		/// <summary>

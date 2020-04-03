@@ -12,8 +12,7 @@ namespace UserMasterMaintenance.Presenter
 	{
 		None,
 		CheckBox,
-		UsersFileNotFound,
-		DepartmentsFileNotFound,
+		FileNotFound,
 		DataCanNotSaveToFile,
 		NotInput,
 		NotNumber,
@@ -26,9 +25,7 @@ namespace UserMasterMaintenance.Presenter
 
 		private readonly string CheckBoxErrorMessage = "1行だけチェックしてからボタンを押してください";
 
-		private readonly string UsersFileNotFoundErrorMessage = "ユーザー情報を記録したファイルが存在しません";
-
-		private readonly string DepartmentsFileNotFoundErrorMessage = "部門情報を記録したファイルが存在しません";
+		private readonly string FileNotFoundErrorMessage = "情報を記録したファイルが存在しません";
 
 		private readonly string DataCanNotSaveToFileErrorMessage = "保存できませんでした";
 
@@ -127,24 +124,17 @@ namespace UserMasterMaintenance.Presenter
 		/// <returns></returns>
 		public bool ConfirmGetData()
 		{
-			var hasError = false;
-
 			Users = JsonFileModel.GetUsers();
-			if(Users == null)
+			Departments = JsonFileModel.GetDepartments();
+			if (Users == null || Departments == null)
 			{
-				ShowErrorDialog(ErrorType.UsersFileNotFound);
-				hasError = true;
+				ShowErrorDialog(ErrorType.FileNotFound);
+				return true;
 			}
+
 			UsersForBind = new BindingList<Model.User>(Users);
 
-			Departments = JsonFileModel.GetDepartments();
-			if(Departments == null)
-			{
-				ShowErrorDialog(ErrorType.DepartmentsFileNotFound);
-				hasError = true;
-			}
-
-			return hasError;
+			return false;
 		}
 
 		/// <summary>
@@ -196,12 +186,8 @@ namespace UserMasterMaintenance.Presenter
 					MessageBox.Show(CheckBoxErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
-				case ErrorType.UsersFileNotFound:
-					MessageBox.Show(UsersFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					break;
-
-				case ErrorType.DepartmentsFileNotFound:
-					MessageBox.Show(DepartmentsFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				case ErrorType.FileNotFound:
+					MessageBox.Show(FileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
 				case ErrorType.DataCanNotSaveToFile:
