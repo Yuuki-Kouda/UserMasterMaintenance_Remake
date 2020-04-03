@@ -26,7 +26,7 @@ namespace UserMasterMaintenance.View
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="listForm"></param>
-		public EditForm(BindingList<Model.User> users, List<Model.Department> departments, Presenter.EditType editType, Model.User selectedUser)
+		public EditForm(List<Model.User> users, List<Model.Department> departments, Presenter.EditType editType, Model.User selectedUser)
 		{
 			InitializeComponent();
 
@@ -140,22 +140,24 @@ namespace UserMasterMaintenance.View
 		/// <returns></returns>
 		private bool ConfirmInputError()
 		{
-			if (EditFormPresenter.ValidateNotInput(IdTextBox.Text))
+			//未入力チェック
+			if (!EditFormPresenter.ValidateInputed(IdTextBox.Text))
 				return true;
-			if (EditFormPresenter.ValidateNotNumber(IdTextBox.Text))
+			if (!EditFormPresenter.ValidateInputed(NameTextBox.Text))
+				return true;
+			if (!EditFormPresenter.ValidateInputed(AgeTextBox.Text))
 				return true;
 
-			if (EditFormPresenter.ValidateNotInput(NameTextBox.Text))
+			//数値チェック
+			if (!EditFormPresenter.ValidateNumbers(IdTextBox.Text))
 				return true;
-
-			if (EditFormPresenter.ValidateNotInput(AgeTextBox.Text))
-				return true;
-			if (EditFormPresenter.ValidateNotNumber(AgeTextBox.Text))
+			if (!EditFormPresenter.ValidateNumbers(AgeTextBox.Text))
 				return true;
 
 			if(EditFormPresenter.EditType == Presenter.EditType.Register)
 			{
-				if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
+				//重複データ存在チェック
+				if (!EditFormPresenter.ValidateNotDupulicationDataExists(IdTextBox.Text))
 					return true;
 			}
 

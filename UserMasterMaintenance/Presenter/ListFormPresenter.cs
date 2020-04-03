@@ -12,10 +12,8 @@ namespace UserMasterMaintenance.Presenter
 	{
 		None,
 		CheckBox,
-		UsersFileNotFound,
-		DepartmentsFileNotFound,
-		UsersCanNotSaveToFile,
-		DepartmentsCanNotSaveToFile,
+		FileNotFound,
+		DataCanNotSaveToFile,
 		NotInput,
 		NotNumber,
 		DataDuplication,
@@ -27,13 +25,9 @@ namespace UserMasterMaintenance.Presenter
 
 		private readonly string CheckBoxErrorMessage = "1行だけチェックしてからボタンを押してください";
 
-		private readonly string UsersFileNotFoundErrorMessage = "ユーザー情報を記録したファイルが存在しません";
+		private readonly string FileNotFoundErrorMessage = "情報を記録したファイルが存在しません";
 
-		private readonly string DepartmentsFileNotFoundErrorMessage = "部門情報を記録したファイルが存在しません";
-
-		private readonly string UsersCanNotSaveToFileErrorMessage = "ユーザー情報が保存できませんでした";
-
-		private readonly string DepartmentsCanNotSaveToFileErrorMessage = "部門情報が保存できませんでした";
+		private readonly string DataCanNotSaveToFileErrorMessage = "保存できませんでした";
 
 		private readonly int IDCellNumber = 1;
 
@@ -48,9 +42,14 @@ namespace UserMasterMaintenance.Presenter
 		private Model.JsonFileEditModel JsonFileModel { get; set; }
 
 		/// <summary>
+		/// バインド用ユーザーリスト
+		/// </summary>
+		public BindingList<Model.User> UsersForBind { get; set; }
+
+		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		public BindingList<Model.User> Users { get; set; }
+		public List<Model.User> Users { get; set; }
 
 		/// <summary>
 		/// 部門リスト
@@ -77,39 +76,38 @@ namespace UserMasterMaintenance.Presenter
 			JsonFileModel = new Model.JsonFileEditModel();
 		}
 
-        // todo : 下記３つはまとめられる
-
 		/// <summary>
-		/// 登録ダイアログを表示する
+		/// 編集ダイアログを表示する
 		/// </summary>
-		public void ShowRegisterDialog()
+		/// <param name="editType"></param>
+		public void ShowEditDialog(EditType editType)
 		{
-			SelectedEditType = EditType.Register;
+			switch (editType)
+			{
+				case EditType.Register:
+					SelectedEditType = EditType.Register;
+
+					break;
+
+				case EditType.Update:
+					SelectedUser = GetSelctedUser(ListForm.GetSelectedRow());
+					SelectedEditType = EditType.Update;
+
+					break;
+
+				case EditType.Delete:
+					SelectedUser = GetSelctedUser(ListForm.GetSelectedRow());
+					SelectedEditType = EditType.Delete;
+
+					break;
+			}
 
 			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
 			editForm.ShowDialog();
-		}
 
-		/// <summary>
-		/// 更新ダイアログを表示する
-		/// </summary>
-		public void ShowUpdateDialog()
-		{
-			SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
-			SelectedEditType = EditType.Update;
-			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
-			editForm.ShowDialog();
-		}
-
-		/// <summary>
-		/// 削除ダイアログを表示する
-		/// </summary>
-		public void ShowDeleteDialog()
-		{
-			SelectedUser = GetSelctedUser(ListForm.GetSelectedRows());
-			SelectedEditType = EditType.Delete;
-			View.EditForm editForm = new View.EditForm(Users, Departments, SelectedEditType, SelectedUser);
-			editForm.ShowDialog();
+			//編集したユーザー情報をIDの昇順に並べバインドリストに
+			Users = Users.OrderBy(x => x.ID).ToList();
+			UsersForBind = new BindingList<Model.User>(Users);
 		}
 
 		/// <summary>
@@ -117,13 +115,22 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		public void BeginSaveData()
 		{
-			if (!JsonFileModel.TrySaveUsers(Users))
-				ShowErrorDialog(ErrorType.UsersCanNotSaveToFile);
+			//バックアップ
+			var usersForBackup = JsonFileModel.GetUsers();
+			if(usersForBackup == null)
+				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
 
-            // todo : 所属のほうでエラーが起きたら、中途半端なデータが登録される
+			//ユーザー情報の保存
+			if (!JsonFileModel.TrySaveData(Users, Model.FileType.User))
+				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
 
-			if (!JsonFileModel.TrySaveDepartments(Departments))
-				ShowErrorDialog(ErrorType.DepartmentsCanNotSaveToFile);
+			//部門情報の保存
+			if (!JsonFileModel.TrySaveData(Departments, Model.FileType.Department))
+			{
+				//ユーザー情報を戻す
+				JsonFileModel.TrySaveData(usersForBackup, Model.FileType.User);
+				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
+			}
 		}
 
 		/// <summary>
@@ -132,23 +139,17 @@ namespace UserMasterMaintenance.Presenter
 		/// <returns></returns>
 		public bool ConfirmGetData()
 		{
-			var hasError = false;
-
 			Users = JsonFileModel.GetUsers();
-			if(Users == null)
-			{
-				ShowErrorDialog(ErrorType.UsersFileNotFound);
-				hasError = true;
-			}
-
 			Departments = JsonFileModel.GetDepartments();
-			if(Departments == null)
+			if (Users == null || Departments == null)
 			{
-				ShowErrorDialog(ErrorType.DepartmentsFileNotFound);
-				hasError = true;
+				ShowErrorDialog(ErrorType.FileNotFound);
+				return true;
 			}
 
-			return hasError;
+			UsersForBind = new BindingList<Model.User>(Users);
+
+			return false;
 		}
 
 		/// <summary>
@@ -157,7 +158,7 @@ namespace UserMasterMaintenance.Presenter
 		/// <returns></returns>
 		public bool ConfirmCheckBoxError()
 		{
-			if (ValidateCheckBox(ListForm.GetSelectedRows()) == ErrorType.None)
+			if (ValidateCheckBox(ListForm.GetSelectedRows()))
 				return false;
 
 			ShowErrorDialog(ErrorType.CheckBox);
@@ -168,25 +169,23 @@ namespace UserMasterMaintenance.Presenter
 		/// チェックボックスエラーがあるか
 		/// </summary>
 		/// <returns></returns>
-		private ErrorType ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
+		private bool ValidateCheckBox(List<DataGridViewRow> dataGridViewRows)
 		{
 			//1件以外はエラー
 			if (dataGridViewRows.Count != 1)
-				return ErrorType.CheckBox;
+				return false;
 
-			return ErrorType.None;
+			return true;
 		}
-
-        // todo : 引数の名前が悪い。選択行ならそれを示すべき
 
 		/// <summary>
 		/// 選択されたユーザーを取得する
 		/// </summary>
 		/// <param name="row"></param>
 		/// <returns></returns>
-		private Model.User GetSelctedUser(List<DataGridViewRow> dataGridViewRows)
+		private Model.User GetSelctedUser(DataGridViewRow selectedRow)
 		{
-			var selectedUser = Users.First(x => x.ID == (int)dataGridViewRows.First().Cells[IDCellNumber].Value);
+			var selectedUser = Users.First(x => x.ID == (int)selectedRow.Cells[IDCellNumber].Value);
 			return selectedUser;
 		}
 
@@ -202,20 +201,12 @@ namespace UserMasterMaintenance.Presenter
 					MessageBox.Show(CheckBoxErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
-				case ErrorType.UsersFileNotFound:
-					MessageBox.Show(UsersFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				case ErrorType.FileNotFound:
+					MessageBox.Show(FileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
-				case ErrorType.DepartmentsFileNotFound:
-					MessageBox.Show(DepartmentsFileNotFoundErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					break;
-
-				case ErrorType.UsersCanNotSaveToFile:
-					MessageBox.Show(UsersCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
-					break;
-
-				case ErrorType.DepartmentsCanNotSaveToFile:
-					MessageBox.Show(DepartmentsCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
+				case ErrorType.DataCanNotSaveToFile:
+					MessageBox.Show(DataCanNotSaveToFileErrorMessage, ErrorText, MessageBoxButtons.OK, MessageBoxIcon.Error);
 					break;
 
 				default:

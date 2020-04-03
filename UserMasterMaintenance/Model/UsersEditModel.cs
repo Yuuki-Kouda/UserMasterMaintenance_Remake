@@ -8,22 +8,12 @@ using System.Threading.Tasks;
 
 namespace UserMasterMaintenance.Model
 {
-	class EditFormModel
+	class UsersEditModel
 	{
-        // todo : ModelがPresenterを知るのはおかしい
-        // todo : Edit Form の Model？それはモデルじゃない。
-
-		/// <summary>
-		/// EditFormPresenter
-		/// </summary>
-		private Presenter.EditFormPresenter EditFormPresenter { get; set; }
-
-        // todo : モデルがBindingListを提供するのは違和感がある。Viewを意識しちゃってる。
-
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		private BindingList<User> Users { get; set; }
+		private List<User> Users { get; set; }
 
 		/// <summary>
 		/// 編集種類
@@ -34,11 +24,10 @@ namespace UserMasterMaintenance.Model
 		/// コンストラクタ
 		/// </summary>
 		/// <param name="editType"></param>
-		public EditFormModel(Presenter.EditFormPresenter editFormPresenter)
+		public UsersEditModel(Presenter.EditType editType, List<User> users)
 		{
-			EditFormPresenter = editFormPresenter;
-			EditType = editFormPresenter.EditType;
-			Users = EditFormPresenter.Users;
+			EditType = editType;
+			Users = users;
 		}
 
 		/// <summary>
@@ -72,7 +61,6 @@ namespace UserMasterMaintenance.Model
 		private void Register(User inputUser)
 		{
 			Users.Add(inputUser);
-			Users = new BindingList<User>(Users.OrderBy(x => x.ID).ToList());
 		}
 
 		/// <summary>

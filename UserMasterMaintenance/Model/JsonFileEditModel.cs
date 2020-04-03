@@ -11,6 +11,13 @@ using System.Collections.ObjectModel;
 
 namespace UserMasterMaintenance.Model
 {
+	public enum FileType
+	{
+		None,
+		User,
+		Department
+	}
+
 	class JsonFileEditModel
 	{
 		/// <summary>
@@ -23,18 +30,17 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
-
 		/// <summary>
 		/// ユーザーリストを取得する
 		/// </summary>
 		/// <returns></returns>
-		public BindingList<User> GetUsers()
+		public List<User> GetUsers()
 		{
-			var usersJsonText = TryGetUsersJsonText();
+			var usersJsonText = TryGetJsonText(UsersJsonFilePath);
 			if (usersJsonText == null)
 				return null;
 
-			return Deserialize<BindingList<User>>(usersJsonText);
+			return Deserialize<List<User>>(usersJsonText);
 		}
 
 		/// <summary>
@@ -43,7 +49,7 @@ namespace UserMasterMaintenance.Model
 		/// <returns></returns>
 		public List<Department> GetDepartments()
 		{
-			var departmentsJsonText = TryGetDepartmentsJsonText();
+			var departmentsJsonText = TryGetJsonText(DepartmentsJsonFilePath);
 			if (departmentsJsonText == null)
 				return null;
 
@@ -51,17 +57,32 @@ namespace UserMasterMaintenance.Model
 		}
 
 		/// <summary>
-		/// ユーザー情報を保存する
+		/// データを保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public bool TrySaveUsers(Collection<User> users)
+		public bool TrySaveData(object list, FileType fileType)
 		{
-			var jsontext = Selialize(users);
+			var filePath = string.Empty;
+			switch (fileType)
+			{
+				case FileType.User:
+					filePath = UsersJsonFilePath;
+					break;
+
+				case FileType.Department:
+					filePath = DepartmentsJsonFilePath;
+					break;
+
+				default:
+					return false;
+			}
+
+			var jsonText = Selialize(list);
 			try
 			{
-				using (StreamWriter stream = new StreamWriter(UsersJsonFilePath, false, Encoding.UTF8))
+				using (StreamWriter Stream = new StreamWriter(filePath, false, Encoding.UTF8))
 				{
-					stream.Write(jsontext);
+					Stream.Write(jsonText);
 				}
 			}
 			catch
@@ -73,60 +94,23 @@ namespace UserMasterMaintenance.Model
 		}
 
 		/// <summary>
-		/// 部門情報を保存する
+		/// jsonテキストを取得する
 		/// </summary>
-		/// <param name="departments"></param>
-		public bool TrySaveDepartments(List<Department> departments)
-		{
-			var jsontext = Selialize(departments);
-			try
-			{
-				using (StreamWriter stream = new StreamWriter(DepartmentsJsonFilePath, false, Encoding.UTF8))
-				{
-					stream.Write(jsontext);
-				}
-			}
-			catch
-			{
-				return false;
-			}
-
-			return true;
-		}
-
-		/// <summary>
-		/// ユーザーのjsonテキストを取得する
-		/// </summary>
+		/// <param name="filePath"></param>
 		/// <returns></returns>
-		private string TryGetUsersJsonText()
+		private string TryGetJsonText(string filePath)
 		{
-            // todo : ファイルの存在チェックから、読込の間にファイルがなくなったら？外部アクセスの場合はチェック＋TryCatchで処置するのが定石。
-
-			if (!File.Exists(UsersJsonFilePath))
-				return null;
-
-			using (StreamReader stream = new StreamReader(UsersJsonFilePath, Encoding.GetEncoding("shift_jis")))
+			try
 			{
-				var jsonFileText = stream.ReadToEnd();
-				return jsonFileText;
+				using (StreamReader stream = new StreamReader(filePath, Encoding.GetEncoding("shift_jis")))
+				{
+					var jsonFileText = stream.ReadToEnd();
+					return jsonFileText;
+				}
 			}
-		}
-
-        // todo : パス渡せばTryGetUsersJsonTextと一緒
-
-        /// <summary>
-        /// 部門のjsonテキストを取得する
-        /// </summary>
-        /// <returns></returns>
-        private string TryGetDepartmentsJsonText()
-		{
-			if (!File.Exists(DepartmentsJsonFilePath))
-				return null;
-
-			using (StreamReader stream = new StreamReader(DepartmentsJsonFilePath, Encoding.GetEncoding("shift_jis")))
+			catch
 			{
-				var jsonFileText = stream.ReadToEnd();
-				return jsonFileText;
+				return null;
 			}
 		}
 

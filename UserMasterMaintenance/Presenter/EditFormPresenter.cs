@@ -46,19 +46,19 @@ namespace UserMasterMaintenance.Presenter
 
 		public readonly string NotInputErrorMessage = "未入力の項目があります";
 
-		public readonly string NotNumberErrorMessage = "半角数字(符号や小数点を除く)を入力してください";
+		public readonly string NotNumberErrorMessage = "IDと年齢は半角数字(符号や小数点を除く)で入力してください";
 
 		public readonly string DataDupulicationErrorMessage = "そのIDは既に登録されています";
 
 		/// <summary>
 		/// EditFormModel
 		/// </summary>
-		private Model.EditFormModel EditFormModel { get; set; }
+		private Model.UsersEditModel EditFormModel { get; set; }
 
 		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
-		public BindingList<Model.User> Users { get; set; }
+		public List<Model.User> Users { get; set; }
 
 		/// <summary>
 		/// 部門リスト
@@ -85,12 +85,12 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="editForm"></param>
 		/// <param name="listFormPresenter"></param>
-		public EditFormPresenter(BindingList<Model.User> users, List<Model.Department> departments, EditType editType, Model.User selectedUser)
+		public EditFormPresenter(List<Model.User> users, List<Model.Department> departments, EditType editType, Model.User selectedUser)
 		{
 			Users = users ;
 			Departments = departments;
 			EditType = editType;
-			EditFormModel = new Model.EditFormModel(this);
+			EditFormModel = new Model.UsersEditModel(EditType, Users);
 
 			if (EditType == EditType.Register)
 				return;
@@ -114,29 +114,27 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ValidateNotInput(string text)
+		public bool ValidateInputed(string text)
 		{
 			if (!string.IsNullOrWhiteSpace(text))
-				return false;
+				return true;
 
 			ShowErrorDialog(ErrorType.NotInput);
-			return true;
+			return false;
 		}
-
-        // todo : ValidateNotNumberじゃ「数値でないことを検証する」に見える trueが返却された時は「数値でない」時のように思える
 
         /// <summary>
         /// 数値エラーチェック
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public bool ValidateNotNumber(string text)
+        public bool ValidateNumbers(string text)
 		{
 			if (new Regex("^[0-9]+$").IsMatch(text))
-				return false;
+				return true;
 
 			ShowErrorDialog(ErrorType.NotNumber);
-			return true;
+			return false;
 		}
 
 		/// <summary>
@@ -144,14 +142,14 @@ namespace UserMasterMaintenance.Presenter
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ValidateDupulicationData(string text)
+		public bool ValidateNotDupulicationDataExists(string text)
 		{
 			var iD = int.Parse(text);
 			if (!EditFormModel.HasDupulicationData(iD))
-				return false;
+				return true;
 
 			ShowErrorDialog(ErrorType.DataDuplication);
-			return true;
+			return false;
 		}
 
 		/// <summary>
@@ -235,8 +233,6 @@ namespace UserMasterMaintenance.Presenter
 		{
 			return Departments.Select(x => x.Name);
 		}
-
-        // todo : Dictionryのインデックスで処置しない
 
 		/// <summary>
 		/// 入力項目を変換して取得する

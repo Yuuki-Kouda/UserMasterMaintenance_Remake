@@ -30,10 +30,7 @@ namespace UserMasterMaintenance.View
 
 			ListFormPresenter = new Presenter.ListFormPresenter(this);
 			if (ListFormPresenter.ConfirmGetData())
-			{
 				DisableEditButton();
-				ShowDisplay();
-			}
 		}
 
 		/// <summary>
@@ -43,7 +40,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void ListForm_Load(object sender, EventArgs e)
 		{
-			ShowDisplay();
+			ShowList();
 		}
 
 		/// <summary>
@@ -63,7 +60,8 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void RegisterButton_Click(object sender, EventArgs e)
 		{
-			ListFormPresenter.ShowRegisterDialog();
+			ListFormPresenter.ShowEditDialog(Presenter.EditType.Register);
+			ShowList();
 		}
 
 		/// <summary>
@@ -76,7 +74,8 @@ namespace UserMasterMaintenance.View
 			if (ListFormPresenter.ConfirmCheckBoxError())
 				return;
 
-			ListFormPresenter.ShowUpdateDialog();
+			ListFormPresenter.ShowEditDialog(Presenter.EditType.Update);
+			ShowList();
 		}
 
 		/// <summary>
@@ -89,15 +88,16 @@ namespace UserMasterMaintenance.View
 			if (ListFormPresenter.ConfirmCheckBoxError())
 				return;
 
-			ListFormPresenter.ShowDeleteDialog();
+			ListFormPresenter.ShowEditDialog(Presenter.EditType.Delete);
+			ShowList();
 		}
 
 		/// <summary>
 		/// 画面を表示する
 		/// </summary>
-		private void ShowDisplay()
+		private void ShowList()
 		{
-			UsersDataGridView.DataSource = ListFormPresenter.Users;
+			UsersDataGridView.DataSource = ListFormPresenter.UsersForBind;
 		}
 
 		/// <summary>
@@ -117,6 +117,15 @@ namespace UserMasterMaintenance.View
 		public List<DataGridViewRow> GetSelectedRows()
 		{
 			return UsersDataGridView.Rows.Cast<DataGridViewRow>().Where(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue).ToList();
+		}
+
+		/// <summary>
+		/// 1つだけ選択した行を取得する
+		/// </summary>
+		/// <returns></returns>
+		public DataGridViewRow GetSelectedRow()
+		{
+			return UsersDataGridView.Rows.Cast<DataGridViewRow>().First(x => (string)x.Cells[CheckBoxCellNumber].Value == CheckBoxTrueValue);
 		}
 	}
 }
