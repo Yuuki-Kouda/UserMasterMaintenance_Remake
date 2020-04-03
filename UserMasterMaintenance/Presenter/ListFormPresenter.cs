@@ -31,6 +31,8 @@ namespace UserMasterMaintenance.Presenter
 
 		private readonly int IDCellNumber = 1;
 
+		private readonly int EmptyListCount = 0;
+
 		/// <summary>
 		/// ListForm
 		/// </summary>
@@ -117,7 +119,7 @@ namespace UserMasterMaintenance.Presenter
 		{
 			//バックアップ
 			var usersForBackup = JsonFileModel.GetUsers();
-			if(usersForBackup == null)
+			if(usersForBackup.Count == EmptyListCount)
 				ShowErrorDialog(ErrorType.DataCanNotSaveToFile);
 
 			//ユーザー情報の保存
@@ -141,7 +143,7 @@ namespace UserMasterMaintenance.Presenter
 		{
 			Users = JsonFileModel.GetUsers();
 			Departments = JsonFileModel.GetDepartments();
-			if (Users == null || Departments == null)
+			if (Users.Count == EmptyListCount || Departments.Count == EmptyListCount)
 			{
 				ShowErrorDialog(ErrorType.FileNotFound);
 				return true;

@@ -32,9 +32,6 @@ namespace UserMasterMaintenance.Model
 		/// </summary>
 		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
-        // todo : コレクションを戻り値にするメソッドからnullを返却するのはアンチパターン。空のコレクションを返却すべき。
-        // http://mikan-daisuki.hatenablog.com/entry/2015/10/28/070516
-
         /// <summary>
         /// ユーザーリストを取得する
         /// </summary>
@@ -43,7 +40,7 @@ namespace UserMasterMaintenance.Model
 		{
 			var usersJsonText = TryGetJsonText(UsersJsonFilePath);
 			if (usersJsonText == null)
-				return null;
+				return new List<User>();
 
 			return Deserialize<List<User>>(usersJsonText);
 		}
@@ -56,7 +53,7 @@ namespace UserMasterMaintenance.Model
 		{
 			var departmentsJsonText = TryGetJsonText(DepartmentsJsonFilePath);
 			if (departmentsJsonText == null)
-				return null;
+				return new List<Department>();
 
 			return Deserialize<List<Department>>(departmentsJsonText);
 		}
