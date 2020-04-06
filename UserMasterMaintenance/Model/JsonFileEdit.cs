@@ -11,13 +11,6 @@ using System.Collections.ObjectModel;
 
 namespace UserMasterMaintenance.Model
 {
-	public enum FileType
-	{
-		None,
-		User,
-		Department
-	}
-
 	class JsonFileEdit
 	{
 		/// <summary>
@@ -62,21 +55,6 @@ namespace UserMasterMaintenance.Model
 		/// <param name="users"></param>
 		public bool TrySaveData(object list, FileType fileType)
 		{
-			var filePath = string.Empty;
-			switch (fileType)
-			{
-				case FileType.User:
-					filePath = UsersJsonFilePath;
-					break;
-
-				case FileType.Department:
-					filePath = DepartmentsJsonFilePath;
-					break;
-
-				default:
-					return false;
-			}
-
 			var jsonText = Selialize(list);
 			try
 			{
