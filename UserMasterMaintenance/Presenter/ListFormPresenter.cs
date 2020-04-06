@@ -44,11 +44,6 @@ namespace UserMasterMaintenance.Presenter
 		private Model.JsonFileEdit JsonFileModel { get; set; }
 
 		/// <summary>
-		/// バインド用ユーザーリスト
-		/// </summary>
-		public BindingList<Model.User> UsersForBind { get; set; }
-
-		/// <summary>
 		/// ユーザーリスト
 		/// </summary>
 		public List<Model.User> Users { get; set; }
@@ -109,7 +104,6 @@ namespace UserMasterMaintenance.Presenter
 
 			//編集したユーザー情報をIDの昇順に並べバインドリストに
 			Users = Users.OrderBy(x => x.ID).ToList();
-			UsersForBind = new BindingList<Model.User>(Users);
 		}
 
 		/// <summary>
@@ -148,8 +142,6 @@ namespace UserMasterMaintenance.Presenter
 				ShowErrorDialog(ErrorType.FileNotFound);
 				return true;
 			}
-
-			UsersForBind = new BindingList<Model.User>(Users);
 
 			return false;
 		}
