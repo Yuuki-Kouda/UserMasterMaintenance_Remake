@@ -42,7 +42,7 @@ namespace UserMasterMaintenance.View
 		/// <param name="e"></param>
 		private void OKButton_Click(object sender, EventArgs e)
 		{
-			if (ConfirmInputError())
+			if (EditFormPresenter.ConfirmInputError(GetInputItems()))
 				return;
 			
 			if (EditFormPresenter.ConfirmEdit() == DialogResult.Cancel)
@@ -132,36 +132,6 @@ namespace UserMasterMaintenance.View
 				{Presenter.EditItems.Department, DepartmentCombBox.Text}
 			};
 			return inputItems;
-		}
-
-		/// <summary>
-		/// 入力エラーを確認する
-		/// </summary>
-		/// <returns></returns>
-		private bool ConfirmInputError()
-		{
-			//未入力チェック
-			if (!EditFormPresenter.ValidateInputed(IdTextBox.Text))
-				return true;
-			if (!EditFormPresenter.ValidateInputed(NameTextBox.Text))
-				return true;
-			if (!EditFormPresenter.ValidateInputed(AgeTextBox.Text))
-				return true;
-
-			//数値チェック
-			if (!EditFormPresenter.ValidateNumbers(IdTextBox.Text))
-				return true;
-			if (!EditFormPresenter.ValidateNumbers(AgeTextBox.Text))
-				return true;
-
-			if(EditFormPresenter.EditType == Presenter.EditType.Register)
-			{
-				//重複データ存在チェック
-				if (EditFormPresenter.ValidateDupulicationData(IdTextBox.Text))
-					return true;
-			}
-
-			return false;
 		}
 
 		/// <summary>

@@ -144,11 +144,41 @@ namespace UserMasterMaintenance.Presenter
 		}
 
 		/// <summary>
+		/// 入力エラーを確認する
+		/// </summary>
+		/// <returns></returns>
+		public bool ConfirmInputError(Dictionary<EditItems, string> inputItems)
+		{
+			//未入力チェック
+			if (!ValidateInputed(inputItems[EditItems.ID]))
+				return true;
+			if (!ValidateInputed(inputItems[EditItems.Name]))
+				return true;
+			if (!ValidateInputed(inputItems[EditItems.Age]))
+				return true;
+
+			//数値チェック
+			if (!ValidateNumbers(inputItems[EditItems.ID]))
+				return true;
+			if (!ValidateNumbers(inputItems[EditItems.Age]))
+				return true;
+
+			if (EditType == EditType.Register)
+			{
+				//重複データ存在チェック
+				if (ValidateDupulicationData(inputItems[EditItems.ID]))
+					return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
 		/// 未入力エラーチェック
 		/// </summary>
 		/// <param name="text"></param>
 		/// <returns></returns>
-		public bool ValidateInputed(string text)
+		private bool ValidateInputed(string text)
 		{
 			if (!string.IsNullOrWhiteSpace(text))
 				return true;
@@ -162,7 +192,7 @@ namespace UserMasterMaintenance.Presenter
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public bool ValidateNumbers(string text)
+        private bool ValidateNumbers(string text)
 		{
 			if (new Regex("^[0-9]+$").IsMatch(text))
 				return true;
@@ -176,7 +206,7 @@ namespace UserMasterMaintenance.Presenter
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public bool ValidateDupulicationData(string text)
+        private bool ValidateDupulicationData(string text)
 		{
 			var iD = int.Parse(text);
 			if (!Users.Any(x => x.ID == iD))
