@@ -16,12 +16,12 @@ namespace UserMasterMaintenance.Model
 		/// <summary>
 		/// users.jsonのファイルパス
 		/// </summary>
-		private readonly string UsersJsonFilePath = @"..\..\JsonFile\users.json";
+		public readonly string UsersJsonFilePath = @"..\..\JsonFile\users.json";
 
 		/// <summary>
 		/// departments.jsonのファイルパス
 		/// </summary>
-		private readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
+		public readonly string DepartmentsJsonFilePath = @"..\..\JsonFile\departments.json";
 
         /// <summary>
         /// ユーザーリストを取得する
@@ -53,7 +53,7 @@ namespace UserMasterMaintenance.Model
 		/// データを保存する
 		/// </summary>
 		/// <param name="users"></param>
-		public bool TrySaveData(object list, FileType fileType)
+		public bool TrySaveData(object list, string filePath)
 		{
 			var jsonText = Selialize(list);
 			try
